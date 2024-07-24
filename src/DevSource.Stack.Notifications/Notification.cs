@@ -1,0 +1,27 @@
+﻿namespace DevSource.Stack.Notifications;
+
+public class Notification
+{
+    private string Key { get; set; } = null!;
+    private string Message { get; set; }
+
+    public Notification(string key, string message)
+    {
+        Key = key;
+        Message = message;
+    }
+
+    public Notification(string key, string message, params object[] args)
+    {
+        Key = key;
+        Message = string.Format(message, args);
+    }
+
+    public Notification(string message, params object[] args)
+        => Message = string.Format(message, args);
+
+    public Notification(params object[] args)
+        => Message = string.Format("{0}", args);
+
+    public override string ToString() => $"{Message}";
+}
