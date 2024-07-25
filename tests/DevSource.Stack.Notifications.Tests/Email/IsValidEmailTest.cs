@@ -1,7 +1,7 @@
 ﻿namespace DevSource.Stack.Notifications.Tests.Email;
 
 [TestClass]
-public class IsValidEmail
+public class IsValidEmailTest
 {
     /// <summary>
     /// Tests the IsEmail method in the ValidationRules class with a valid email address.
