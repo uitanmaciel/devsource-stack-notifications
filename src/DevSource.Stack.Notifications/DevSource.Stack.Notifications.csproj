@@ -4,6 +4,21 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Title>DevSource.Stack.Notifications</Title>
+    <Authors>uitanmaciel</Authors>
+    <Description>This library is an implementation for Domain Notifications, designed to facilitate error handling and validation in a systematic and flexible way. It allows errors and messages to be accumulated throughout the process flow, enabling a cohesive response mechanism.</Description>
+    <PackageLicenseUrl>https://github.com/uitanmaciel/devsource-stack-notifications/blob/main/LICENSE</PackageLicenseUrl>
+    <PackageIcon>devsource-icon.jpeg</PackageIcon>
+    <RepositoryUrl>https://github.com/uitanmaciel/devsource-stack-notifications</RepositoryUrl>
+    <PackageTags>notifications</PackageTags>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="devsource-icon.jpeg">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
