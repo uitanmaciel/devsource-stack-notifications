@@ -259,7 +259,7 @@ public partial class ValidationRules<T>
     /// If the key is null or empty, or its length is not greater than the provided value, a standard notification is added.
     /// </summary>
     /// <param name="key">The key representing the field in the object being validated.</param>
-    /// <param name="value">The string value to be validated.</param>
+    /// <param name="value">The value to be validated.</param>
     /// <param name="greaterThan">The integer value that the length of the key should be greater than.</param>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsGreaterThan(string key, string value, int greaterThan)

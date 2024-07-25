@@ -64,10 +64,10 @@ public static class Error
     /// Creates a not null field error notification.
     /// </summary>
     /// <param name="key">The key identifying the field that must bigger than value param.</param>
-    /// <param name="value">The value required for field.</param>
+    /// <param name="greaterThan">The value required for field.</param>
     /// <returns>A notification indicating that the field does not meet the bigger required length.</returns>
-    public static string IsGreaterThan(string key, int value)
-        => $"The field '{key}' must be bigger than {value}";
+    public static string IsGreaterThan(string key, int greaterThan)
+        => $"The field '{key}' must be bigger than {greaterThan}";
 
     /// <summary>
     /// Creates a not null field error notification.
@@ -83,10 +83,10 @@ public static class Error
     /// Creates a not null field error notification.
     /// </summary>
     /// <param name="key">The key identifying the field that must lower than value param.</param>
-    /// <param name="value">The value required for field.</param>
+    /// <param name="lowerThan">The value required for field.</param>
     /// <returns>A notification indicating that the field does not meet the lower required length.</returns>
-    public static string IsLowerThan(string key, int value)
-        => $"The field '{key}' must be lower than {value}";
+    public static string IsLowerThan(string key, int lowerThan)
+        => $"The field '{key}' must be lower than {lowerThan}";
 
     /// <summary>
     /// Creates a notification indicating that a field's value must fall within a specific range.
