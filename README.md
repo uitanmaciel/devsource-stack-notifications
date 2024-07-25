@@ -1,3 +1,9 @@
+<div align="center">
+    <img src="https://github.com/uitanmaciel/devsource-stack-notifications/blob/main/src/DevSource.Stack.Notifications/devsource-icon.jpeg" 
+         width="130"
+    />  
+</div>
+
 # DevSource.Stack.Notifications
 
 This library is an implementation for application-level Notifications, designed to facilitate error handling and validation in a systematic and flexible way, allowing the developer to avoid throwing exceptions throughout the system. It allows errors and messages to be accumulated throughout the process flow, enabling a cohesive response mechanism.
