@@ -1,4 +1,4 @@
-﻿namespace DevSource.Stack.Notifications.Tests.Email;
+﻿namespace DevSource.Stack.Notifications.Tests.ForEmail;
 
 [TestClass]
 public class IsInvalidEmailTest

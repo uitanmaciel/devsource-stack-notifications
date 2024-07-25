@@ -1,4 +1,4 @@
-﻿namespace DevSource.Stack.Notifications.Tests.Password;
+﻿namespace DevSource.Stack.Notifications.Tests.ForPassword;
 
 [TestClass]
 public class IsValidPasswordTest
