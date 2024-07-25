@@ -13,7 +13,7 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsEmail(string key, string value)
     {
-        if (!EmailRegex().IsMatch(key))
+        if (!EmailRegex().IsMatch(value))
             AddNotification(new Notification(Error.Email(value)));
         
         return this;

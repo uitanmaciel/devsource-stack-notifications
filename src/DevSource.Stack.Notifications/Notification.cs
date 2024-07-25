@@ -2,8 +2,8 @@
 
 public class Notification
 {
-    private string Key { get; set; } = null!;
-    private string Message { get; set; }
+    public string Key { get; set; } = null!;
+    public string Message { get; set; }
 
     public Notification(string key, string message)
     {
