@@ -89,16 +89,6 @@ public static class Error
         => $"The field '{key}' must be lower than {lowerThan}";
 
     /// <summary>
-    /// Creates a notification indicating that a field's value must fall within a specific range.
-    /// </summary>
-    /// <param name="key">The key identifying the field to check.</param>
-    /// <param name="from">The minimum allowed value for the field.</param>
-    /// <param name="to">The maximum allowed value for the field.</param>
-    /// <returns>A notification indicating that the field must be between the specified minimum and maximum values.</returns>
-    public static string IsBetween(string key, int from, int to)
-        => $"The value of field '{key}' must be between {from} and {to}";
-
-    /// <summary>
     /// Creates a notification indicating that a field must be null or empty.
     /// </summary>
     /// <param name="key">The key identifying the field to check.</param>

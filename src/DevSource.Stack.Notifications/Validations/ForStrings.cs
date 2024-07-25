@@ -108,7 +108,7 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsNull(string key, string value)
     {
-        if (!string.IsNullOrEmpty(value))
+        if (string.IsNullOrEmpty(value))
             AddNotification(new Notification(Error.IsNull(key)));
         
         return this;
@@ -124,7 +124,7 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsNull(string key, string value, string message)
     {
-        if (!string.IsNullOrEmpty(value))
+        if (string.IsNullOrEmpty(value))
             AddNotification(new Notification(key, message));
         
         return this;
@@ -139,7 +139,7 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsNullOrEmpty(string key, string value)
     {
-        if (!string.IsNullOrEmpty(value))
+        if (string.IsNullOrEmpty(value))
             AddNotification(new Notification(key, Error.IsNullOrEmpty(key)));
         
         return this;
@@ -155,7 +155,7 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsNullOrEmpty(string key, string value, string message)
     {
-        if (!string.IsNullOrEmpty(value))
+        if (string.IsNullOrEmpty(value))
             AddNotification(new Notification(key, message));
         
         return this;
@@ -170,7 +170,7 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsNullOrWhiteSpace(string key, string value)
     {
-        if (!string.IsNullOrWhiteSpace(value))
+        if (string.IsNullOrWhiteSpace(value))
             AddNotification(new Notification(key, Error.IsNullOrWhiteSpace(key)));
         
         return this;
@@ -186,7 +186,7 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsNullOrWhiteSpace(string key, string value, string message)
     {
-        if (!string.IsNullOrWhiteSpace(value))
+        if (string.IsNullOrWhiteSpace(value))
             AddNotification(new Notification(key, message));
         
         return this;
@@ -202,7 +202,7 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsGreaterThan(string key, string value, int greaterThan)
     {
-        if (value.Length < greaterThan)
+        if (value.Length > greaterThan)
             AddNotification(new Notification(Error.IsGreaterThan(key, greaterThan)));
         
         return this;
@@ -219,7 +219,7 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsGreaterThan(string key, string value, int greaterThan, string message)
     {
-        if (value.Length < greaterThan)
+        if (value.Length > greaterThan)
             AddNotification(new Notification(key, message));
         
         return this;
@@ -235,7 +235,7 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsLowerThan(string key, string value, int lowerThan)
     {
-        if (value.Length >= lowerThan)
+        if (value.Length < lowerThan)
             AddNotification(new Notification(Error.IsLowerThan(key, lowerThan)));
         
         return this;
@@ -252,42 +252,7 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsLowerThan(string key, string value, int lowerThan, string message)
     {
-        if (value.Length >= lowerThan)
-            AddNotification(new Notification(key, message));
-        
-        return this;
-    }
-
-    /// <summary>
-    /// Validates that the length of the specified key is between the provided range (inclusive of 'from' and exclusive of 'to').
-    /// If the key is null or empty, or its length is not within the specified range, a standard notification is added.
-    /// </summary>
-    /// <param name="key">The key representing the field in the object being validated.</param>
-    /// <param name="value">The string value to be validated.</param>
-    /// <param name="from">The inclusive lower bound of the range the length of the key should fall within.</param>
-    /// <param name="to">The exclusive upper bound of the range the length of the key should fall within.</param>
-    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
-    public ValidationRules<T> IsBetween(string key, string value, int from, int to)
-    {
-        if (value.Length <= from && value.Length > to)
-            AddNotification(new Notification(Error.IsBetween(key, from, to)));
-        
-        return this;
-    }
-
-    /// <summary>
-    /// Validates that the length of the specified key is between the provided range (inclusive of 'from' and exclusive of 'to'), with a custom error message.
-    /// If the key is null or empty, or its length is not within the specified range, a custom notification is added using the provided message.
-    /// </summary>
-    /// <param name="key">The key representing the field in the object being validated.</param>
-    /// <param name="value">The string value to be validated.</param>
-    /// <param name="from">The inclusive lower bound of the range the length of the key should fall within.</param>
-    /// <param name="to">The exclusive upper bound of the range the length of the key should fall within.</param>
-    /// <param name="message">The custom error message to be used in the notification if validation fails.</param>
-    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
-    public ValidationRules<T> IsBetween(string key, string value, int from, int to, string message)
-    {
-        if (value.Length <= from && value.Length > to)
+        if (value.Length < lowerThan)
             AddNotification(new Notification(key, message));
         
         return this;
