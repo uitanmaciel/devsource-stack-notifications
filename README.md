@@ -92,6 +92,13 @@ else
     }
 }
 ```
+**Result**
+```bash
+dotnet run
+
+The 'email' is not a valid email
+The value of field 'yourpassword' is invalid
+```
 
 ## Running the tests
 
