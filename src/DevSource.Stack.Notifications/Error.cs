@@ -107,28 +107,12 @@ public static class Error
         => $"The field '{key}' must be null or empty";
 
     /// <summary>
-    /// Creates a notification indicating that a field must not be null or empty.
-    /// </summary>
-    /// <param name="key">The key identifying the field to check.</param>
-    /// <returns>A notification indicating that the field must not be null or empty.</returns>
-    public static string IsNotNullOrEmpty(string key)
-        => $"The field '{key}' must not be null or empty";
-
-    /// <summary>
     /// Creates a notification indicating that a field must be null or contain only white space.
     /// </summary>
     /// <param name="key">The key identifying the field to check.</param>
     /// <returns>A notification indicating that the field must be null or contain only white space.</returns>
     public static string IsNullOrWhiteSpace(string key)
         => $"The field '{key}' must be null or contain white space";
-
-    /// <summary>
-    /// Creates a notification indicating that a field must not be null and must contain more than just white space.
-    /// </summary>
-    /// <param name="key">The key identifying the field to check.</param>
-    /// <returns>A notification indicating that the field must not be null or contain only white space.</returns>
-    public static string IsNotNullOrWhiteSpace(string key)
-        => $"The field '{key}' must not be null or contain white space";
 
     /// <summary>
     /// Checks if the given string value can be converted to a valid DateTime in ISO 8601 format (yyyy-mm-dd).

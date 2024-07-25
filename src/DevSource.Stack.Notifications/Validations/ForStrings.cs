@@ -162,37 +162,6 @@ public partial class ValidationRules<T>
     }
 
     /// <summary>
-    /// Validates that the specified key is not null and not an empty string.
-    /// If the key is null or empty, a standard notification indicating the field should not be null or empty is added.
-    /// </summary>
-    /// <param name="key">The key representing the field in the object being validated.</param>
-    /// <param name="value">The string value to be validated.</param>
-    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
-    public ValidationRules<T> IsNotNullOrEmpty(string key, string value)
-    {
-        if (string.IsNullOrEmpty(value))
-            AddNotification(new Notification(key, Error.IsNotNullOrEmpty(key)));
-        
-        return this;
-    }
-
-    /// <summary>
-    /// Validates that the specified key is not null and not an empty string, with a custom error message.
-    /// If the key is null or empty, a custom notification is added using the provided message.
-    /// </summary>
-    /// <param name="key">The key representing the field in the object being validated.</param>
-    /// <param name="value">The string value to be validated.</param>
-    /// <param name="message">The custom error message to be used in the notification if validation fails.</param>
-    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
-    public ValidationRules<T> IsNotNullOrEmpty(string key, string value, string message)
-    {
-        if (string.IsNullOrEmpty(value))
-            AddNotification(new Notification(key, message));
-        
-        return this;
-    }
-
-    /// <summary>
     /// Validates that the specified key is null, an empty string, or consists only of white-space characters.
     /// If the key is not null, not empty, and not just white-space, a standard notification indicating the field should be null or white-space is added.
     /// </summary>
@@ -218,37 +187,6 @@ public partial class ValidationRules<T>
     public ValidationRules<T> IsNullOrWhiteSpace(string key, string value, string message)
     {
         if (!string.IsNullOrWhiteSpace(value))
-            AddNotification(new Notification(key, message));
-        
-        return this;
-    }
-
-    /// <summary>
-    /// Validates that the specified key is not null, not an empty string, and does not consist only of white-space characters.
-    /// If the key is null, empty, or consists only of white-space characters, a standard notification indicating the field should not be null or white-space is added.
-    /// </summary>
-    /// <param name="key">The key representing the field in the object being validated.</param>
-    /// <param name="value">The string value to be validated.</param>
-    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
-    public ValidationRules<T> IsNotNullOrWhiteSpace(string key, string value)
-    {
-        if (string.IsNullOrWhiteSpace(value))
-            AddNotification(new Notification(key, Error.IsNotNullOrWhiteSpace(key)));
-        
-        return this;
-    }
-
-    /// <summary>
-    /// Validates that the specified key is not null, not an empty string, and does not consist only of white-space characters, with a custom error message.
-    /// If the key is null, empty, or consists only of white-space characters, a custom notification is added using the provided message.
-    /// </summary>
-    /// <param name="key">The key representing the field in the object being validated.</param>
-    /// <param name="value">The string value to be validated.</param>
-    /// <param name="message">The custom error message to be used in the notification if validation fails.</param>
-    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
-    public ValidationRules<T> IsNotNullOrWhiteSpace(string key, string value, string message)
-    {
-        if (string.IsNullOrWhiteSpace(value))
             AddNotification(new Notification(key, message));
         
         return this;
