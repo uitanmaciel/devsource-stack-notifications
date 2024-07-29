@@ -59,6 +59,14 @@ public static class Error
     /// <returns>A notification indicating that the field must not be null.</returns>
     public static string IsNotNull(string key)
         => $"The field '{key}' must not be null";
+    
+    /// <summary>
+    /// Creates a not null field error notification.
+    /// </summary>
+    /// <param name="key">he key identifying the field that must not be null.</param>
+    /// <returns>A notification indicating that the field must not be null.</returns>
+    public static string IsNotNullOrEmpty(string key)
+        => $"The field '{key}' must not be null or empty";
 
     /// <summary>
     /// Creates a not null field error notification.

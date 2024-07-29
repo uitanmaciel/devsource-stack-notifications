@@ -98,6 +98,37 @@ public partial class ValidationRules<T>
         
         return this;
     }
+    
+    /// <summary>
+    /// Validates that a given string value is not null or empty. If the value is null or empty, adds a notification.
+    /// </summary>
+    /// <param name="key">The key associated with the value being validated.</param>
+    /// <param name="value">The string value to be validated.</param>
+    /// <typeparam name="T">The type parameter of the validation rules.</typeparam>
+    /// <returns>The current instance of <see cref="ValidationRules{T}"/> for method chaining.</returns>
+    public ValidationRules<T> IsNotNullOrEmpty(string key, string value)
+    {
+        if (string.IsNullOrEmpty(value))
+            AddNotification(new Notification(Error.IsNotNullOrEmpty(key)));
+        
+        return this;
+    }
+    
+    /// <summary>
+    /// Validates that a given string value is not null or empty. If the value is null or empty, adds a notification with a custom message.
+    /// </summary>
+    /// <param name="key">The key associated with the value being validated.</param>
+    /// <param name="value">The string value to be validated.</param>
+    /// <param name="message">The custom message for the notification if the validation fails.</param>
+    /// <typeparam name="T">The type parameter of the validation rules.</typeparam>
+    /// <returns>The current instance of <see cref="ValidationRules{T}"/> for method chaining.</returns>
+    public ValidationRules<T> IsNotNullOrEmpty(string key, string value, string message)
+    {
+        if (string.IsNullOrEmpty(value))
+            AddNotification(new Notification(key, message));
+        
+        return this;
+    }
 
     /// <summary>
     /// Validates that the specified key is null or an empty string.
