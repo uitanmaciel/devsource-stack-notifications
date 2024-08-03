@@ -12,6 +12,7 @@
     <PackageIcon>devsource-icon.jpeg</PackageIcon>
     <RepositoryUrl>https://github.com/uitanmaciel/devsource-stack-notifications</RepositoryUrl>
     <PackageTags>notifications</PackageTags>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
