@@ -231,9 +231,9 @@ public partial class ValidationRules<T>
     /// <param name="value">The value to be validated.</param>
     /// <param name="greaterThan">The integer value that the length of the key should be greater than.</param>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
-    public ValidationRules<T> IsGreaterThan(string key, string value, int greaterThan)
+    public ValidationRules<T> IsLengthGreaterThan(string key, string value, int greaterThan)
     {
-        if (value.Length > greaterThan)
+        if (value.Length < greaterThan)
             AddNotification(new Notification(Error.IsGreaterThan(key, greaterThan)));
         
         return this;
@@ -248,9 +248,9 @@ public partial class ValidationRules<T>
     /// <param name="greaterThan">The integer value that the length of the key should be greater than.</param>
     /// <param name="message">The custom error message to be used in the notification if validation fails.</param>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
-    public ValidationRules<T> IsGreaterThan(string key, string value, int greaterThan, string message)
+    public ValidationRules<T> IsLengthGreaterThan(string key, string value, int greaterThan, string message)
     {
-        if (value.Length > greaterThan)
+        if (value.Length < greaterThan)
             AddNotification(new Notification(key, message));
         
         return this;
@@ -264,7 +264,7 @@ public partial class ValidationRules<T>
     /// <param name="value">The string value to be validated.</param>
     /// <param name="lowerThan">The integer value that the length of the key should be less than.</param>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
-    public ValidationRules<T> IsLowerThan(string key, string value, int lowerThan)
+    public ValidationRules<T> IsLengthLowerThan(string key, string value, int lowerThan)
     {
         if (value.Length < lowerThan)
             AddNotification(new Notification(Error.IsLowerThan(key, lowerThan)));
@@ -281,7 +281,7 @@ public partial class ValidationRules<T>
     /// <param name="lowerThan">The integer value that the length of the key should be less than.</param>
     /// <param name="message">The custom error message to be used in the notification if validation fails.</param>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
-    public ValidationRules<T> IsLowerThan(string key, string value, int lowerThan, string message)
+    public ValidationRules<T> IsLengthLowerThan(string key, string value, int lowerThan, string message)
     {
         if (value.Length < lowerThan)
             AddNotification(new Notification(key, message));

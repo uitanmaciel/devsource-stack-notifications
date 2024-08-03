@@ -1,7 +1,7 @@
 ﻿namespace DevSource.Stack.Notifications.Tests.ForStrings;
 
 [TestClass]
-public class IsGreaterThanTest
+public class IsLengthGreaterThanTest
 {
     [TestMethod]
     public void WhenStringIsGreaterThan_ReturnNotification()
@@ -14,7 +14,7 @@ public class IsGreaterThanTest
         
         // Act
         // Validate that the value is greater than the minimum value
-        validation.IsGreaterThan("Value", value, max);
+        validation.IsLengthGreaterThan("Value", value, max);
         
         // Assert
         // Verify that there are no validation notifications, indicating the value is greater than the minimum value

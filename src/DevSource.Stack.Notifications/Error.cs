@@ -74,7 +74,7 @@ public static class Error
     /// <param name="key">The key identifying the field that must bigger than value param.</param>
     /// <param name="greaterThan">The value required for field.</param>
     /// <returns>A notification indicating that the field does not meet the bigger required length.</returns>
-    public static string IsGreaterThan(string key, int greaterThan)
+    public static string IsGreaterThan(string key, dynamic greaterThan)
         => $"The field '{key}' must be bigger than {greaterThan}";
 
     /// <summary>
@@ -93,7 +93,7 @@ public static class Error
     /// <param name="key">The key identifying the field that must lower than value param.</param>
     /// <param name="lowerThan">The value required for field.</param>
     /// <returns>A notification indicating that the field does not meet the lower required length.</returns>
-    public static string IsLowerThan(string key, int lowerThan)
+    public static string IsLowerThan(string key, dynamic lowerThan)
         => $"The field '{key}' must be lower than {lowerThan}";
 
     /// <summary>
@@ -174,6 +174,16 @@ public static class Error
     /// <returns>A notification indicating that the value must be in the past.</returns>
     public static string IsInThePast(string key)
         => $"The value of field '{key}' must be in the past";
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="from"></param>
+    /// <param name="to"></param>
+    /// <returns></returns>
+    public static string IsBetween(string key, dynamic from, dynamic to)
+        => $"The value of field '{key}' must be between {from} and {to}";
 
     /// <summary>
     /// Creates a notification indicating that the given field should be in the past.
