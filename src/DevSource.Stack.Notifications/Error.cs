@@ -1,5 +1,8 @@
 ﻿namespace DevSource.Stack.Notifications;
 
+/// <summary>
+/// A static class that provides methods for generating error messages related to validation.
+/// </summary>
 public static class Error
 {
     /// <summary>
@@ -124,7 +127,6 @@ public static class Error
     /// Checks if a given date falls between a specified range.
     /// </summary>
     /// <param name="key">The key identifying the field.</param>
-    /// <param name="value">The date value to check.</param>
     /// <param name="from">The start of the date range.</param>
     /// <param name="to">The end of the date range.</param>
     /// <returns>A notification indicating if the date is not between the specified range.</returns>
@@ -135,7 +137,6 @@ public static class Error
     /// Checks if the given value corresponds to the specified day of the week.
     /// </summary>
     /// <param name="key">The key identifying the field.</param>
-    /// <param name="value">The value to be validated.</param>
     /// <param name="dayOfWeek">The expected day of the week.</param>
     /// <returns>A notification indicating whether the value is the specified day of the week.</returns>
     public static string IsDayOfWeek(string key, DayOfWeek dayOfWeek)
@@ -145,7 +146,6 @@ public static class Error
     /// Creates a notification indicating that the specified DateTime value must be a specific day of the week.
     /// </summary>
     /// <param name="key">The key identifying the field being validated.</param>
-    /// <param name="value">The DateTime value being validated.</param>
     /// <param name="dayOfWeek">The expected day of the week.</param>
     /// <returns>A notification indicating that the specified DateTime value must be a specific day of the week.</returns>
     public static string IsDayOfWeek(DateTime key, DayOfWeek dayOfWeek)
@@ -192,4 +192,13 @@ public static class Error
     /// <returns>A notification indicating that the field should be in the past.</returns>
     public static string IsInThePast(DateTime key)
         => $"The value of field '{key}' must be in the past";
+    
+    /// <summary>
+    /// Generates a comparison error message indicating that the value of the specified field must be equal to the provided value.
+    /// </summary>
+    /// <param name="key">The key identifying the field being validated.</param>
+    /// <param name="value">The value that the field must be equal to. Can be of any type.</param>
+    /// <returns>A string message indicating the comparison failure.</returns>
+    public static string Compare(string key, dynamic value)
+        => $"The value of field '{key}' must be equal to {value}";
 }

@@ -1,5 +1,10 @@
 ﻿namespace DevSource.Stack.Notifications.Validations;
 
+/// <summary>
+/// A class that provides validation rules for objects of type <typeparamref name="T"/>. 
+/// Inherits from <see cref="Notifier"/> to support notification management.
+/// </summary>
+/// <typeparam name="T">The type of object to validate.</typeparam>
 public partial class ValidationRules<T> : Notifier
 {
     /// <summary>

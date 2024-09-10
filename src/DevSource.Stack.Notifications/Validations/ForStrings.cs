@@ -104,7 +104,6 @@ public partial class ValidationRules<T>
     /// </summary>
     /// <param name="key">The key associated with the value being validated.</param>
     /// <param name="value">The string value to be validated.</param>
-    /// <typeparam name="T">The type parameter of the validation rules.</typeparam>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> for method chaining.</returns>
     public ValidationRules<T> IsNotNullOrEmpty(string key, string value)
     {
@@ -120,7 +119,6 @@ public partial class ValidationRules<T>
     /// <param name="key">The key associated with the value being validated.</param>
     /// <param name="value">The string value to be validated.</param>
     /// <param name="message">The custom message for the notification if the validation fails.</param>
-    /// <typeparam name="T">The type parameter of the validation rules.</typeparam>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> for method chaining.</returns>
     public ValidationRules<T> IsNotNullOrEmpty(string key, string value, string message)
     {
@@ -284,6 +282,130 @@ public partial class ValidationRules<T>
     public ValidationRules<T> IsLengthLowerThan(string key, string value, int lowerThan, string message)
     {
         if (value.Length < lowerThan)
+            AddNotification(new Notification(key, message));
+        
+        return this;
+    }
+    
+    /// <summary>
+    /// Validates that the given GUID is not empty. If the GUID is empty, adds a notification.
+    /// </summary>
+    /// <param name="key">The key associated with the GUID value being validated.</param>
+    /// <param name="value">The GUID value to be validated.</param>
+    /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class for method chaining.</returns>
+    public ValidationRules<T> IsGuidNotEmpty(string key, Guid value)
+    {
+        if (value == Guid.Empty)
+            AddNotification(new Notification(Error.IsNotNull(key)));
+        
+        return this;
+    }
+    
+    /// <summary>
+    /// Validates that the given GUID is not empty. If the GUID is empty, adds a notification with a custom message.
+    /// </summary>
+    /// <param name="key">The key associated with the GUID value being validated.</param>
+    /// <param name="value">The GUID value to be validated.</param>
+    /// <param name="message">The custom message for the notification if the validation fails.</param>
+    /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class for method chaining.</returns>
+    public ValidationRules<T> IsGuidNotEmpty(string key, Guid value, string message)
+    {
+        if (value == Guid.Empty)
+            AddNotification(new Notification(key, message));
+        
+        return this;
+    }
+    
+    /// <summary>
+    /// Compares two string values. If the values are not equal, adds a notification.
+    /// </summary>
+    /// <param name="key">The key associated with the value being validated.</param>
+    /// <param name="value">The value to be compared.</param>
+    /// <param name="compareValue">The value to compare against.</param>
+    /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class for method chaining.</returns>
+    public ValidationRules<T> Compare(string key, string value, string compareValue)
+    {
+        if (value != compareValue)
+            AddNotification(new Notification(Error.Compare(key, compareValue)));
+        
+        return this;
+    }
+    
+    /// <summary>
+    /// Compares two string values. If the values are not equal, adds a notification with a custom message.
+    /// </summary>
+    /// <param name="key">The key associated with the value being validated.</param>
+    /// <param name="value">The value to be compared.</param>
+    /// <param name="compareValue">The value to compare against.</param>
+    /// <param name="message">The custom message for the notification if the validation fails.</param>
+    /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class for method chaining.</returns>
+    public ValidationRules<T> Compare(string key, string value, string compareValue, string message)
+    {
+        if (value != compareValue)
+            AddNotification(new Notification(key, message));
+        
+        return this;
+    }
+    
+    /// <summary>
+    /// Compares two string values using the specified comparison type. If the values are not equal, adds a notification.
+    /// </summary>
+    /// <param name="key">The key associated with the value being validated.</param>
+    /// <param name="value">The value to be compared.</param>
+    /// <param name="compareValue">The value to compare against.</param>
+    /// <param name="comparisonType">The type of string comparison to perform.</param>
+    /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class for method chaining.</returns>
+    public ValidationRules<T> Compare(string key, string value, string compareValue, StringComparison comparisonType)
+    {
+        if (!string.Equals(value, compareValue, comparisonType))
+            AddNotification(new Notification(Error.Compare(key, compareValue)));
+        
+        return this;
+    }
+    
+    /// <summary>
+    /// Compares two string values using the specified comparison type. If the values are not equal, adds a notification with a custom message.
+    /// </summary>
+    /// <param name="key">The key associated with the value being validated.</param>
+    /// <param name="value">The value to be compared.</param>
+    /// <param name="compareValue">The value to compare against.</param>
+    /// <param name="comparisonType">The type of string comparison to perform.</param>
+    /// <param name="message">The custom message for the notification if the comparison fails.</param>
+    /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class for method chaining.</returns>
+    public ValidationRules<T> Compare(string key, string value, string compareValue, StringComparison comparisonType, string message)
+    {
+        if (!string.Equals(value, compareValue, comparisonType))
+            AddNotification(new Notification(key, message));
+        
+        return this;
+    }
+    
+    /// <summary>
+    /// Compares two GUID values. If the values are not equal, adds a notification.
+    /// </summary>
+    /// <param name="key">The key associated with the value being validated.</param>
+    /// <param name="value">The GUID value to be compared.</param>
+    /// <param name="compareValue">The GUID value to compare against.</param>
+    /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class for method chaining.</returns>
+    public ValidationRules<T> Compare(string key, Guid value, Guid compareValue)
+    {
+        if (value != compareValue)
+            AddNotification(new Notification(Error.Compare(key, compareValue)));
+        
+        return this;
+    }
+    
+    /// <summary>
+    /// Compares two GUID values. If the values are not equal, adds a notification with a custom message.
+    /// </summary>
+    /// <param name="key">The key associated with the value being validated.</param>
+    /// <param name="value">The GUID value to be compared.</param>
+    /// <param name="compareValue">The GUID value to compare against.</param>
+    /// <param name="message">The custom message for the notification if the comparison fails.</param>
+    /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class for method chaining.</returns>
+    public ValidationRules<T> Compare(string key, Guid value, Guid compareValue, string message)
+    {
+        if (value != compareValue)
             AddNotification(new Notification(key, message));
         
         return this;

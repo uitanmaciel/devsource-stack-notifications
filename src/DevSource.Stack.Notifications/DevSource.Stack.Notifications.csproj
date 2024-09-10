@@ -12,7 +12,15 @@
     <PackageIcon>devsource-icon.jpeg</PackageIcon>
     <RepositoryUrl>https://github.com/uitanmaciel/devsource-stack-notifications</RepositoryUrl>
     <PackageTags>notifications</PackageTags>
-    <Version>1.0.2</Version>
+    <Version>1.0.5</Version>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DocumentationFile>bin\Debug\DevSource.Stack.Notifications.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DocumentationFile>bin\Release\DevSource.Stack.Notifications.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

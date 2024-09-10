@@ -1,5 +1,8 @@
 ﻿namespace DevSource.Stack.Notifications;
 
+/// <summary>
+/// Interface for managing notifications within a system.
+/// </summary>
 public interface INotifications
 {
     /// <summary>
