@@ -4,7 +4,7 @@
 /// Abstract base class that provides notification management functionality.
 /// Implements the <see cref="INotifications"/> interface.
 /// </summary>
-public abstract class Notifier : INotifications
+public abstract class Notifier : INotifications, IException
 {
     /// <summary>
     /// A list to store the notifications.
@@ -87,4 +87,60 @@ public abstract class Notifier : INotifications
     /// </summary>
     public void ClearNotifications()
         => _notifications.Clear();
+    
+    private readonly List<DomainException> _domainExceptions = [];
+    
+    /// <summary>
+    /// Gets a read-only collection of <see cref="DomainException"/> instances.
+    /// </summary>
+    public IReadOnlyCollection<DomainException> DomainExceptions  => _domainExceptions;
+    
+    /// <summary>
+    /// Publishes an exception with a specified message.
+    /// </summary>
+    /// <param name="message">The message that describes the exception.</param>
+    public void PublicException(string message)
+        => PublicException(new DomainException(message));
+    
+    /// <summary>
+    /// Publishes an exception with a specified key and message.
+    /// </summary>
+    /// <param name="key">The key associated with the exception.</param>
+    /// <param name="message">The message that describes the exception.</param>
+    public void PublicException(string key, string message)
+        => PublicException(new DomainException(key, message));
+    
+    /// <summary>
+    /// Publishes an exception with a formatted message and optional arguments.
+    /// </summary>
+    /// <param name="message">The message that describes the exception. It can contain formatting placeholders.</param>
+    /// <param name="args">An array of objects to format into the message.</param>
+    public void PublicException(string message, params object[] args)
+        => PublicException(new DomainException(message, args));
+    
+    /// <summary>
+    /// Publishes an exception with a formatted message and optional arguments.
+    /// </summary>
+    /// <param name="key">The key associated with the exception.</param>
+    /// <param name="message">The message that describes the exception. It can contain formatting placeholders.</param>
+    /// <param name="args">An array of objects to format into the message.</param>
+    public void PublicException(string key, string message, params object[] args)
+        => PublicException(new DomainException(key, message, args));
+    
+    /// <summary>
+    /// Publishes an exception using the provided arguments, formatted into a message.
+    /// </summary>
+    /// <param name="args">An array of objects to be formatted into the exception message.</param>
+    public void PublicException(params object[] args)
+        => PublicException(new DomainException(args));
+
+    /// <summary>
+    /// Publishes the specified <see cref="DomainException"/>.
+    /// </summary>
+    /// <param name="exception">The <see cref="DomainException"/> to be published.</param>
+    public void PublicException(DomainException exception)
+    {
+        _domainExceptions.Add(exception);
+        throw exception;
+    }
 }
