@@ -99,6 +99,18 @@ dotnet run
 The 'email' is not a valid email
 The value of field 'yourpassword' is invalid
 ```
+If you prefer an approach that throws Exceptions, you can follow the same logic. Just use `ValidationRulesException`:
+```bash
+public void Validate()
+{
+     PublicException(new ValidationRulesException<User>()
+         .IsNotNullOrEmpty(nameof(Name), Name)
+         .IsEmail(nameof(Email), Email)
+         .IsPassword(nameof(Password), Password, 8)
+     );
+ }
+
+```
 
 ## Running the tests
 
