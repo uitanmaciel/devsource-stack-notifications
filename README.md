@@ -103,7 +103,7 @@ If you prefer an approach that throws Exceptions, you can follow the same logic.
 ```bash
 public void Validate()
 {
-     PublicException(new ValidationRulesException<User>()
+     PublishException(new ValidationRulesException<User>()
          .IsNotNullOrEmpty(nameof(Name), Name)
          .IsEmail(nameof(Email), Email)
          .IsPassword(nameof(Password), Password, 8)
