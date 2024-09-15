@@ -16,7 +16,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsPassword(string key, string password, int min)
     {
         if (!Regex.IsMatch(password, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{" + min + ",}$"))
-            PublicException(new DomainException(Error.Invalid(password)));
+            PublishException(new DomainException(Error.Invalid(password)));
         
         return this;
     }
@@ -34,7 +34,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsPassword(string key, string password, int min, string message)
     {
         if (!Regex.IsMatch(password, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{" + min + ",}$"))
-            PublicException(new DomainException(message));
+            PublishException(new DomainException(message));
         
         return this;
     }

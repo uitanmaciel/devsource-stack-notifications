@@ -22,7 +22,7 @@ public partial class ValidationRulesException<T> : Notifier
     {
         if (notifiers is null) return this;
         foreach (var notifier in notifiers)
-           PublicException(notifier.DomainExceptions);
+           PublishException(notifier.DomainExceptions);
         return this;
     }
 }

@@ -13,7 +13,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsGreaterThan(string key, double value, double comparer)
     {
         if(value < comparer)
-            PublicException(new DomainException(Error.IsGreaterThan(key, comparer)));
+            PublishException(new DomainException(Error.IsGreaterThan(key, comparer)));
         return this;
     }
     
@@ -29,7 +29,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsGreaterThan(string key, double value, double comparer, string message)
     {
         if(value < comparer)
-            PublicException(new DomainException(key, message));
+            PublishException(new DomainException(key, message));
         return this;
     }
     
@@ -44,7 +44,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsGreaterThan(string key, int value, int comparer)
     {
         if(value < comparer)
-            PublicException(new DomainException(Error.IsGreaterThan(key, comparer)));
+            PublishException(new DomainException(Error.IsGreaterThan(key, comparer)));
         return this;
     }
     
@@ -60,7 +60,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsGreaterThan(string key, int value, int comparer, string message)
     {
         if(value < comparer)
-            PublicException(new DomainException(key, message));
+            PublishException(new DomainException(key, message));
         return this;
     }
     
@@ -76,7 +76,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsGreaterThan(string key, decimal value, decimal comparer)
     {
         if(value < comparer)
-            PublicException(new DomainException(Error.IsGreaterThan(key, comparer)));
+            PublishException(new DomainException(Error.IsGreaterThan(key, comparer)));
         return this;
     }
     
@@ -92,7 +92,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsGreaterThan(string key, decimal value, decimal comparer, string message)
     {
         if(value < comparer)
-            PublicException(new DomainException(key, message));
+            PublishException(new DomainException(key, message));
         return this;
     }
     
@@ -107,7 +107,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsLowerThan(string key, double value, double comparer)
     {
         if(value > comparer)
-            PublicException(new DomainException(Error.IsLowerThan(key, comparer)));
+            PublishException(new DomainException(Error.IsLowerThan(key, comparer)));
         
         return this;
     }
@@ -124,7 +124,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsLowerThan(string key, double value, double comparer, string message)
     {
         if(value > comparer)
-            PublicException(new DomainException(key, message));
+            PublishException(new DomainException(key, message));
         
         return this;
     }
@@ -140,7 +140,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsLowerThan(string key, int value, int comparer)
     {
         if(value > comparer)
-            PublicException(new DomainException(Error.IsLowerThan(key, comparer)));
+            PublishException(new DomainException(Error.IsLowerThan(key, comparer)));
         
         return this;
     }
@@ -157,7 +157,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsLowerThan(string key, int value, int comparer, string message)
     {
         if(value > comparer)
-            PublicException(new DomainException(key, message));
+            PublishException(new DomainException(key, message));
         
         return this;
     }
@@ -173,7 +173,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsLowerThan(string key, decimal value, decimal comparer)
     {
         if(value > comparer)
-            PublicException(new DomainException(Error.IsLowerThan(key, comparer)));
+            PublishException(new DomainException(Error.IsLowerThan(key, comparer)));
         
         return this;
     }
@@ -190,7 +190,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsLowerThan(string key, decimal value, decimal comparer, string message)
     {
         if(value > comparer)
-            PublicException(new DomainException(key, message));
+            PublishException(new DomainException(key, message));
         
         return this;
     }
@@ -206,7 +206,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsBetween(string key, double value, double min, double max)
     {
         if(value < min || value > max)
-            PublicException(new DomainException(Error.IsBetween(key, min, max)));
+            PublishException(new DomainException(Error.IsBetween(key, min, max)));
         
         return this;
     }
@@ -223,7 +223,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsBetween(string key, double value, double min, double max, string message)
     {
         if(value < min || value > max)
-            PublicException(new DomainException(key, message));
+            PublishException(new DomainException(key, message));
         
         return this;
     }
@@ -239,7 +239,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsBetween(string key, decimal value, decimal min, decimal max)
     {
         if(value < min || value > max)
-            PublicException(new DomainException(Error.IsBetween(key, min, max)));
+            PublishException(new DomainException(Error.IsBetween(key, min, max)));
         
         return this;
     }
@@ -256,7 +256,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsBetween(string key, decimal value, decimal min, decimal max, string message)
     {
         if(value < min || value > max)
-            PublicException(new DomainException(key, message));
+            PublishException(new DomainException(key, message));
         
         return this;
     }
@@ -272,7 +272,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsBetween(string key, int value, int min, int max)
     {
         if(value < min || value > max)
-            PublicException(new DomainException(Error.IsBetween(key, min, max)));
+            PublishException(new DomainException(Error.IsBetween(key, min, max)));
         
         return this;
     }
@@ -289,7 +289,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsBetween(string key, int value, int min, int max, string message)
     {
         if(value < min || value > max)
-            PublicException(new DomainException(key, message));
+            PublishException(new DomainException(key, message));
         
         return this;
     }
@@ -304,7 +304,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> Compare(string key, double value, double comparer)
     {
         if(value != comparer)
-            PublicException(new DomainException(Error.Compare(key, comparer)));
+            PublishException(new DomainException(Error.Compare(key, comparer)));
         
         return this;
     }
@@ -320,7 +320,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> Compare(string key, double value, double comparer, string message)
     {
         if(value != comparer)
-            PublicException(new DomainException(key, message));
+            PublishException(new DomainException(key, message));
         
         return this;
     }
@@ -335,7 +335,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> Compare(string key, int value, int comparer)
     {
         if(value != comparer)
-            PublicException(new DomainException(Error.Compare(key, comparer)));
+            PublishException(new DomainException(Error.Compare(key, comparer)));
         
         return this;
     }
@@ -351,7 +351,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> Compare(string key, int value, int comparer, string message)
     {
         if(value != comparer)
-            PublicException(new DomainException(key, message));
+            PublishException(new DomainException(key, message));
         
         return this;
     }
@@ -366,7 +366,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> Compare(string key, decimal value, decimal comparer)
     {
         if(value != comparer)
-            PublicException(new DomainException(Error.Compare(key, comparer)));
+            PublishException(new DomainException(Error.Compare(key, comparer)));
         
         return this;
     }
@@ -382,7 +382,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> Compare(string key, decimal value, decimal comparer, string message)
     {
         if(value != comparer)
-            PublicException(new DomainException(key, message));
+            PublishException(new DomainException(key, message));
         
         return this;
     }

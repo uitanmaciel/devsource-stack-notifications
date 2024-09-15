@@ -17,7 +17,7 @@ public partial class ValidationRulesException<T>
         var dt = ConvertDateTime(value);
         
         if(dt < from || dt > to)
-            PublicException(new DomainException(key, Error.IsDateBetween(key, from, to)));
+            PublishException(new DomainException(key, Error.IsDateBetween(key, from, to)));
 
         return this;
     }
@@ -35,7 +35,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsDateBetween(string key, DateTime value, DateTime from, DateTime to)
     {
         if(value < from || value > to)
-            PublicException(new DomainException(key, Error.IsDateBetween(key, from, to)));
+            PublishException(new DomainException(key, Error.IsDateBetween(key, from, to)));
 
         return this;
     }
@@ -54,7 +54,7 @@ public partial class ValidationRulesException<T>
         var dt = ConvertDateTime(value);
         
         if(dt.DayOfWeek != dayOfWeek)
-            PublicException(new DomainException(key, Error.IsDayOfWeek(value, dayOfWeek)));
+            PublishException(new DomainException(key, Error.IsDayOfWeek(value, dayOfWeek)));
 
         return this;
     }
@@ -69,7 +69,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsDayOfWeek(string key, DateTime value, DayOfWeek dayOfWeek)
     {
         if(value.DayOfWeek != dayOfWeek)
-            PublicException(new DomainException(key, Error.IsDayOfWeek(value, dayOfWeek)));
+            PublishException(new DomainException(key, Error.IsDayOfWeek(value, dayOfWeek)));
 
         return this;
     }
@@ -85,7 +85,7 @@ public partial class ValidationRulesException<T>
         var dt = ConvertDateTime(value);
         
         if(dt < DateTime.Now)
-            PublicException(new DomainException(key, Error.IsInTheFuture(key)));
+            PublishException(new DomainException(key, Error.IsInTheFuture(key)));
 
         return this;
     }
@@ -101,7 +101,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsInTheFuture(string key, DateTime value)
     {
         if(value < DateTime.Now)
-            PublicException(new DomainException(key, Error.IsInTheFuture(key)));
+            PublishException(new DomainException(key, Error.IsInTheFuture(key)));
 
         return this;
     }
@@ -119,7 +119,7 @@ public partial class ValidationRulesException<T>
         var dt = ConvertDateTime(value);
         
         if(dt > DateTime.Now)
-            PublicException(new DomainException(key, Error.IsInThePast(key)));
+            PublishException(new DomainException(key, Error.IsInThePast(key)));
 
         return this;
     }
@@ -135,7 +135,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsInThePast(string key, DateTime value)
     {
         if(value > DateTime.Now)
-            PublicException(new DomainException(key, Error.IsInThePast(key)));
+            PublishException(new DomainException(key, Error.IsInThePast(key)));
 
         return this;
     }
@@ -143,7 +143,7 @@ public partial class ValidationRulesException<T>
     private DateTime ConvertDateTime(string value)
     {
         if(!DateTime.TryParse(value, out var dt))
-            PublicException(new DomainException(nameof(value), Error.IsNotConvertDateTime(value)));
+            PublishException(new DomainException(nameof(value), Error.IsNotConvertDateTime(value)));
 
         return dt;
     }

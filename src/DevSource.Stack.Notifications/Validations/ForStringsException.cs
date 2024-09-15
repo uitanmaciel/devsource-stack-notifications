@@ -13,7 +13,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> MaxLength(string key, string value, int maxLength)
     {
         if (value.Length > maxLength)
-            PublicException(new DomainException(Error.MaxLength(key, maxLength)));
+            PublishException(new DomainException(Error.MaxLength(key, maxLength)));
         
         return this;
     }
@@ -30,7 +30,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> MaxLength(string key, string value, int maxLength, string message)
     {
         if (value.Length > maxLength)
-            PublicException(new DomainException(key, message));
+            PublishException(new DomainException(key, message));
         
         return this;
     }
@@ -46,7 +46,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> MinLength(string key, string value, int minLength)
     {
         if (value.Length < minLength)
-            PublicException(new DomainException(Error.MinLength(key, minLength)));
+            PublishException(new DomainException(Error.MinLength(key, minLength)));
         
         return this;
     }
@@ -63,7 +63,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> MinLength(string key, string value, int minLength, string message)
     {
         if (value.Length < minLength)
-            PublicException(new DomainException(key, message));
+            PublishException(new DomainException(key, message));
         
         return this;
     }
@@ -78,7 +78,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsNotNull(string key, string value)
     {
         if (string.IsNullOrEmpty(value))
-            PublicException(new DomainException(Error.IsNotNull(key)));
+            PublishException(new DomainException(Error.IsNotNull(key)));
         
         return this;
     }
@@ -94,7 +94,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsNotNull(string key, string value, string message)
     {
         if (string.IsNullOrEmpty(value))
-            PublicException(new DomainException(key, message));
+            PublishException(new DomainException(key, message));
         
         return this;
     }
@@ -108,7 +108,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsNotNullOrEmpty(string key, string value)
     {
         if (string.IsNullOrEmpty(value))
-            PublicException(new DomainException(Error.IsNotNullOrEmpty(key)));
+            PublishException(new DomainException(Error.IsNotNullOrEmpty(key)));
         
         return this;
     }
@@ -123,7 +123,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsNotNullOrEmpty(string key, string value, string message)
     {
         if (string.IsNullOrEmpty(value))
-            PublicException(new DomainException(key, message));
+            PublishException(new DomainException(key, message));
         
         return this;
     }
@@ -138,7 +138,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsNull(string key, string value)
     {
         if (string.IsNullOrEmpty(value))
-            PublicException(new DomainException(Error.IsNull(key)));
+            PublishException(new DomainException(Error.IsNull(key)));
         
         return this;
     }
@@ -154,7 +154,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsNull(string key, string value, string message)
     {
         if (string.IsNullOrEmpty(value))
-            PublicException(new DomainException(key, message));
+            PublishException(new DomainException(key, message));
         
         return this;
     }
@@ -169,7 +169,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsNullOrEmpty(string key, string value)
     {
         if (string.IsNullOrEmpty(value))
-            PublicException(new DomainException(key, Error.IsNullOrEmpty(key)));
+            PublishException(new DomainException(key, Error.IsNullOrEmpty(key)));
         
         return this;
     }
@@ -185,7 +185,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsNullOrEmpty(string key, string value, string message)
     {
         if (string.IsNullOrEmpty(value))
-            PublicException(new DomainException(key, message));
+            PublishException(new DomainException(key, message));
         
         return this;
     }
@@ -200,7 +200,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsNullOrWhiteSpace(string key, string value)
     {
         if (string.IsNullOrWhiteSpace(value))
-            PublicException(new DomainException(key, Error.IsNullOrWhiteSpace(key)));
+            PublishException(new DomainException(key, Error.IsNullOrWhiteSpace(key)));
         
         return this;
     }
@@ -216,7 +216,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsNullOrWhiteSpace(string key, string value, string message)
     {
         if (string.IsNullOrWhiteSpace(value))
-            PublicException(new DomainException(key, message));
+            PublishException(new DomainException(key, message));
         
         return this;
     }
@@ -232,7 +232,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsLengthGreaterThan(string key, string value, int greaterThan)
     {
         if (value.Length < greaterThan)
-            PublicException(new DomainException(Error.IsGreaterThan(key, greaterThan)));
+            PublishException(new DomainException(Error.IsGreaterThan(key, greaterThan)));
         
         return this;
     }
@@ -249,7 +249,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsLengthGreaterThan(string key, string value, int greaterThan, string message)
     {
         if (value.Length < greaterThan)
-            PublicException(new DomainException(key, message));
+            PublishException(new DomainException(key, message));
         
         return this;
     }
@@ -265,7 +265,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsLengthLowerThan(string key, string value, int lowerThan)
     {
         if (value.Length < lowerThan)
-            PublicException(new DomainException(Error.IsLowerThan(key, lowerThan)));
+            PublishException(new DomainException(Error.IsLowerThan(key, lowerThan)));
         
         return this;
     }
@@ -282,7 +282,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsLengthLowerThan(string key, string value, int lowerThan, string message)
     {
         if (value.Length < lowerThan)
-            PublicException(new DomainException(key, message));
+            PublishException(new DomainException(key, message));
         
         return this;
     }
@@ -296,7 +296,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsGuidNotEmpty(string key, Guid value)
     {
         if (value == Guid.Empty)
-            PublicException(new DomainException(Error.IsNotNull(key)));
+            PublishException(new DomainException(Error.IsNotNull(key)));
         
         return this;
     }
@@ -311,7 +311,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsGuidNotEmpty(string key, Guid value, string message)
     {
         if (value == Guid.Empty)
-            PublicException(new DomainException(key, message));
+            PublishException(new DomainException(key, message));
         
         return this;
     }
@@ -326,7 +326,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> Compare(string key, string value, string compareValue)
     {
         if (value != compareValue)
-            PublicException(new DomainException(Error.Compare(key, compareValue)));
+            PublishException(new DomainException(Error.Compare(key, compareValue)));
         
         return this;
     }
@@ -342,7 +342,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> Compare(string key, string value, string compareValue, string message)
     {
         if (value != compareValue)
-            PublicException(new DomainException(key, message));
+            PublishException(new DomainException(key, message));
         
         return this;
     }
@@ -358,7 +358,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> Compare(string key, string value, string compareValue, StringComparison comparisonType)
     {
         if (!string.Equals(value, compareValue, comparisonType))
-            PublicException(new DomainException(Error.Compare(key, compareValue)));
+            PublishException(new DomainException(Error.Compare(key, compareValue)));
         
         return this;
     }
@@ -375,7 +375,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> Compare(string key, string value, string compareValue, StringComparison comparisonType, string message)
     {
         if (!string.Equals(value, compareValue, comparisonType))
-            PublicException(new DomainException(key, message));
+            PublishException(new DomainException(key, message));
         
         return this;
     }
@@ -390,7 +390,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> Compare(string key, Guid value, Guid compareValue)
     {
         if (value != compareValue)
-            PublicException(new DomainException(Error.Compare(key, compareValue)));
+            PublishException(new DomainException(Error.Compare(key, compareValue)));
         
         return this;
     }
@@ -406,7 +406,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> Compare(string key, Guid value, Guid compareValue, string message)
     {
         if (value != compareValue)
-            PublicException(new DomainException(key, message));
+            PublishException(new DomainException(key, message));
         
         return this;
     }
