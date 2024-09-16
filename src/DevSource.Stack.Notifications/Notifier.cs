@@ -143,4 +143,14 @@ public abstract class Notifier : INotifications, IException
         _domainExceptions.Add(exception);
         throw exception;
     }
+    
+    /// <summary>
+    /// Publishes all domain exceptions from the specified <see cref="Notifier"/> by invoking the <c>PublishException</c> method on each exception.
+    /// </summary>
+    /// <param name="notifier">The <see cref="Notifier"/> containing the domain exceptions to be published.</param>
+    public void PublishExceptions(Notifier notifier)
+    {
+        foreach (var exception in notifier.DomainExceptions)
+            PublishException(exception);
+    }
 }

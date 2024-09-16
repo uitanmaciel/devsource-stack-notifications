@@ -49,4 +49,10 @@ public interface IException
     /// </summary>
     /// <param name="exception">The <see cref="DomainException"/> to be published.</param>
     void PublishException(DomainException exception);
+    
+    /// <summary>
+    /// Publishes all exceptions from the specified <see cref="Notifier"/>.
+    /// </summary>
+    /// <param name="notifier">The <see cref="Notifier"/> containing the exceptions to be published.</param>
+    void PublishExceptions(Notifier notifier);
 }
