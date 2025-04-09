@@ -16,7 +16,7 @@ public partial class ValidationRules<T>
     public ValidationRules<T> IsPassword(string key, string password, int min)
     {
         if (!Regex.IsMatch(password, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{" + min + ",}$"))
-            AddNotification(new Notification(Error.Invalid(password)));
+            AddNotification(new Notification(key, Error.Invalid(password)));
         
         return this;
     }
@@ -34,7 +34,7 @@ public partial class ValidationRules<T>
     public ValidationRules<T> IsPassword(string key, string password, int min, string message)
     {
         if (!Regex.IsMatch(password, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{" + min + ",}$"))
-            AddNotification(new Notification(message));
+            AddNotification(new Notification(key, message));
         
         return this;
     }

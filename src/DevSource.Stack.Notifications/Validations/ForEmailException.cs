@@ -14,7 +14,7 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsEmail(string key, string value)
     {
         if (!EmailRegex().IsMatch(value))
-            PublishException(new DomainException(Error.Email(value)));
+            PublishException(new DomainException(key, Error.Email(value)));
         
         return this;
     }

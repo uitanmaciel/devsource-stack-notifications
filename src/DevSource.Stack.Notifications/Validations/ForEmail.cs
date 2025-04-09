@@ -14,7 +14,7 @@ public partial class ValidationRules<T>
     public ValidationRules<T> IsEmail(string key, string value)
     {
         if (!EmailRegex().IsMatch(value))
-            AddNotification(new Notification(Error.Email(value)));
+            AddNotification(new Notification(key, Error.Email(value)));
         
         return this;
     }

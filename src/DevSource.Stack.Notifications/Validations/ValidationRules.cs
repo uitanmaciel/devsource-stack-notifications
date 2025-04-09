@@ -11,7 +11,12 @@ public partial class ValidationRules<T> : Notifier
     /// Placeholder for a method that ensures a value is required.
     /// </summary>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/>.</returns>
-    public ValidationRules<T> IsRequired() => this;
+    public ValidationRules<T> IsRequired(string key)
+    {
+        if (string.IsNullOrEmpty(key) || string.IsNullOrWhiteSpace(key))
+            AddNotification(new Notification(key, Error.IsRequired(key)));
+        return this;
+    }
 
     /// <summary>
     /// Joins notifications from other notifiers to the current instance.

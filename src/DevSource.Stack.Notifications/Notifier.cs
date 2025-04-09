@@ -1,4 +1,7 @@
-﻿namespace DevSource.Stack.Notifications;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
+
+namespace DevSource.Stack.Notifications;
 
 /// <summary>
 /// Abstract base class that provides notification management functionality.
@@ -14,11 +17,15 @@ public abstract class Notifier : INotifications, IException
     /// <summary>
     /// Gets a read-only collection of notifications.
     /// </summary>
+    [JsonIgnore]
+    [NotMapped]
     public IReadOnlyCollection<Notification> Notifications => _notifications;
     
     /// <summary>
     /// Gets a value indicating whether there are any notifications present.
     /// </summary>
+    [JsonIgnore]
+    [NotMapped]
     public bool HasNotifications => _notifications.Any();
 
     /// <summary>
@@ -93,6 +100,8 @@ public abstract class Notifier : INotifications, IException
     /// <summary>
     /// Gets a read-only collection of <see cref="DomainException"/> instances.
     /// </summary>
+    [JsonIgnore]
+    [NotMapped]
     public IReadOnlyCollection<DomainException> DomainExceptions  => _domainExceptions;
     
     /// <summary>

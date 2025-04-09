@@ -13,7 +13,7 @@ public class DomainException : Exception
     /// <summary>
     /// Gets or sets the message associated with the exception.
     /// </summary>
-    public string Message { get; set; } = null!;
+    public override string Message { get; } = null!;
     
     /// <summary>
     /// Initializes a new instance of the <see cref="DomainException"/> class with a specified key and message.
