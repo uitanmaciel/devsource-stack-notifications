@@ -7,7 +7,7 @@ namespace DevSource.Stack.Notifications;
 /// Abstract base class that provides notification management functionality.
 /// Implements the <see cref="INotifications"/> interface.
 /// </summary>
-public abstract class Notifier : INotifications, IException
+public abstract class Notifier : INotifications
 {
     /// <summary>
     /// A list to store the notifications.
@@ -94,72 +94,4 @@ public abstract class Notifier : INotifications, IException
     /// </summary>
     public void ClearNotifications()
         => _notifications.Clear();
-    
-    private readonly List<DomainException> _domainExceptions = [];
-    
-    /// <summary>
-    /// Gets a read-only collection of <see cref="DomainException"/> instances.
-    /// </summary>
-    [JsonIgnore]
-    [NotMapped]
-    public IReadOnlyCollection<DomainException> DomainExceptions  => _domainExceptions;
-    
-    /// <summary>
-    /// Publishes an exception with a specified message.
-    /// </summary>
-    /// <param name="message">The message that describes the exception.</param>
-    public void PublishException(string message)
-        => PublishException(new DomainException(message));
-    
-    /// <summary>
-    /// Publishes an exception with a specified key and message.
-    /// </summary>
-    /// <param name="key">The key associated with the exception.</param>
-    /// <param name="message">The message that describes the exception.</param>
-    public void PublishException(string key, string message)
-        => PublishException(new DomainException(key, message));
-    
-    /// <summary>
-    /// Publishes an exception with a formatted message and optional arguments.
-    /// </summary>
-    /// <param name="message">The message that describes the exception. It can contain formatting placeholders.</param>
-    /// <param name="args">An array of objects to format into the message.</param>
-    public void PublishException(string message, params object[] args)
-        => PublishException(new DomainException(message, args));
-    
-    /// <summary>
-    /// Publishes an exception with a formatted message and optional arguments.
-    /// </summary>
-    /// <param name="key">The key associated with the exception.</param>
-    /// <param name="message">The message that describes the exception. It can contain formatting placeholders.</param>
-    /// <param name="args">An array of objects to format into the message.</param>
-    public void PublishException(string key, string message, params object[] args)
-        => PublishException(new DomainException(key, message, args));
-    
-    /// <summary>
-    /// Publishes an exception using the provided arguments, formatted into a message.
-    /// </summary>
-    /// <param name="args">An array of objects to be formatted into the exception message.</param>
-    public void PublishException(params object[] args)
-        => PublishException(new DomainException(args));
-
-    /// <summary>
-    /// Publishes the specified <see cref="DomainException"/>.
-    /// </summary>
-    /// <param name="exception">The <see cref="DomainException"/> to be published.</param>
-    public void PublishException(DomainException exception)
-    {
-        _domainExceptions.Add(exception);
-        throw exception;
-    }
-    
-    /// <summary>
-    /// Publishes all domain exceptions from the specified <see cref="Notifier"/> by invoking the <c>PublishException</c> method on each exception.
-    /// </summary>
-    /// <param name="notifier">The <see cref="Notifier"/> containing the domain exceptions to be published.</param>
-    public void PublishExceptions(Notifier notifier)
-    {
-        foreach (var exception in notifier.DomainExceptions)
-            PublishException(exception);
-    }
 }

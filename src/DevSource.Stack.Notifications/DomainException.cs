@@ -1,4 +1,6 @@
-﻿namespace DevSource.Stack.Notifications;
+﻿using System.Linq; // Added for Select
+
+namespace DevSource.Stack.Notifications;
 
 /// <summary>
 /// Represents errors that occur during domain operations. Inherits from the <see cref="Exception"/> class.
@@ -48,8 +50,12 @@ public class DomainException : Exception
     
     /// <summary>
     /// Initializes a new instance of the <see cref="DomainException"/> class with a formatted message using the provided arguments.
+    /// The arguments are joined into a single comma-separated string.
     /// </summary>
     /// <param name="args">An array of objects to be formatted into the message.</param>
     public DomainException(params object[] args)
-        => Message = string.Format("{0}", args);
+        : base(string.Join(", ", args.Select(a => a?.ToString() ?? string.Empty))) // Also pass to base constructor
+    {
+        Message = string.Join(", ", args.Select(a => a?.ToString() ?? string.Empty));
+    }
 }

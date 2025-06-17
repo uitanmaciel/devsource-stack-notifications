@@ -1,4 +1,6 @@
-﻿using System.Text.RegularExpressions;
+﻿using DevSource.Stack.Notifications.Validations.Internal; // Added this
+using System; // For Action
+using System.Text.RegularExpressions;
 
 namespace DevSource.Stack.Notifications.Validations;
 
@@ -15,9 +17,15 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsPassword(string key, string password, int min)
     {
-        if (!Regex.IsMatch(password, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{" + min + ",}$"))
-            AddNotification(new Notification(key, Error.Invalid(password)));
-        
+        string regexPattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{" + min + ",}$";
+        ValidationRuleRunners.IsPassword(
+            password,
+            key,
+            regexPattern,
+            Error.Invalid(password), // Error.Invalid uses the password value, not key
+            this.AddNotification,
+            null,
+            isCustomMessage: true);
         return this;
     }
 
@@ -33,9 +41,15 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsPassword(string key, string password, int min, string message)
     {
-        if (!Regex.IsMatch(password, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{" + min + ",}$"))
-            AddNotification(new Notification(key, message));
-        
+        string regexPattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{" + min + ",}$";
+        ValidationRuleRunners.IsPassword(
+            password,
+            key,
+            regexPattern,
+            message,
+            this.AddNotification,
+            null,
+            isCustomMessage: true);
         return this;
     }
 }

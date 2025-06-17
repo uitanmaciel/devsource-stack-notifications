@@ -1,4 +1,7 @@
-﻿namespace DevSource.Stack.Notifications.Validations;
+﻿using DevSource.Stack.Notifications.Validations.Internal; // Added this
+using System; // Added for Action
+
+namespace DevSource.Stack.Notifications.Validations;
 
 public partial class ValidationRules<T>
 {
@@ -12,9 +15,14 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> MaxLength(string key, string value, int maxLength)
     {
-        if (value.Length > maxLength)
-            AddNotification(new Notification(Error.MaxLength(key, maxLength)));
-        
+        ValidationRuleRunners.MaxLength(
+            value,
+            maxLength,
+            key,
+            Error.MaxLength(key, maxLength),
+            this.AddNotification,
+            null,
+            isCustomMessage: true);
         return this;
     }
 
@@ -29,9 +37,14 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> MaxLength(string key, string value, int maxLength, string message)
     {
-        if (value.Length > maxLength)
-            AddNotification(new Notification(key, message));
-        
+        ValidationRuleRunners.MaxLength(
+            value,
+            maxLength,
+            key,
+            message,
+            this.AddNotification,
+            null,
+            isCustomMessage: true);
         return this;
     }
 
@@ -45,9 +58,14 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> MinLength(string key, string value, int minLength)
     {
-        if (value.Length < minLength)
-            AddNotification(new Notification(Error.MinLength(key, minLength)));
-        
+        ValidationRuleRunners.MinLength(
+            value,
+            minLength,
+            key,
+            Error.MinLength(key, minLength),
+            this.AddNotification,
+            null,
+            isCustomMessage: true);
         return this;
     }
 
@@ -62,9 +80,14 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> MinLength(string key, string value, int minLength, string message)
     {
-        if (value.Length < minLength)
-            AddNotification(new Notification(key, message));
-        
+        ValidationRuleRunners.MinLength(
+            value,
+            minLength,
+            key,
+            message,
+            this.AddNotification,
+            null,
+            isCustomMessage: true);
         return this;
     }
 
@@ -77,9 +100,14 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsNotNull(string key, string value)
     {
-        if (string.IsNullOrEmpty(value))
-            AddNotification(new Notification(Error.IsNotNull(key)));
-        
+        // Original logic: AddNotification if string.IsNullOrEmpty(value) with Error.IsNotNull(key)
+        ValidationRuleRunners.IsNotNullOrEmpty(
+            value,
+            key,
+            Error.IsNotNull(key),
+            this.AddNotification,
+            null,
+            isCustomMessage: true);
         return this;
     }
 
@@ -93,9 +121,13 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsNotNull(string key, string value, string message)
     {
-        if (string.IsNullOrEmpty(value))
-            AddNotification(new Notification(key, message));
-        
+        ValidationRuleRunners.IsNotNullOrEmpty(
+            value,
+            key,
+            message,
+            this.AddNotification,
+            null,
+            isCustomMessage: true);
         return this;
     }
     
@@ -107,9 +139,13 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> for method chaining.</returns>
     public ValidationRules<T> IsNotNullOrEmpty(string key, string value)
     {
-        if (string.IsNullOrEmpty(value))
-            AddNotification(new Notification(Error.IsNotNullOrEmpty(key)));
-        
+        ValidationRuleRunners.IsNotNullOrEmpty(
+            value,
+            key,
+            Error.IsNotNullOrEmpty(key),
+            this.AddNotification,
+            null,
+            isCustomMessage: true);
         return this;
     }
     
@@ -122,9 +158,13 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> for method chaining.</returns>
     public ValidationRules<T> IsNotNullOrEmpty(string key, string value, string message)
     {
-        if (string.IsNullOrEmpty(value))
-            AddNotification(new Notification(key, message));
-        
+        ValidationRuleRunners.IsNotNullOrEmpty(
+            value,
+            key,
+            message,
+            this.AddNotification,
+            null,
+            isCustomMessage: true);
         return this;
     }
 
@@ -138,9 +178,14 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsNull(string key, string value)
     {
-        if (!string.IsNullOrEmpty(value))
-            AddNotification(new Notification(Error.IsNull(key)));
-        
+        // Original logic: AddNotification if !string.IsNullOrEmpty(value) with Error.IsNull(key)
+        ValidationRuleRunners.IsNullOrEmpty(
+            value,
+            key,
+            Error.IsNull(key),
+            this.AddNotification,
+            null,
+            isCustomMessage: true);
         return this;
     }
 
@@ -155,9 +200,13 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsNull(string key, string value, string message)
     {
-        if (!string.IsNullOrEmpty(value))
-            AddNotification(new Notification(key, message));
-        
+        ValidationRuleRunners.IsNullOrEmpty(
+            value,
+            key,
+            message,
+            this.AddNotification,
+            null,
+            isCustomMessage: true);
         return this;
     }
 
@@ -171,9 +220,14 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsNullOrEmpty(string key, string value)
     {
-        if (!string.IsNullOrEmpty(value))
-            AddNotification(new Notification(key, Error.IsNullOrEmpty(key)));
-        
+        // Original logic: AddNotification if !string.IsNullOrEmpty(value) with Error.IsNullOrEmpty(key)
+        ValidationRuleRunners.IsNullOrEmpty(
+            value,
+            key,
+            Error.IsNullOrEmpty(key),
+            this.AddNotification,
+            null,
+            isCustomMessage: true);
         return this;
     }
 
@@ -188,9 +242,13 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsNullOrEmpty(string key, string value, string message)
     {
-        if (!string.IsNullOrEmpty(value))
-            AddNotification(new Notification(key, message));
-        
+        ValidationRuleRunners.IsNullOrEmpty(
+            value,
+            key,
+            message,
+            this.AddNotification,
+            null,
+            isCustomMessage: true);
         return this;
     }
 
@@ -204,9 +262,14 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsNullOrWhiteSpace(string key, string value)
     {
-        if (!string.IsNullOrWhiteSpace(value))
-            AddNotification(new Notification(key, Error.IsNullOrWhiteSpace(key)));
-        
+        // Original logic: AddNotification if !string.IsNullOrWhiteSpace(value) with Error.IsNullOrWhiteSpace(key)
+        ValidationRuleRunners.IsNullOrWhiteSpace(
+            value,
+            key,
+            Error.IsNullOrWhiteSpace(key),
+            this.AddNotification,
+            null,
+            isCustomMessage: true);
         return this;
     }
 
@@ -221,9 +284,13 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsNullOrWhiteSpace(string key, string value, string message)
     {
-        if (!string.IsNullOrWhiteSpace(value))
-            AddNotification(new Notification(key, message));
-        
+        ValidationRuleRunners.IsNullOrWhiteSpace(
+            value,
+            key,
+            message,
+            this.AddNotification,
+            null,
+            isCustomMessage: true);
         return this;
     }
 
@@ -237,9 +304,13 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsLengthGreaterThan(string key, string value, int greaterThan)
     {
-        if (value.Length < greaterThan)
-            AddNotification(new Notification(Error.IsGreaterThan(key, greaterThan)));
-        
+        ValidationRuleRunners.IsLengthGreaterThan(
+            value,
+            greaterThan,
+            key,
+            Error.IsGreaterThan(key, greaterThan),
+            this.AddNotification,
+            null);
         return this;
     }
 
@@ -254,9 +325,14 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsLengthGreaterThan(string key, string value, int greaterThan, string message)
     {
-        if (value.Length < greaterThan)
-            AddNotification(new Notification(key, message));
-        
+        ValidationRuleRunners.IsLengthGreaterThan(
+            value,
+            greaterThan,
+            key,
+            message,
+            this.AddNotification,
+            null,
+            isCustomMessage: true);
         return this;
     }
 
@@ -270,9 +346,13 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsLengthLowerThan(string key, string value, int lowerThan)
     {
-        if (value.Length >= lowerThan)
-            AddNotification(new Notification(Error.IsLowerThan(key, lowerThan)));
-        
+        ValidationRuleRunners.IsLengthLowerThan(
+            value,
+            lowerThan,
+            key,
+            Error.IsLowerThan(key, lowerThan),
+            this.AddNotification,
+            null);
         return this;
     }
 
@@ -287,9 +367,14 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsLengthLowerThan(string key, string value, int lowerThan, string message)
     {
-        if (value.Length >= lowerThan)
-            AddNotification(new Notification(key, message));
-        
+        ValidationRuleRunners.IsLengthLowerThan(
+            value,
+            lowerThan,
+            key,
+            message,
+            this.AddNotification,
+            null,
+            isCustomMessage: true);
         return this;
     }
     
@@ -301,9 +386,13 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class for method chaining.</returns>
     public ValidationRules<T> IsGuidNotEmpty(string key, Guid value)
     {
-        if (value == Guid.Empty)
-            AddNotification(new Notification(Error.IsNotNull(key)));
-        
+        ValidationRuleRunners.IsGuidNotEmpty(
+            value,
+            key,
+            Error.IsNotNull(key),
+            this.AddNotification,
+            null,
+            isCustomMessage: true); // Error.IsNotNull provides a full message
         return this;
     }
     
@@ -316,9 +405,13 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class for method chaining.</returns>
     public ValidationRules<T> IsGuidNotEmpty(string key, Guid value, string message)
     {
-        if (value == Guid.Empty)
-            AddNotification(new Notification(key, message));
-        
+        ValidationRuleRunners.IsGuidNotEmpty(
+            value,
+            key,
+            message,
+            this.AddNotification,
+            null,
+            isCustomMessage: true);
         return this;
     }
     
@@ -331,9 +424,15 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class for method chaining.</returns>
     public ValidationRules<T> Compare(string key, string value, string compareValue)
     {
-        if (value != compareValue)
-            AddNotification(new Notification(Error.Compare(key, compareValue)));
-        
+        ValidationRuleRunners.Compare(
+            value,
+            compareValue,
+            key,
+            Error.Compare(key, compareValue),
+            StringComparison.Ordinal,
+            this.AddNotification,
+            null,
+            isCustomMessage: true);
         return this;
     }
     
@@ -347,9 +446,15 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class for method chaining.</returns>
     public ValidationRules<T> Compare(string key, string value, string compareValue, string message)
     {
-        if (value != compareValue)
-            AddNotification(new Notification(key, message));
-        
+        ValidationRuleRunners.Compare(
+            value,
+            compareValue,
+            key,
+            message,
+            StringComparison.Ordinal,
+            this.AddNotification,
+            null,
+            isCustomMessage: true);
         return this;
     }
     
@@ -363,9 +468,15 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class for method chaining.</returns>
     public ValidationRules<T> Compare(string key, string value, string compareValue, StringComparison comparisonType)
     {
-        if (!string.Equals(value, compareValue, comparisonType))
-            AddNotification(new Notification(Error.Compare(key, compareValue)));
-        
+        ValidationRuleRunners.Compare(
+            value,
+            compareValue,
+            key,
+            Error.Compare(key, compareValue),
+            comparisonType,
+            this.AddNotification,
+            null,
+            isCustomMessage: true);
         return this;
     }
     
@@ -380,9 +491,15 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class for method chaining.</returns>
     public ValidationRules<T> Compare(string key, string value, string compareValue, StringComparison comparisonType, string message)
     {
-        if (!string.Equals(value, compareValue, comparisonType))
-            AddNotification(new Notification(key, message));
-        
+        ValidationRuleRunners.Compare(
+            value,
+            compareValue,
+            key,
+            message,
+            comparisonType,
+            this.AddNotification,
+            null,
+            isCustomMessage: true);
         return this;
     }
     
@@ -395,9 +512,14 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class for method chaining.</returns>
     public ValidationRules<T> Compare(string key, Guid value, Guid compareValue)
     {
-        if (value != compareValue)
-            AddNotification(new Notification(Error.Compare(key, compareValue)));
-        
+        ValidationRuleRunners.Compare(
+            value,
+            compareValue,
+            key,
+            Error.Compare(key, compareValue.ToString()), // Error.Compare expects string for value
+            this.AddNotification,
+            null,
+            isCustomMessage: true);
         return this;
     }
     
@@ -411,9 +533,14 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class for method chaining.</returns>
     public ValidationRules<T> Compare(string key, Guid value, Guid compareValue, string message)
     {
-        if (value != compareValue)
-            AddNotification(new Notification(key, message));
-        
+        ValidationRuleRunners.Compare(
+            value,
+            compareValue,
+            key,
+            message,
+            this.AddNotification,
+            null,
+            isCustomMessage: true);
         return this;
     }
 }

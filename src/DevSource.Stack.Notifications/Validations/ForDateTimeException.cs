@@ -1,4 +1,8 @@
-﻿namespace DevSource.Stack.Notifications.Validations;
+﻿using DevSource.Stack.Notifications.Abstractions; // Required for DomainException
+using DevSource.Stack.Notifications.Validations.Internal; // Added this
+using System; // For DateTime, DayOfWeek, Action
+
+namespace DevSource.Stack.Notifications.Validations;
 
 public partial class ValidationRulesException<T>
 {
@@ -15,10 +19,11 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsDateBetween(string key, string value, DateTime from, DateTime to)
     {
         var dt = ConvertDateTime(value);
-        
-        if(dt < from || dt > to)
-            PublishException(new DomainException(key, Error.IsDateBetween(key, from, to)));
-
+        if (dt != default(DateTime))
+        {
+            ValidationRuleRunners.IsDateBetween(
+                dt, from, to, key, Error.IsDateBetween(key, from, to), null, this.PublishException, isCustomMessage: true);
+        }
         return this;
     }
 
@@ -34,9 +39,8 @@ public partial class ValidationRulesException<T>
     /// </returns>
     public ValidationRulesException<T> IsDateBetween(string key, DateTime value, DateTime from, DateTime to)
     {
-        if(value < from || value > to)
-            PublishException(new DomainException(key, Error.IsDateBetween(key, from, to)));
-
+        ValidationRuleRunners.IsDateBetween(
+            value, from, to, key, Error.IsDateBetween(key, from, to), null, this.PublishException, isCustomMessage: true);
         return this;
     }
     
@@ -52,10 +56,11 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsDayOfWeek(string key, string value, DayOfWeek dayOfWeek)
     {
         var dt = ConvertDateTime(value);
-        
-        if(dt.DayOfWeek != dayOfWeek)
-            PublishException(new DomainException(key, Error.IsDayOfWeek(value, dayOfWeek)));
-
+        if (dt != default(DateTime))
+        {
+            ValidationRuleRunners.IsDayOfWeek(
+                dt, dayOfWeek, key, Error.IsDayOfWeek(value, dayOfWeek), null, this.PublishException, isCustomMessage: true);
+        }
         return this;
     }
 
@@ -68,9 +73,8 @@ public partial class ValidationRulesException<T>
     /// <returns>The current instance of the <see cref="ValidationRulesException{T}"/> class.</returns>
     public ValidationRulesException<T> IsDayOfWeek(string key, DateTime value, DayOfWeek dayOfWeek)
     {
-        if(value.DayOfWeek != dayOfWeek)
-            PublishException(new DomainException(key, Error.IsDayOfWeek(value, dayOfWeek)));
-
+        ValidationRuleRunners.IsDayOfWeek(
+            value, dayOfWeek, key, Error.IsDayOfWeek(key, dayOfWeek), null, this.PublishException, isCustomMessage: true);
         return this;
     }
 
@@ -83,10 +87,11 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsInTheFuture(string key, string value)
     {
         var dt = ConvertDateTime(value);
-        
-        if(dt < DateTime.Now)
-            PublishException(new DomainException(key, Error.IsInTheFuture(key)));
-
+        if (dt != default(DateTime))
+        {
+            ValidationRuleRunners.IsInTheFuture(
+                dt, key, Error.IsInTheFuture(key), null, this.PublishException, isCustomMessage: true);
+        }
         return this;
     }
 
@@ -100,9 +105,8 @@ public partial class ValidationRulesException<T>
     /// </returns>
     public ValidationRulesException<T> IsInTheFuture(string key, DateTime value)
     {
-        if(value < DateTime.Now)
-            PublishException(new DomainException(key, Error.IsInTheFuture(key)));
-
+        ValidationRuleRunners.IsInTheFuture(
+            value, key, Error.IsInTheFuture(key), null, this.PublishException, isCustomMessage: true);
         return this;
     }
 
@@ -117,10 +121,11 @@ public partial class ValidationRulesException<T>
     public ValidationRulesException<T> IsInThePast(string key, string value)
     {
         var dt = ConvertDateTime(value);
-        
-        if(dt > DateTime.Now)
-            PublishException(new DomainException(key, Error.IsInThePast(key)));
-
+        if (dt != default(DateTime))
+        {
+            ValidationRuleRunners.IsInThePast(
+                dt, key, Error.IsInThePast(key), null, this.PublishException, isCustomMessage: true);
+        }
         return this;
     }
 
@@ -134,9 +139,8 @@ public partial class ValidationRulesException<T>
     /// </returns>
     public ValidationRulesException<T> IsInThePast(string key, DateTime value)
     {
-        if(value > DateTime.Now)
-            PublishException(new DomainException(key, Error.IsInThePast(key)));
-
+        ValidationRuleRunners.IsInThePast(
+            value, key, Error.IsInThePast(key), null, this.PublishException, isCustomMessage: true);
         return this;
     }
     
