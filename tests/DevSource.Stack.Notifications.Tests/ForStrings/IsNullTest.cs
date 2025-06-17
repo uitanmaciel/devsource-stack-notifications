@@ -4,7 +4,7 @@
 public class IsNullTest
 {
     [TestMethod]
-    public void WhenStringIsNull_ReturnNotification()
+    public void WhenStringIsNull_NotReturnNotification()
     {
         // Arrange
         // Initialize the validation rules object for a generic type
@@ -17,11 +17,11 @@ public class IsNullTest
         
         // Assert
         // Verify that there are no validation notifications, indicating the string is not null
-        Assert.IsTrue(validation.HasNotifications);
+        Assert.IsTrue(!validation.HasNotifications);
     }
     
     [TestMethod]
-    public void WhenStringIsNull_NotReturnNotification()
+    public void WhenStringIsNotNull_ReturnNotification()
     {
         // Arrange
         // Initialize the validation rules object for a generic type
@@ -34,6 +34,6 @@ public class IsNullTest
         
         // Assert
         // Verify that there are no validation notifications, indicating the string is not null
-        Assert.IsTrue(!validation.HasNotifications);
+        Assert.IsTrue(validation.HasNotifications);
     }
 }

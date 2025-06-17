@@ -4,7 +4,7 @@
 public class IsNullOrEmptyTest
 {
     [TestMethod]
-    public void WhenStringIsNullOrEmpty_ReturnNotification()
+    public void WhenStringIsNullOrEmpty_NotReturnNotification()
     {
         // Arrange
         // Initialize the validation rules object for a generic type
@@ -17,6 +17,17 @@ public class IsNullOrEmptyTest
         
         // Assert
         // Verify that there are no validation notifications, indicating the string is not null or empty
+        Assert.IsTrue(!validation.HasNotifications);
+    }
+
+    [TestMethod]
+    public void WhenStringIsNotNullOrEmpty_ReturnNotification()
+    {
+        var validation = new ValidationRules<object>();
+        const string value = "abc";
+
+        validation.IsNullOrEmpty("Value", value);
+
         Assert.IsTrue(validation.HasNotifications);
     }
 }

@@ -137,7 +137,7 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsNull(string key, string value)
     {
-        if (string.IsNullOrEmpty(value))
+        if (!string.IsNullOrEmpty(value))
             AddNotification(new Notification(Error.IsNull(key)));
         
         return this;
@@ -153,7 +153,7 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsNull(string key, string value, string message)
     {
-        if (string.IsNullOrEmpty(value))
+        if (!string.IsNullOrEmpty(value))
             AddNotification(new Notification(key, message));
         
         return this;
@@ -168,7 +168,7 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsNullOrEmpty(string key, string value)
     {
-        if (string.IsNullOrEmpty(value))
+        if (!string.IsNullOrEmpty(value))
             AddNotification(new Notification(key, Error.IsNullOrEmpty(key)));
         
         return this;
@@ -184,7 +184,7 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsNullOrEmpty(string key, string value, string message)
     {
-        if (string.IsNullOrEmpty(value))
+        if (!string.IsNullOrEmpty(value))
             AddNotification(new Notification(key, message));
         
         return this;
@@ -199,7 +199,7 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsNullOrWhiteSpace(string key, string value)
     {
-        if (string.IsNullOrWhiteSpace(value))
+        if (!string.IsNullOrWhiteSpace(value))
             AddNotification(new Notification(key, Error.IsNullOrWhiteSpace(key)));
         
         return this;
@@ -215,7 +215,7 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsNullOrWhiteSpace(string key, string value, string message)
     {
-        if (string.IsNullOrWhiteSpace(value))
+        if (!string.IsNullOrWhiteSpace(value))
             AddNotification(new Notification(key, message));
         
         return this;
@@ -264,7 +264,7 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsLengthLowerThan(string key, string value, int lowerThan)
     {
-        if (value.Length < lowerThan)
+        if (value.Length > lowerThan)
             AddNotification(new Notification(Error.IsLowerThan(key, lowerThan)));
         
         return this;
@@ -281,7 +281,7 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsLengthLowerThan(string key, string value, int lowerThan, string message)
     {
-        if (value.Length < lowerThan)
+        if (value.Length > lowerThan)
             AddNotification(new Notification(key, message));
         
         return this;

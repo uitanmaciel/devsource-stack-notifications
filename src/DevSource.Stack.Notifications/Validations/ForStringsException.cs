@@ -137,7 +137,7 @@ public partial class ValidationRulesException<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRulesException<T> IsNull(string key, string value)
     {
-        if (string.IsNullOrEmpty(value))
+        if (!string.IsNullOrEmpty(value))
             PublishException(new DomainException(Error.IsNull(key)));
         
         return this;
@@ -153,7 +153,7 @@ public partial class ValidationRulesException<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRulesException<T> IsNull(string key, string value, string message)
     {
-        if (string.IsNullOrEmpty(value))
+        if (!string.IsNullOrEmpty(value))
             PublishException(new DomainException(key, message));
         
         return this;
@@ -168,7 +168,7 @@ public partial class ValidationRulesException<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRulesException<T> IsNullOrEmpty(string key, string value)
     {
-        if (string.IsNullOrEmpty(value))
+        if (!string.IsNullOrEmpty(value))
             PublishException(new DomainException(key, Error.IsNullOrEmpty(key)));
         
         return this;
@@ -184,7 +184,7 @@ public partial class ValidationRulesException<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRulesException<T> IsNullOrEmpty(string key, string value, string message)
     {
-        if (string.IsNullOrEmpty(value))
+        if (!string.IsNullOrEmpty(value))
             PublishException(new DomainException(key, message));
         
         return this;
@@ -199,7 +199,7 @@ public partial class ValidationRulesException<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRulesException<T> IsNullOrWhiteSpace(string key, string value)
     {
-        if (string.IsNullOrWhiteSpace(value))
+        if (!string.IsNullOrWhiteSpace(value))
             PublishException(new DomainException(key, Error.IsNullOrWhiteSpace(key)));
         
         return this;
@@ -215,7 +215,7 @@ public partial class ValidationRulesException<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRulesException<T> IsNullOrWhiteSpace(string key, string value, string message)
     {
-        if (string.IsNullOrWhiteSpace(value))
+        if (!string.IsNullOrWhiteSpace(value))
             PublishException(new DomainException(key, message));
         
         return this;
@@ -264,7 +264,7 @@ public partial class ValidationRulesException<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRulesException<T> IsLengthLowerThan(string key, string value, int lowerThan)
     {
-        if (value.Length < lowerThan)
+        if (value.Length > lowerThan)
             PublishException(new DomainException(Error.IsLowerThan(key, lowerThan)));
         
         return this;
@@ -281,7 +281,7 @@ public partial class ValidationRulesException<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRulesException<T> IsLengthLowerThan(string key, string value, int lowerThan, string message)
     {
-        if (value.Length < lowerThan)
+        if (value.Length > lowerThan)
             PublishException(new DomainException(key, message));
         
         return this;
