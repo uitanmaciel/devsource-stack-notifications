@@ -270,7 +270,7 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsLengthLowerThan(string key, string value, int lowerThan)
     {
-        if (value.Length > lowerThan)
+        if (value.Length >= lowerThan)
             AddNotification(new Notification(Error.IsLowerThan(key, lowerThan)));
         
         return this;
@@ -287,7 +287,7 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsLengthLowerThan(string key, string value, int lowerThan, string message)
     {
-        if (value.Length > lowerThan)
+        if (value.Length >= lowerThan)
             AddNotification(new Notification(key, message));
         
         return this;
