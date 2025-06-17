@@ -13,11 +13,11 @@ public class IsLengthLowerThanTest
         const int size = 10;
         
         // Act
-        // Validate that the value is lower than the maximum value
+        // Validate that the value does not exceed the maximum allowable length
         validation.IsLengthLowerThan("Value", value, size);
         
         // Assert
-        // Verify that there are no validation notifications, indicating the value is lower than the maximum value
+        // Verify that there are no validation notifications, indicating the value is within the allowed maximum length
         Assert.IsTrue(!validation.HasNotifications);
     }
 }
