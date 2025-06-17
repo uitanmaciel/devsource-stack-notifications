@@ -1,4 +1,6 @@
-﻿namespace DevSource.Stack.Notifications.Validations;
+﻿using DevSource.Stack.Notifications.Validations.Internal;
+
+namespace DevSource.Stack.Notifications.Validations;
 
 public partial class ValidationRulesException<T>
 {
@@ -9,12 +11,17 @@ public partial class ValidationRulesException<T>
     /// <param name="key">The key representing the string field in the object being validated.</param>
     /// <param name="value">The string value to be validated.</param>
     /// <param name="maxLength">The maximum allowed length for the string.</param>
-    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    /// <returns>The current instance of <see cref="ValidationRulesException{T}"/> after performing the validation.</returns>
     public ValidationRulesException<T> MaxLength(string key, string value, int maxLength)
     {
-        if (value.Length > maxLength)
-            PublishException(new DomainException(Error.MaxLength(key, maxLength)));
-        
+        ValidationRuleRunners.MaxLength(
+            value,
+            maxLength,
+            key,
+            Error.MaxLength(key, maxLength),
+            null,
+            this.PublishException,
+            isCustomMessage: true);
         return this;
     }
 
@@ -26,12 +33,17 @@ public partial class ValidationRulesException<T>
     /// <param name="value">The string value to be validated.</param>
     /// <param name="maxLength">The maximum allowed length for the string.</param>
     /// <param name="message">The custom error message to be used in the domain exception if validation fails.</param>
-    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    /// <returns>The current instance of <see cref="ValidationRulesException{T}"/> after performing the validation.</returns>
     public ValidationRulesException<T> MaxLength(string key, string value, int maxLength, string message)
     {
-        if (value.Length > maxLength)
-            PublishException(new DomainException(key, message));
-        
+        ValidationRuleRunners.MaxLength(
+            value,
+            maxLength,
+            key,
+            message,
+            null,
+            this.PublishException,
+            isCustomMessage: true);
         return this;
     }
 
@@ -42,12 +54,17 @@ public partial class ValidationRulesException<T>
     /// <param name="key">The key representing the string field in the object being validated.</param>
     /// <param name="value">The string value to be validated.</param>
     /// <param name="minLength">The minimum required length for the string.</param>
-    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    /// <returns>The current instance of <see cref="ValidationRulesException{T}"/> after performing the validation.</returns>
     public ValidationRulesException<T> MinLength(string key, string value, int minLength)
     {
-        if (value.Length < minLength)
-            PublishException(new DomainException(Error.MinLength(key, minLength)));
-        
+        ValidationRuleRunners.MinLength(
+            value,
+            minLength,
+            key,
+            Error.MinLength(key, minLength),
+            null,
+            this.PublishException,
+            isCustomMessage: true);
         return this;
     }
 
@@ -59,12 +76,17 @@ public partial class ValidationRulesException<T>
     /// <param name="value">The string value to be validated.</param>
     /// <param name="minLength">The minimum required length for the string.</param>
     /// <param name="message">The custom error message to be used in the domain exception if validation fails.</param>
-    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    /// <returns>The current instance of <see cref="ValidationRulesException{T}"/> after performing the validation.</returns>
     public ValidationRulesException<T> MinLength(string key, string value, int minLength, string message)
     {
-        if (value.Length < minLength)
-            PublishException(new DomainException(key, message));
-        
+        ValidationRuleRunners.MinLength(
+            value,
+            minLength,
+            key,
+            message,
+            null,
+            this.PublishException,
+            isCustomMessage: true);
         return this;
     }
 
@@ -74,12 +96,17 @@ public partial class ValidationRulesException<T>
     /// </summary>
     /// <param name="key">The key representing the field in the object being validated.</param>
     /// <param name="value">The string value to be validated.</param>
-    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    /// <returns>The current instance of <see cref="ValidationRulesException{T}"/> after performing the validation.</returns>
     public ValidationRulesException<T> IsNotNull(string key, string value)
     {
-        if (string.IsNullOrEmpty(value))
-            PublishException(new DomainException(Error.IsNotNull(key)));
-        
+        // Original logic: PublishException if string.IsNullOrEmpty(value) with Error.IsNotNull(key)
+        ValidationRuleRunners.IsNotNullOrEmpty(
+            value,
+            key,
+            Error.IsNotNull(key),
+            null,
+            this.PublishException,
+            isCustomMessage: true);
         return this;
     }
 
@@ -90,12 +117,16 @@ public partial class ValidationRulesException<T>
     /// <param name="key">The key representing the field in the object being validated.</param>
     /// <param name="value">The string value to be validated.</param>
     /// <param name="message">The custom error message to be used in the domain exception if validation fails.</param>
-    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    /// <returns>The current instance of <see cref="ValidationRulesException{T}"/> after performing the validation.</returns>
     public ValidationRulesException<T> IsNotNull(string key, string value, string message)
     {
-        if (string.IsNullOrEmpty(value))
-            PublishException(new DomainException(key, message));
-        
+        ValidationRuleRunners.IsNotNullOrEmpty(
+            value,
+            key,
+            message,
+            null,
+            this.PublishException,
+            isCustomMessage: true);
         return this;
     }
     
@@ -104,12 +135,16 @@ public partial class ValidationRulesException<T>
     /// </summary>
     /// <param name="key">The key associated with the value being validated.</param>
     /// <param name="value">The string value to be validated.</param>
-    /// <returns>The current instance of <see cref="ValidationRules{T}"/> for method chaining.</returns>
+    /// <returns>The current instance of <see cref="ValidationRulesException{T}"/> for method chaining.</returns>
     public ValidationRulesException<T> IsNotNullOrEmpty(string key, string value)
     {
-        if (string.IsNullOrEmpty(value))
-            PublishException(new DomainException(Error.IsNotNullOrEmpty(key)));
-        
+        ValidationRuleRunners.IsNotNullOrEmpty(
+            value,
+            key,
+            Error.IsNotNullOrEmpty(key),
+            null,
+            this.PublishException,
+            isCustomMessage: true);
         return this;
     }
     
@@ -119,12 +154,16 @@ public partial class ValidationRulesException<T>
     /// <param name="key">The key associated with the value being validated.</param>
     /// <param name="value">The string value to be validated.</param>
     /// <param name="message">The custom message for the domain exception if the validation fails.</param>
-    /// <returns>The current instance of <see cref="ValidationRules{T}"/> for method chaining.</returns>
+    /// <returns>The current instance of <see cref="ValidationRulesException{T}"/> for method chaining.</returns>
     public ValidationRulesException<T> IsNotNullOrEmpty(string key, string value, string message)
     {
-        if (string.IsNullOrEmpty(value))
-            PublishException(new DomainException(key, message));
-        
+        ValidationRuleRunners.IsNotNullOrEmpty(
+            value,
+            key,
+            message,
+            null,
+            this.PublishException,
+            isCustomMessage: true);
         return this;
     }
 
@@ -134,12 +173,16 @@ public partial class ValidationRulesException<T>
     /// </summary>
     /// <param name="key">The key representing the field in the object being validated.</param>
     /// <param name="value">The string value to be validated.</param>
-    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    /// <returns>The current instance of <see cref="ValidationRulesException{T}"/> after performing the validation.</returns>
     public ValidationRulesException<T> IsNull(string key, string value)
     {
-        if (string.IsNullOrEmpty(value))
-            PublishException(new DomainException(Error.IsNull(key)));
-        
+        ValidationRuleRunners.IsNullOrEmpty(
+            value,
+            key,
+            Error.IsNull(key),
+            null,
+            this.PublishException,
+            isCustomMessage: true);
         return this;
     }
 
@@ -150,12 +193,16 @@ public partial class ValidationRulesException<T>
     /// <param name="key">The key representing the field in the object being validated.</param>
     /// <param name="value">The string value to be validated.</param>
     /// <param name="message">The custom error message to be used in the domain exception if validation fails.</param>
-    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    /// <returns>The current instance of <see cref="ValidationRulesException{T}"/> after performing the validation.</returns>
     public ValidationRulesException<T> IsNull(string key, string value, string message)
     {
-        if (string.IsNullOrEmpty(value))
-            PublishException(new DomainException(key, message));
-        
+        ValidationRuleRunners.IsNullOrEmpty(
+            value,
+            key,
+            message,
+            null,
+            this.PublishException,
+            isCustomMessage: true);
         return this;
     }
 
@@ -165,12 +212,16 @@ public partial class ValidationRulesException<T>
     /// </summary>
     /// <param name="key">The key representing the field in the object being validated.</param>
     /// <param name="value">The string value to be validated.</param>
-    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    /// <returns>The current instance of <see cref="ValidationRulesException{T}"/> after performing the validation.</returns>
     public ValidationRulesException<T> IsNullOrEmpty(string key, string value)
     {
-        if (string.IsNullOrEmpty(value))
-            PublishException(new DomainException(key, Error.IsNullOrEmpty(key)));
-        
+        ValidationRuleRunners.IsNullOrEmpty(
+            value,
+            key,
+            Error.IsNullOrEmpty(key),
+            null,
+            this.PublishException,
+            isCustomMessage: true);
         return this;
     }
 
@@ -181,12 +232,16 @@ public partial class ValidationRulesException<T>
     /// <param name="key">The key representing the field in the object being validated.</param>
     /// <param name="value">The string value to be validated.</param>
     /// <param name="message">The custom error message to be used in the domain exception if validation fails.</param>
-    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    /// <returns>The current instance of <see cref="ValidationRulesException{T}"/> after performing the validation.</returns>
     public ValidationRulesException<T> IsNullOrEmpty(string key, string value, string message)
     {
-        if (string.IsNullOrEmpty(value))
-            PublishException(new DomainException(key, message));
-        
+        ValidationRuleRunners.IsNullOrEmpty(
+            value,
+            key,
+            message,
+            null,
+            this.PublishException,
+            isCustomMessage: true);
         return this;
     }
 
@@ -196,12 +251,16 @@ public partial class ValidationRulesException<T>
     /// </summary>
     /// <param name="key">The key representing the field in the object being validated.</param>
     /// <param name="value">The string value to be validated.</param>
-    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    /// <returns>The current instance of <see cref="ValidationRulesException{T}"/> after performing the validation.</returns>
     public ValidationRulesException<T> IsNullOrWhiteSpace(string key, string value)
     {
-        if (string.IsNullOrWhiteSpace(value))
-            PublishException(new DomainException(key, Error.IsNullOrWhiteSpace(key)));
-        
+        ValidationRuleRunners.IsNullOrWhiteSpace(
+            value,
+            key,
+            Error.IsNullOrWhiteSpace(key),
+            null,
+            this.PublishException,
+            isCustomMessage: true);
         return this;
     }
 
@@ -212,12 +271,16 @@ public partial class ValidationRulesException<T>
     /// <param name="key">The key representing the field in the object being validated.</param>
     /// <param name="value">The string value to be validated.</param>
     /// <param name="message">The custom error message to be used in the domain exception if validation fails.</param>
-    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    /// <returns>The current instance of <see cref="ValidationRulesException{T}"/> after performing the validation.</returns>
     public ValidationRulesException<T> IsNullOrWhiteSpace(string key, string value, string message)
     {
-        if (string.IsNullOrWhiteSpace(value))
-            PublishException(new DomainException(key, message));
-        
+        ValidationRuleRunners.IsNullOrWhiteSpace(
+            value,
+            key,
+            message,
+            null,
+            this.PublishException,
+            isCustomMessage: true);
         return this;
     }
 
@@ -228,12 +291,16 @@ public partial class ValidationRulesException<T>
     /// <param name="key">The key representing the field in the object being validated.</param>
     /// <param name="value">The value to be validated.</param>
     /// <param name="greaterThan">The integer value that the length of the key should be greater than.</param>
-    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    /// <returns>The current instance of <see cref="ValidationRulesException{T}"/> after performing the validation.</returns>
     public ValidationRulesException<T> IsLengthGreaterThan(string key, string value, int greaterThan)
     {
-        if (value.Length < greaterThan)
-            PublishException(new DomainException(Error.IsGreaterThan(key, greaterThan)));
-        
+        ValidationRuleRunners.IsLengthGreaterThan(
+            value,
+            greaterThan,
+            key,
+            Error.IsGreaterThan(key, greaterThan),
+            null,
+            this.PublishException);
         return this;
     }
 
@@ -245,12 +312,17 @@ public partial class ValidationRulesException<T>
     /// <param name="value">The string value to be validated.</param>
     /// <param name="greaterThan">The integer value that the length of the key should be greater than.</param>
     /// <param name="message">The custom error message to be used in the domain exception if validation fails.</param>
-    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    /// <returns>The current instance of <see cref="ValidationRulesException{T}"/> after performing the validation.</returns>
     public ValidationRulesException<T> IsLengthGreaterThan(string key, string value, int greaterThan, string message)
     {
-        if (value.Length < greaterThan)
-            PublishException(new DomainException(key, message));
-        
+        ValidationRuleRunners.IsLengthGreaterThan(
+            value,
+            greaterThan,
+            key,
+            message,
+            null,
+            this.PublishException,
+            isCustomMessage: true);
         return this;
     }
 
@@ -261,12 +333,16 @@ public partial class ValidationRulesException<T>
     /// <param name="key">The key representing the field in the object being validated.</param>
     /// <param name="value">The string value to be validated.</param>
     /// <param name="lowerThan">The integer value that the length of the key should be less than.</param>
-    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    /// <returns>The current instance of <see cref="ValidationRulesException{T}"/> after performing the validation.</returns>
     public ValidationRulesException<T> IsLengthLowerThan(string key, string value, int lowerThan)
     {
-        if (value.Length < lowerThan)
-            PublishException(new DomainException(Error.IsLowerThan(key, lowerThan)));
-        
+        ValidationRuleRunners.IsLengthLowerThan(
+            value,
+            lowerThan,
+            key,
+            Error.IsLowerThan(key, lowerThan),
+            null,
+            this.PublishException);
         return this;
     }
 
@@ -278,12 +354,17 @@ public partial class ValidationRulesException<T>
     /// <param name="value">The string value to be validated.</param>
     /// <param name="lowerThan">The integer value that the length of the key should be less than.</param>
     /// <param name="message">The custom error message to be used in the domain exception if validation fails.</param>
-    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    /// <returns>The current instance of <see cref="ValidationRulesException{T}"/> after performing the validation.</returns>
     public ValidationRulesException<T> IsLengthLowerThan(string key, string value, int lowerThan, string message)
     {
-        if (value.Length < lowerThan)
-            PublishException(new DomainException(key, message));
-        
+        ValidationRuleRunners.IsLengthLowerThan(
+            value,
+            lowerThan,
+            key,
+            message,
+            null,
+            this.PublishException,
+            isCustomMessage: true);
         return this;
     }
     
@@ -292,12 +373,16 @@ public partial class ValidationRulesException<T>
     /// </summary>
     /// <param name="key">The key associated with the GUID value being validated.</param>
     /// <param name="value">The GUID value to be validated.</param>
-    /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class for method chaining.</returns>
+    /// <returns>The current instance of the <see cref="ValidationRulesException{T}"/> class for method chaining.</returns>
     public ValidationRulesException<T> IsGuidNotEmpty(string key, Guid value)
     {
-        if (value == Guid.Empty)
-            PublishException(new DomainException(Error.IsNotNull(key)));
-        
+        ValidationRuleRunners.IsGuidNotEmpty(
+            value,
+            key,
+            Error.IsNotNull(key), // Original uses Error.IsNotNull for this case
+            null,
+            this.PublishException,
+            isCustomMessage: true);
         return this;
     }
     
@@ -307,12 +392,16 @@ public partial class ValidationRulesException<T>
     /// <param name="key">The key associated with the GUID value being validated.</param>
     /// <param name="value">The GUID value to be validated.</param>
     /// <param name="message">The custom message for the domain exception if the validation fails.</param>
-    /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class for method chaining.</returns>
+    /// <returns>The current instance of the <see cref="ValidationRulesException{T}"/> class for method chaining.</returns>
     public ValidationRulesException<T> IsGuidNotEmpty(string key, Guid value, string message)
     {
-        if (value == Guid.Empty)
-            PublishException(new DomainException(key, message));
-        
+        ValidationRuleRunners.IsGuidNotEmpty(
+            value,
+            key,
+            message,
+            null,
+            this.PublishException,
+            isCustomMessage: true);
         return this;
     }
     
@@ -322,12 +411,18 @@ public partial class ValidationRulesException<T>
     /// <param name="key">The key associated with the value being validated.</param>
     /// <param name="value">The value to be compared.</param>
     /// <param name="compareValue">The value to compare against.</param>
-    /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class for method chaining.</returns>
+    /// <returns>The current instance of the <see cref="ValidationRulesException{T}"/> class for method chaining.</returns>
     public ValidationRulesException<T> Compare(string key, string value, string compareValue)
     {
-        if (value != compareValue)
-            PublishException(new DomainException(Error.Compare(key, compareValue)));
-        
+        ValidationRuleRunners.Compare(
+            value,
+            compareValue,
+            key,
+            Error.Compare(key, compareValue),
+            StringComparison.Ordinal,
+            null,
+            this.PublishException,
+            isCustomMessage: true);
         return this;
     }
     
@@ -338,12 +433,18 @@ public partial class ValidationRulesException<T>
     /// <param name="value">The value to be compared.</param>
     /// <param name="compareValue">The value to compare against.</param>
     /// <param name="message">The custom message for the domain exception if the validation fails.</param>
-    /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class for method chaining.</returns>
+    /// <returns>The current instance of the <see cref="ValidationRulesException{T}"/> class for method chaining.</returns>
     public ValidationRulesException<T> Compare(string key, string value, string compareValue, string message)
     {
-        if (value != compareValue)
-            PublishException(new DomainException(key, message));
-        
+        ValidationRuleRunners.Compare(
+            value,
+            compareValue,
+            key,
+            message,
+            StringComparison.Ordinal,
+            null,
+            this.PublishException,
+            isCustomMessage: true);
         return this;
     }
     
@@ -354,12 +455,18 @@ public partial class ValidationRulesException<T>
     /// <param name="value">The value to be compared.</param>
     /// <param name="compareValue">The value to compare against.</param>
     /// <param name="comparisonType">The type of string comparison to perform.</param>
-    /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class for method chaining.</returns>
+    /// <returns>The current instance of the <see cref="ValidationRulesException{T}"/> class for method chaining.</returns>
     public ValidationRulesException<T> Compare(string key, string value, string compareValue, StringComparison comparisonType)
     {
-        if (!string.Equals(value, compareValue, comparisonType))
-            PublishException(new DomainException(Error.Compare(key, compareValue)));
-        
+        ValidationRuleRunners.Compare(
+            value,
+            compareValue,
+            key,
+            Error.Compare(key, compareValue),
+            comparisonType,
+            null,
+            this.PublishException,
+            isCustomMessage: true);
         return this;
     }
     
@@ -371,12 +478,18 @@ public partial class ValidationRulesException<T>
     /// <param name="compareValue">The value to compare against.</param>
     /// <param name="comparisonType">The type of string comparison to perform.</param>
     /// <param name="message">The custom message for the domain exception if the comparison fails.</param>
-    /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class for method chaining.</returns>
+    /// <returns>The current instance of the <see cref="ValidationRulesException{T}"/> class for method chaining.</returns>
     public ValidationRulesException<T> Compare(string key, string value, string compareValue, StringComparison comparisonType, string message)
     {
-        if (!string.Equals(value, compareValue, comparisonType))
-            PublishException(new DomainException(key, message));
-        
+        ValidationRuleRunners.Compare(
+            value,
+            compareValue,
+            key,
+            message,
+            comparisonType,
+            null,
+            this.PublishException,
+            isCustomMessage: true);
         return this;
     }
     
@@ -386,12 +499,17 @@ public partial class ValidationRulesException<T>
     /// <param name="key">The key associated with the value being validated.</param>
     /// <param name="value">The GUID value to be compared.</param>
     /// <param name="compareValue">The GUID value to compare against.</param>
-    /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class for method chaining.</returns>
+    /// <returns>The current instance of the <see cref="ValidationRulesException{T}"/> class for method chaining.</returns>
     public ValidationRulesException<T> Compare(string key, Guid value, Guid compareValue)
     {
-        if (value != compareValue)
-            PublishException(new DomainException(Error.Compare(key, compareValue)));
-        
+        ValidationRuleRunners.Compare(
+            value,
+            compareValue,
+            key,
+            Error.Compare(key, compareValue.ToString()), // Error.Compare expects string for value
+            null,
+            this.PublishException,
+            isCustomMessage: true);
         return this;
     }
     
@@ -402,12 +520,17 @@ public partial class ValidationRulesException<T>
     /// <param name="value">The GUID value to be compared.</param>
     /// <param name="compareValue">The GUID value to compare against.</param>
     /// <param name="message">The custom message for the domain exception if the comparison fails.</param>
-    /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class for method chaining.</returns>
+    /// <returns>The current instance of the <see cref="ValidationRulesException{T}"/> class for method chaining.</returns>
     public ValidationRulesException<T> Compare(string key, Guid value, Guid compareValue, string message)
     {
-        if (value != compareValue)
-            PublishException(new DomainException(key, message));
-        
+        ValidationRuleRunners.Compare(
+            value,
+            compareValue,
+            key,
+            message,
+            null,
+            this.PublishException,
+            isCustomMessage: true);
         return this;
     }
 }

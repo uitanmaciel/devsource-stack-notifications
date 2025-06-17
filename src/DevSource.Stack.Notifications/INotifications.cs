@@ -49,6 +49,7 @@ public interface INotifications
     /// Adds a formatted notification with a message and additional arguments, without a specific key.
     /// </summary>
     /// <param name="args">Additional arguments for message formatting.</param>
+    [System.Obsolete("Consider using a more specific overload, like AddNotification(string message, params object[] args) or AddNotification(string message) after formatting your arguments.")]
     void AddNotification(params object[] args);
 
     /// <summary>

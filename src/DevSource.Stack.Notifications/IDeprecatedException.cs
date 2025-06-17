@@ -1,8 +1,11 @@
-﻿namespace DevSource.Stack.Notifications;
+﻿using System;
+
+namespace DevSource.Stack.Notifications;
 
 /// <summary>
 /// Represents a contract for handling exceptions in the system.
 /// </summary>
+[Obsolete("Use IExceptionHandler instead.")]
 public interface IException
 {
     /// <summary>
@@ -55,4 +58,25 @@ public interface IException
     /// </summary>
     /// <param name="notifier">The <see cref="Notifier"/> containing the exceptions to be published.</param>
     void PublishExceptions(Notifier notifier);
+
+    /// <summary>
+    /// Gets a value indicating whether there are any exceptions present.
+    /// </summary>
+    [Obsolete("Use IExceptionHandler instead.")]
+    bool HasExceptions { get; }
+
+    /// <summary>
+    /// Throws the collected exceptions.
+    /// If only one exception is present, it's thrown directly.
+    /// If multiple exceptions are present, they are thrown as an AggregateException.
+    /// </summary>
+    /// <param name="clearExceptionsAfterThrowing">Whether to clear the exception list after throwing.</param>
+    [Obsolete("Use IExceptionHandler instead.")]
+    void ThrowCollectedExceptions(bool clearExceptionsAfterThrowing = true);
+
+    /// <summary>
+    /// Clears all collected exceptions.
+    /// </summary>
+    [Obsolete("Use IExceptionHandler instead.")]
+    void ClearExceptions();
 }

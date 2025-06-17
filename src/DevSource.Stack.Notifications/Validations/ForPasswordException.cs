@@ -1,4 +1,4 @@
-﻿using System.Text.RegularExpressions;
+﻿using DevSource.Stack.Notifications.Validations.Internal;
 
 namespace DevSource.Stack.Notifications.Validations;
 
@@ -15,9 +15,15 @@ public partial class ValidationRulesException<T>
     /// <returns>The current instance of <see cref="ValidationRulesException{T}"/> after performing the validation.</returns>
     public ValidationRulesException<T> IsPassword(string key, string password, int min)
     {
-        if (!Regex.IsMatch(password, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{" + min + ",}$"))
-            PublishException(new DomainException(key, Error.Invalid(password)));
-        
+        var regexPattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{" + min + ",}$";
+        ValidationRuleRunners.IsPassword(
+            password,
+            key,
+            regexPattern,
+            Error.Invalid(password), // Error.Invalid uses the password value
+            null,
+            this.PublishException,
+            isCustomMessage: true);
         return this;
     }
 
@@ -33,9 +39,15 @@ public partial class ValidationRulesException<T>
     /// <returns>The current instance of <see cref="ValidationRulesException{T}"/> after performing the validation.</returns>
     public ValidationRulesException<T> IsPassword(string key, string password, int min, string message)
     {
-        if (!Regex.IsMatch(password, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{" + min + ",}$"))
-            PublishException(new DomainException(key, message));
-        
+        var regexPattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{" + min + ",}$";
+        ValidationRuleRunners.IsPassword(
+            password,
+            key,
+            regexPattern,
+            message,
+            null,
+            this.PublishException,
+            isCustomMessage: true);
         return this;
     }
 }

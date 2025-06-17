@@ -4,7 +4,7 @@
 public class IsLengthLowerThanTest
 {
     [TestMethod]
-    public void WhenStringIsLowerThan_ReturnNotification()
+    public void WhenStringIsLowerThan_NotReturnNotification()
     {
         // Arrange
         // Initialize the validation rules object for a generic type
@@ -13,11 +13,11 @@ public class IsLengthLowerThanTest
         const int size = 10;
         
         // Act
-        // Validate that the value is lower than the maximum value
-        validation.IsLengthGreaterThan("Value", value, size);
+        // Validate that the value does not exceed the maximum allowable length
+        validation.IsLengthLowerThan("Value", value, size);
         
         // Assert
-        // Verify that there are no validation notifications, indicating the value is lower than the maximum value
-        Assert.IsTrue(validation.HasNotifications);
+        // Verify that there are no validation notifications, indicating the value is within the allowed maximum length
+        Assert.IsTrue(!validation.HasNotifications);
     }
 }

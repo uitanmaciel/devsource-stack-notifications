@@ -8,17 +8,6 @@
 public partial class ValidationRules<T> : Notifier
 {
     /// <summary>
-    /// Placeholder for a method that ensures a value is required.
-    /// </summary>
-    /// <returns>The current instance of <see cref="ValidationRules{T}"/>.</returns>
-    public ValidationRules<T> IsRequired(string key)
-    {
-        if (string.IsNullOrEmpty(key) || string.IsNullOrWhiteSpace(key))
-            AddNotification(new Notification(key, Error.IsRequired(key)));
-        return this;
-    }
-
-    /// <summary>
     /// Joins notifications from other notifiers to the current instance.
     /// </summary>
     /// <param name="notifiers">An array of notifiers whose notifications will be added to this instance.</param>
@@ -30,12 +19,4 @@ public partial class ValidationRules<T> : Notifier
             AddNotifications(notifier.Notifications);
         return this;
     }
-
-    /// <summary>
-    /// Retrieves the key name for a given key.
-    /// </summary>
-    /// <param name="key">The key for which the name is to be retrieved.</param>
-    /// <returns>The name of the key.</returns>
-    private string KeyName(string key)
-        => nameof(key);
 }

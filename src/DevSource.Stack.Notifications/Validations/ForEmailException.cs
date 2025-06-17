@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using DevSource.Stack.Notifications.Validations.Internal;
+using System.Text.RegularExpressions;
 
 namespace DevSource.Stack.Notifications.Validations;
 
@@ -10,12 +11,17 @@ public partial class ValidationRulesException<T>
     /// </summary>
     /// <param name="key">The key representing the email field in the object being validated.</param>
     /// <param name="value">The value of the email field in the object being validated.</param>
-    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    /// <returns>The current instance of <see cref="ValidationRulesException{T}"/> after performing the validation.</returns>
     public ValidationRulesException<T> IsEmail(string key, string value)
     {
-        if (!EmailRegex().IsMatch(value))
-            PublishException(new DomainException(key, Error.Email(value)));
-        
+        ValidationRuleRunners.IsEmail(
+            value,
+            key,
+            Error.Email(value), // This is the pre-formatted error message
+            EmailRegex().IsMatch,
+            null,
+            this.PublishException,
+            isCustomMessage: true);
         return this;
     }
 
@@ -26,12 +32,17 @@ public partial class ValidationRulesException<T>
     /// <param name="key">The key representing the email field in the object being validated.</param>
     /// <param name="value">The value of the email field in the object being validated.</param>
     /// <param name="message">The custom error message to be used in the notification if validation fails.</param>
-    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    /// <returns>The current instance of <see cref="ValidationRulesException{T}"/> after performing the validation.</returns>
     public ValidationRulesException<T> IsEmail(string key, string value, string message)
     {
-        if (!EmailRegex().IsMatch(value))
-            PublishException(new DomainException(key, message));
-        
+        ValidationRuleRunners.IsEmail(
+            value,
+            key,
+            message, // This is already a custom message
+            EmailRegex().IsMatch,
+            null,
+            this.PublishException,
+            isCustomMessage: true);
         return this;
     }
 

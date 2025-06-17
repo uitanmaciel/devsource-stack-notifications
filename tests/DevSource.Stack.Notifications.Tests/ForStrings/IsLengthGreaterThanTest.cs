@@ -9,7 +9,7 @@ public class IsLengthGreaterThanTest
         // Arrange
         // Initialize the validation rules object for a generic type
         var validation = new ValidationRules<object>();
-        const string value = "012345";
+        const string value = "01234";
         const int max = 5;
         
         // Act
