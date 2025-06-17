@@ -129,8 +129,9 @@ public partial class ValidationRules<T>
     }
 
     /// <summary>
-    /// Validates that the specified key is null or an empty string.
-    /// If the key is not null or empty, a standard notification indicating the field should be null is added.
+    /// Checks whether the provided value is <c>null</c> or an empty string.
+    /// When the value is missing, a notification is added indicating that the
+    /// field must contain data.
     /// </summary>
     /// <param name="key">The key representing the field in the object being validated.</param>
     /// <param name="value">The string value to be validated.</param>
@@ -144,12 +145,13 @@ public partial class ValidationRules<T>
     }
 
     /// <summary>
-    /// Validates that the specified key is null or an empty string, with a custom error message.
-    /// If the key is not null or empty, a custom notification is added using the provided message.
+    /// Checks whether the provided value is <c>null</c> or an empty string and
+    /// adds a notification with a custom message when the value is missing,
+    /// enforcing that the field must contain data.
     /// </summary>
     /// <param name="key">The key representing the field in the object being validated.</param>
     /// <param name="value">The string value to be validated.</param>
-    /// <param name="message">The custom error message to be used in the notification if validation fails.</param>
+    /// <param name="message">The custom error message for the notification.</param>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsNull(string key, string value, string message)
     {
@@ -160,8 +162,9 @@ public partial class ValidationRules<T>
     }
 
     /// <summary>
-    /// Validates that the specified key is null or an empty string.
-    /// If the key is not null and not empty, a standard notification indicating the field should be null or empty is added.
+    /// Validates that the provided value is <c>null</c> or an empty string. If
+    /// the value is missing, a notification is added requiring the field to
+    /// contain data.
     /// </summary>
     /// <param name="key">The key representing the field in the object being validated.</param>
     /// <param name="value">The string value to be validated.</param>
@@ -175,12 +178,13 @@ public partial class ValidationRules<T>
     }
 
     /// <summary>
-    /// Validates that the specified key is null or an empty string, with a custom error message.
-    /// If the key is not null and not empty, a custom notification is added using the provided message.
+    /// Validates that the provided value is <c>null</c> or empty and adds a
+    /// notification with a custom message when it is, ensuring that the field
+    /// must contain data.
     /// </summary>
     /// <param name="key">The key representing the field in the object being validated.</param>
     /// <param name="value">The string value to be validated.</param>
-    /// <param name="message">The custom error message to be used in the notification if validation fails.</param>
+    /// <param name="message">The custom error message for the notification.</param>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsNullOrEmpty(string key, string value, string message)
     {
@@ -191,8 +195,9 @@ public partial class ValidationRules<T>
     }
 
     /// <summary>
-    /// Validates that the specified key is null, an empty string, or consists only of white-space characters.
-    /// If the key is not null, not empty, and not just white-space, a standard notification indicating the field should be null or white-space is added.
+    /// Determines whether the provided value is <c>null</c>, empty or contains
+    /// only white-space characters. When such a value is detected, a
+    /// notification is added indicating the field must have a value.
     /// </summary>
     /// <param name="key">The key representing the field in the object being validated.</param>
     /// <param name="value">The string value to be validated.</param>
@@ -206,12 +211,13 @@ public partial class ValidationRules<T>
     }
 
     /// <summary>
-    /// Validates that the specified key is null, an empty string, or consists only of white-space characters, with a custom error message.
-    /// If the key is not null, not empty, and not just white-space, a custom notification is added using the provided message.
+    /// Determines whether the provided value is <c>null</c>, empty or consists
+    /// solely of white-space characters and, if so, adds a notification using
+    /// the supplied message to require that the field be populated.
     /// </summary>
     /// <param name="key">The key representing the field in the object being validated.</param>
     /// <param name="value">The string value to be validated.</param>
-    /// <param name="message">The custom error message to be used in the notification if validation fails.</param>
+    /// <param name="message">The custom error message for the notification.</param>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsNullOrWhiteSpace(string key, string value, string message)
     {
