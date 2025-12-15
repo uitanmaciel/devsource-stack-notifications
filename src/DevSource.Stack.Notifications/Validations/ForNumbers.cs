@@ -1,6 +1,4 @@
-﻿using DevSource.Stack.Notifications.Validations.Internal; 
-
-namespace DevSource.Stack.Notifications.Validations;
+﻿namespace DevSource.Stack.Notifications.Validations;
 
 public partial class ValidationRules<T>
 {
@@ -13,7 +11,9 @@ public partial class ValidationRules<T>
     /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
     public ValidationRules<T> IsGreaterThan(string key, double value, double comparer)
     {
-        ValidationRuleRunners.IsGreaterThan(value, comparer, key, Error.IsGreaterThan(key, comparer), AddNotification, null, isCustomMessage: true);
+        if(value < comparer)
+            AddNotification(new Notification(Error.IsGreaterThan(key, comparer)));
+
         return this;
     }
 
@@ -27,7 +27,9 @@ public partial class ValidationRules<T>
     /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
     public ValidationRules<T> IsGreaterThan(string key, double value, double comparer, string message)
     {
-        ValidationRuleRunners.IsGreaterThan(value, comparer, key, message, AddNotification, null, isCustomMessage: true);
+        if(value < comparer)
+            AddNotification(new Notification(key, message));
+
         return this;
     }
 
@@ -40,7 +42,9 @@ public partial class ValidationRules<T>
     /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
     public ValidationRules<T> IsGreaterThan(string key, int value, int comparer)
     {
-        ValidationRuleRunners.IsGreaterThan(value, comparer, key, Error.IsGreaterThan(key, comparer), AddNotification, null, isCustomMessage: true);
+        if(value < comparer)
+            AddNotification(new Notification(Error.IsGreaterThan(key, comparer)));
+
         return this;
     }
 
@@ -54,7 +58,9 @@ public partial class ValidationRules<T>
     /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
     public ValidationRules<T> IsGreaterThan(string key, int value, int comparer, string message)
     {
-        ValidationRuleRunners.IsGreaterThan(value, comparer, key, message, AddNotification, null, isCustomMessage: true);
+         if(value < comparer)
+            AddNotification(new Notification(key, message));
+
         return this;
     }
 
@@ -67,7 +73,9 @@ public partial class ValidationRules<T>
     /// <returns>An instance of <see cref="ValidationRules{T}"/> to enable method chaining for additional validations.</returns>
     public ValidationRules<T> IsGreaterThan(string key, decimal value, decimal comparer)
     {
-        ValidationRuleRunners.IsGreaterThan(value, comparer, key, Error.IsGreaterThan(key, comparer), AddNotification, null, isCustomMessage: true);
+        if(value < comparer)
+            AddNotification(new Notification(Error.IsGreaterThan(key, comparer)));
+
         return this;
     }
 
@@ -81,7 +89,9 @@ public partial class ValidationRules<T>
     /// <returns>An instance of <see cref="ValidationRules{T}"/> enabling method chaining.</returns>
     public ValidationRules<T> IsGreaterThan(string key, decimal value, decimal comparer, string message)
     {
-        ValidationRuleRunners.IsGreaterThan(value, comparer, key, message, AddNotification, null, isCustomMessage: true);
+        if(value < comparer)
+            AddNotification(new Notification(key, message));
+
         return this;
     }
 
@@ -94,7 +104,9 @@ public partial class ValidationRules<T>
     /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
     public ValidationRules<T> IsLowerThan(string key, double value, double comparer)
     {
-        ValidationRuleRunners.IsLowerThan(value, comparer, key, Error.IsLowerThan(key, comparer), AddNotification, null, isCustomMessage: true);
+        if(value > comparer)
+            AddNotification(new Notification(Error.IsLowerThan(key, comparer)));
+        
         return this;
     }
 
@@ -108,7 +120,9 @@ public partial class ValidationRules<T>
     /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
     public ValidationRules<T> IsLowerThan(string key, double value, double comparer, string message)
     {
-        ValidationRuleRunners.IsLowerThan(value, comparer, key, message, AddNotification, null, isCustomMessage: true);
+        if(value > comparer)
+            AddNotification(new Notification(key, message));
+        
         return this;
     }
 
@@ -121,7 +135,9 @@ public partial class ValidationRules<T>
     /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
     public ValidationRules<T> IsLowerThan(string key, int value, int comparer)
     {
-        ValidationRuleRunners.IsLowerThan(value, comparer, key, Error.IsLowerThan(key, comparer), AddNotification, null, isCustomMessage: true);
+        if(value > comparer)
+            AddNotification(new Notification(Error.IsLowerThan(key, comparer)));
+        
         return this;
     }
 
@@ -135,7 +151,9 @@ public partial class ValidationRules<T>
     /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
     public ValidationRules<T> IsLowerThan(string key, int value, int comparer, string message)
     {
-        ValidationRuleRunners.IsLowerThan(value, comparer, key, message, AddNotification, null, isCustomMessage: true);
+        if(value > comparer)
+            AddNotification(new Notification(key, message));
+        
         return this;
     }
 
@@ -148,7 +166,9 @@ public partial class ValidationRules<T>
     /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
     public ValidationRules<T> IsLowerThan(string key, decimal value, decimal comparer)
     {
-        ValidationRuleRunners.IsLowerThan(value, comparer, key, Error.IsLowerThan(key, comparer), AddNotification, null, isCustomMessage: true);
+        if(value > comparer)
+            AddNotification(new Notification(Error.IsLowerThan(key, comparer)));
+        
         return this;
     }
 
@@ -162,7 +182,9 @@ public partial class ValidationRules<T>
     /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
     public ValidationRules<T> IsLowerThan(string key, decimal value, decimal comparer, string message)
     {
-        ValidationRuleRunners.IsLowerThan(value, comparer, key, message, AddNotification, null, isCustomMessage: true);
+        if(value > comparer)
+            AddNotification(new Notification(key, message));
+        
         return this;
     }
 
@@ -176,7 +198,9 @@ public partial class ValidationRules<T>
     /// <returns>An instance of <see cref="ValidationRules{T}"/> to enable method chaining.</returns>
     public ValidationRules<T> IsBetween(string key, double value, double min, double max)
     {
-        ValidationRuleRunners.IsBetween(value, min, max, key, Error.IsBetween(key, min, max), AddNotification, null, isCustomMessage: true);
+        if(value < min || value > max)
+            AddNotification(new Notification(Error.IsBetween(key, min, max)));
+        
         return this;
     }
 
@@ -191,7 +215,9 @@ public partial class ValidationRules<T>
     /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
     public ValidationRules<T> IsBetween(string key, double value, double min, double max, string message)
     {
-        ValidationRuleRunners.IsBetween(value, min, max, key, message, AddNotification, null, isCustomMessage: true);
+        if(value < min || value > max)
+            AddNotification(new Notification(key, message));
+        
         return this;
     }
 
@@ -205,7 +231,9 @@ public partial class ValidationRules<T>
     /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
     public ValidationRules<T> IsBetween(string key, decimal value, decimal min, decimal max)
     {
-        ValidationRuleRunners.IsBetween(value, min, max, key, Error.IsBetween(key, min, max), AddNotification, null, isCustomMessage: true);
+        if(value < min || value > max)
+            AddNotification(new Notification(Error.IsBetween(key, min, max)));
+        
         return this;
     }
 
@@ -220,7 +248,9 @@ public partial class ValidationRules<T>
     /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
     public ValidationRules<T> IsBetween(string key, decimal value, decimal min, decimal max, string message)
     {
-        ValidationRuleRunners.IsBetween(value, min, max, key, message, AddNotification, null, isCustomMessage: true);
+        if(value < min || value > max)
+            AddNotification(new Notification(key, message));
+        
         return this;
     }
 
@@ -234,7 +264,9 @@ public partial class ValidationRules<T>
     /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
     public ValidationRules<T> IsBetween(string key, int value, int min, int max)
     {
-        ValidationRuleRunners.IsBetween(value, min, max, key, Error.IsBetween(key, min, max), AddNotification, null, isCustomMessage: true);
+        if(value < min || value > max)
+            AddNotification(new Notification(Error.IsBetween(key, min, max)));
+        
         return this;
     }
 
@@ -249,7 +281,9 @@ public partial class ValidationRules<T>
     /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
     public ValidationRules<T> IsBetween(string key, int value, int min, int max, string message)
     {
-        ValidationRuleRunners.IsBetween(value, min, max, key, message, AddNotification, null, isCustomMessage: true);
+         if(value < min || value > max)
+            AddNotification(new Notification(key, message));
+        
         return this;
     }
 
@@ -262,7 +296,9 @@ public partial class ValidationRules<T>
     /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
     public ValidationRules<T> Compare(string key, double value, double comparer)
     {
-        ValidationRuleRunners.Compare(value, comparer, key, Error.Compare(key, comparer), AddNotification, null, isCustomMessage: true);
+        if(value != comparer)
+            AddNotification(new Notification(Error.Compare(key, comparer)));
+        
         return this;
     }
 
@@ -276,7 +312,9 @@ public partial class ValidationRules<T>
     /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
     public ValidationRules<T> Compare(string key, double value, double comparer, string message)
     {
-        ValidationRuleRunners.Compare(value, comparer, key, message, AddNotification, null, isCustomMessage: true);
+        if(value != comparer)
+            AddNotification(new Notification(key, message));
+        
         return this;
     }
 
@@ -289,7 +327,9 @@ public partial class ValidationRules<T>
     /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
     public ValidationRules<T> Compare(string key, int value, int comparer)
     {
-        ValidationRuleRunners.Compare(value, comparer, key, Error.Compare(key, comparer), AddNotification, null, isCustomMessage: true);
+        if(value != comparer)
+            AddNotification(new Notification(Error.Compare(key, comparer)));
+        
         return this;
     }
 
@@ -303,7 +343,9 @@ public partial class ValidationRules<T>
     /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
     public ValidationRules<T> Compare(string key, int value, int comparer, string message)
     {
-        ValidationRuleRunners.Compare(value, comparer, key, message, AddNotification, null, isCustomMessage: true);
+        if(value != comparer)
+            AddNotification(new Notification(key, message));
+        
         return this;
     }
 
@@ -316,7 +358,9 @@ public partial class ValidationRules<T>
     /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
     public ValidationRules<T> Compare(string key, decimal value, decimal comparer)
     {
-        ValidationRuleRunners.Compare(value, comparer, key, Error.Compare(key, comparer), AddNotification, null, isCustomMessage: true);
+        if(value != comparer)
+            AddNotification(new Notification(Error.Compare(key, comparer)));
+        
         return this;
     }
 
@@ -330,7 +374,9 @@ public partial class ValidationRules<T>
     /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
     public ValidationRules<T> Compare(string key, decimal value, decimal comparer, string message)
     {
-        ValidationRuleRunners.Compare(value, comparer, key, message, AddNotification, null, isCustomMessage: true);
+        if(value != comparer)
+            AddNotification(new Notification(key, message));
+        
         return this;
     }
 }

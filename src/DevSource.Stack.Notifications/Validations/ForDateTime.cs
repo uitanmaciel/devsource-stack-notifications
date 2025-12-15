@@ -1,6 +1,4 @@
-﻿using DevSource.Stack.Notifications.Validations.Internal;
-
-namespace DevSource.Stack.Notifications.Validations;
+﻿namespace DevSource.Stack.Notifications.Validations;
 
 public partial class ValidationRules<T>
 {
@@ -17,15 +15,10 @@ public partial class ValidationRules<T>
     public ValidationRules<T> IsDateBetween(string key, string value, DateTime from, DateTime to)
     {
         var dt = ConvertDateTime(value);
-        // If dt is default(DateTime) due to parsing error, ConvertDateTime already added notification.
-        // Only proceed if dt is not default, or if ConvertDateTime behavior changes.
-        // For now, assume ConvertDateTime handles its own notification and we can proceed.
-        // A more robust approach might involve TryParse in ConvertDateTime and then conditional call here.
-        if (dt != default(DateTime)) // Check if parsing was successful (basic check)
-        {
-            ValidationRuleRunners.IsDateBetween(
-                dt, from, to, key, Error.IsDateBetween(key, from, to), this.AddNotification, null, isCustomMessage: true);
-        }
+        
+        if(dt < from || dt > to)
+            AddNotification(new Notification(key, Error.IsDateBetween(key, from, to)));
+
         return this;
     }
 
@@ -41,8 +34,9 @@ public partial class ValidationRules<T>
     /// </returns>
     public ValidationRules<T> IsDateBetween(string key, DateTime value, DateTime from, DateTime to)
     {
-        ValidationRuleRunners.IsDateBetween(
-            value, from, to, key, Error.IsDateBetween(key, from, to), this.AddNotification, null, isCustomMessage: true);
+        if(value < from || value > to)
+            AddNotification(new Notification(key, Error.IsDateBetween(key, from, to)));
+
         return this;
     }
     
@@ -58,14 +52,10 @@ public partial class ValidationRules<T>
     public ValidationRules<T> IsDayOfWeek(string key, string value, DayOfWeek dayOfWeek)
     {
         var dt = ConvertDateTime(value);
-        if (dt != default(DateTime))
-        {
-            // Error.IsDayOfWeek(value, dayOfWeek) uses the original string 'value' in its message.
-            // The runner expects the error message to be a template or a fully custom message.
-            // We should pass the pre-formatted message from Error.cs.
-            ValidationRuleRunners.IsDayOfWeek(
-                dt, dayOfWeek, key, Error.IsDayOfWeek(value, dayOfWeek), this.AddNotification, null, isCustomMessage: true);
-        }
+        
+        if(dt.DayOfWeek != dayOfWeek)
+            AddNotification(new Notification(key, Error.IsDayOfWeek(value, dayOfWeek)));
+
         return this;
     }
 
@@ -78,10 +68,9 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class.</returns>
     public ValidationRules<T> IsDayOfWeek(string key, DateTime value, DayOfWeek dayOfWeek)
     {
-        // Error.IsDayOfWeek(value, dayOfWeek) - 'value' here is DateTime, but Error.IsDayOfWeek expects string for the value part of message.
-        // Let's use the overload Error.IsDayOfWeek(key, dayOfWeek) for more general message from Error.cs
-        ValidationRuleRunners.IsDayOfWeek(
-            value, dayOfWeek, key, Error.IsDayOfWeek(key, dayOfWeek), this.AddNotification, null, isCustomMessage: true);
+        if(value.DayOfWeek != dayOfWeek)
+            AddNotification(new Notification(key, Error.IsDayOfWeek(value, dayOfWeek)));
+
         return this;
     }
 
@@ -94,11 +83,10 @@ public partial class ValidationRules<T>
     public ValidationRules<T> IsInTheFuture(string key, string value)
     {
         var dt = ConvertDateTime(value);
-        if (dt != default(DateTime))
-        {
-            ValidationRuleRunners.IsInTheFuture(
-                dt, key, Error.IsInTheFuture(key), this.AddNotification, null, isCustomMessage: true);
-        }
+        
+        if(dt < DateTime.Now)
+            AddNotification(new Notification(key, Error.IsInTheFuture(key)));
+
         return this;
     }
 
@@ -112,8 +100,9 @@ public partial class ValidationRules<T>
     /// </returns>
     public ValidationRules<T> IsInTheFuture(string key, DateTime value)
     {
-        ValidationRuleRunners.IsInTheFuture(
-            value, key, Error.IsInTheFuture(key), this.AddNotification, null, isCustomMessage: true);
+        if(value < DateTime.Now)
+            AddNotification(new Notification(key, Error.IsInTheFuture(key)));
+
         return this;
     }
 
@@ -128,11 +117,10 @@ public partial class ValidationRules<T>
     public ValidationRules<T> IsInThePast(string key, string value)
     {
         var dt = ConvertDateTime(value);
-        if (dt != default(DateTime))
-        {
-            ValidationRuleRunners.IsInThePast(
-                dt, key, Error.IsInThePast(key), this.AddNotification, null, isCustomMessage: true);
-        }
+        
+        if(dt > DateTime.Now)
+            AddNotification(new Notification(key, Error.IsInThePast(key)));
+
         return this;
     }
 
@@ -146,8 +134,9 @@ public partial class ValidationRules<T>
     /// </returns>
     public ValidationRules<T> IsInThePast(string key, DateTime value)
     {
-        ValidationRuleRunners.IsInThePast(
-            value, key, Error.IsInThePast(key), this.AddNotification, null, isCustomMessage: true);
+        if(value > DateTime.Now)
+            AddNotification(new Notification(key, Error.IsInThePast(key)));
+
         return this;
     }
     

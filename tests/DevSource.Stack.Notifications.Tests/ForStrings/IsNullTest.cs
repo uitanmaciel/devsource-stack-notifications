@@ -13,7 +13,7 @@ public class IsNullTest
         
         // Act
         // Validate that the string is not null
-        validation.IsNull("Value", value);
+        validation.IsNull("Value", value!);
         
         // Assert
         // Verify that there are no validation notifications, indicating the string is not null

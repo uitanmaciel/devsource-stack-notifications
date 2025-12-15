@@ -1,5 +1,4 @@
-﻿using DevSource.Stack.Notifications.Validations.Internal;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace DevSource.Stack.Notifications.Validations;
 
@@ -14,14 +13,9 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsEmail(string key, string value)
     {
-        ValidationRuleRunners.IsEmail(
-            value,
-            key,
-            Error.Email(value), // This is the pre-formatted error message
-            EmailRegex().IsMatch,
-            this.AddNotification,
-            null,
-            isCustomMessage: true); // Indicate that Error.Email(value) is a custom message
+        if (!EmailRegex().IsMatch(value))
+            AddNotification(new Notification(key, Error.Email(value)));
+        
         return this;
     }
 
@@ -35,14 +29,9 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsEmail(string key, string value, string message)
     {
-        ValidationRuleRunners.IsEmail(
-            value,
-            key,
-            message, // This is already a custom message
-            EmailRegex().IsMatch,
-            this.AddNotification,
-            null,
-            isCustomMessage: true);
+        if (!EmailRegex().IsMatch(value))
+            AddNotification(new Notification(key, message));
+        
         return this;
     }
 

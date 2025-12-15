@@ -201,4 +201,242 @@ public static class Error
     /// <returns>A string message indicating the comparison failure.</returns>
     public static string Compare(string key, dynamic value)
         => $"The value of field '{key}' must be equal to {value}";
+
+    /// <summary>
+    /// Creates a notification indicating that the field must have an exact length.
+    /// </summary>
+    /// <param name="key">The key identifying the field.</param>
+    /// <param name="length">The exact required length.</param>
+    /// <returns>A notification indicating the exact length requirement.</returns>
+    public static string ExactLength(string key, int length)
+        => $"The field '{key}' must have exactly {length} characters";
+
+    /// <summary>
+    /// Creates a notification indicating that the field contains invalid characters.
+    /// </summary>
+    /// <param name="key">The key identifying the field.</param>
+    /// <returns>A notification indicating invalid characters.</returns>
+    public static string ContainsInvalidCharacters(string key)
+        => $"The field '{key}' contains invalid characters";
+
+    /// <summary>
+    /// Creates a notification indicating that the field must contain only letters.
+    /// </summary>
+    /// <param name="key">The key identifying the field.</param>
+    /// <returns>A notification indicating alphabetic requirement.</returns>
+    public static string MustBeAlphabetic(string key)
+        => $"The field '{key}' must contain only letters";
+
+    /// <summary>
+    /// Creates a notification indicating that the field must be alphanumeric.
+    /// </summary>
+    /// <param name="key">The key identifying the field.</param>
+    /// <returns>A notification indicating alphanumeric requirement.</returns>
+    public static string MustBeAlphanumeric(string key)
+        => $"The field '{key}' must be alphanumeric";
+
+    /// <summary>
+    /// Creates a notification indicating that the field must contain only digits.
+    /// </summary>
+    /// <param name="key">The key identifying the field.</param>
+    /// <returns>A notification indicating numeric requirement.</returns>
+    public static string MustBeNumeric(string key)
+        => $"The field '{key}' must contain only digits";
+
+    /// <summary>
+    /// Creates a notification indicating that the field is not a valid URL.
+    /// </summary>
+    /// <param name="key">The key identifying the field.</param>
+    /// <returns>A notification indicating invalid URL.</returns>
+    public static string InvalidUrl(string key)
+        => $"The field '{key}' is not a valid URL";
+
+    /// <summary>
+    /// Creates a notification indicating that the field does not match the required pattern.
+    /// </summary>
+    /// <param name="key">The key identifying the field.</param>
+    /// <returns>A notification indicating pattern mismatch.</returns>
+    public static string PatternMismatch(string key)
+        => $"The field '{key}' does not match the required pattern";
+
+    /// <summary>
+    /// Creates a notification indicating that the field must start with a specific prefix.
+    /// </summary>
+    /// <param name="key">The key identifying the field.</param>
+    /// <param name="prefix">The required prefix.</param>
+    /// <returns>A notification indicating prefix requirement.</returns>
+    public static string MustStartWith(string key, string prefix)
+        => $"The field '{key}' must start with '{prefix}'";
+
+    /// <summary>
+    /// Creates a notification indicating that the field must end with a specific suffix.
+    /// </summary>
+    /// <param name="key">The key identifying the field.</param>
+    /// <param name="suffix">The required suffix.</param>
+    /// <returns>A notification indicating suffix requirement.</returns>
+    public static string MustEndWith(string key, string suffix)
+        => $"The field '{key}' must end with '{suffix}'";
+
+    /// <summary>
+    /// Creates a notification indicating that the field must contain a specific substring.
+    /// </summary>
+    /// <param name="key">The key identifying the field.</param>
+    /// <param name="substring">The required substring.</param>
+    /// <returns>A notification indicating contains requirement.</returns>
+    public static string MustContain(string key, string substring)
+        => $"The field '{key}' must contain '{substring}'";
+
+    /// <summary>
+    /// Creates a notification indicating that the field must be uppercase.
+    /// </summary>
+    /// <param name="key">The key identifying the field.</param>
+    /// <returns>A notification indicating uppercase requirement.</returns>
+    public static string MustBeUpperCase(string key)
+        => $"The field '{key}' must be uppercase";
+
+    /// <summary>
+    /// Creates a notification indicating that the field must be lowercase.
+    /// </summary>
+    /// <param name="key">The key identifying the field.</param>
+    /// <returns>A notification indicating lowercase requirement.</returns>
+    public static string MustBeLowerCase(string key)
+        => $"The field '{key}' must be lowercase";
+
+    /// <summary>
+    /// Creates a notification indicating that the field is not a valid CPF.
+    /// </summary>
+    /// <param name="key">The key identifying the field.</param>
+    /// <returns>A notification indicating invalid CPF.</returns>
+    public static string InvalidCpf(string key)
+        => $"The field '{key}' is not a valid CPF";
+
+    /// <summary>
+    /// Creates a notification indicating that the field is not a valid CNPJ.
+    /// </summary>
+    /// <param name="key">The key identifying the field.</param>
+    /// <returns>A notification indicating invalid CNPJ.</returns>
+    public static string InvalidCnpj(string key)
+        => $"The field '{key}' is not a valid CNPJ";
+
+    /// <summary>
+    /// Creates a notification indicating that the field is not a valid Brazilian phone number.
+    /// </summary>
+    /// <param name="key">The key identifying the field.</param>
+    /// <returns>A notification indicating invalid Brazilian phone.</returns>
+    public static string InvalidBrazilianPhone(string key)
+        => $"The field '{key}' is not a valid Brazilian phone number";
+
+    /// <summary>
+    /// Creates a notification indicating that the field is not a valid international phone number.
+    /// </summary>
+    /// <param name="key">The key identifying the field.</param>
+    /// <returns>A notification indicating invalid international phone.</returns>
+    public static string InvalidInternationalPhone(string key)
+        => $"The field '{key}' is not a valid international phone number";
+
+    /// <summary>
+    /// Creates a notification indicating that the collection must not be empty.
+    /// </summary>
+    /// <param name="key">The key identifying the field.</param>
+    /// <returns>A notification indicating the collection must not be empty.</returns>
+    public static string CollectionMustNotBeEmpty(string key)
+        => $"The field '{key}' must not be empty";
+
+    /// <summary>
+    /// Creates a notification indicating that the collection has fewer items than required.
+    /// </summary>
+    /// <param name="key">The key identifying the field.</param>
+    /// <param name="minCount">The minimum required count.</param>
+    /// <returns>A notification indicating minimum items requirement.</returns>
+    public static string CollectionMinItems(string key, int minCount)
+        => $"The field '{key}' must have at least {minCount} items";
+
+    /// <summary>
+    /// Creates a notification indicating that the collection has more items than allowed.
+    /// </summary>
+    /// <param name="key">The key identifying the field.</param>
+    /// <param name="maxCount">The maximum allowed count.</param>
+    /// <returns>A notification indicating maximum items constraint.</returns>
+    public static string CollectionMaxItems(string key, int maxCount)
+        => $"The field '{key}' must have at most {maxCount} items";
+
+    /// <summary>
+    /// Creates a notification indicating that the collection must have an exact number of items.
+    /// </summary>
+    /// <param name="key">The key identifying the field.</param>
+    /// <param name="exactCount">The exact required count.</param>
+    /// <returns>A notification indicating exact count requirement.</returns>
+    public static string CollectionExactItems(string key, int exactCount)
+        => $"The field '{key}' must have exactly {exactCount} items";
+
+    /// <summary>
+    /// Creates a notification indicating that the collection must contain unique items.
+    /// </summary>
+    /// <param name="key">The key identifying the field.</param>
+    /// <returns>A notification indicating uniqueness requirement.</returns>
+    public static string CollectionMustHaveUniqueItems(string key)
+        => $"The field '{key}' must contain unique items";
+
+    /// <summary>
+    /// Creates a notification indicating that the collection must contain a specific item.
+    /// </summary>
+    /// <param name="key">The key identifying the field.</param>
+    /// <returns>A notification indicating the item must be present.</returns>
+    public static string CollectionMustContainItem(string key)
+        => $"The field '{key}' must contain the specified item";
+
+    /// <summary>
+    /// Creates a notification indicating that the field is not a valid credit card number.
+    /// </summary>
+    /// <param name="key">The key identifying the field.</param>
+    /// <returns>A notification indicating invalid credit card.</returns>
+    public static string InvalidCreditCard(string key)
+        => $"The field '{key}' is not a valid credit card number";
+
+    /// <summary>
+    /// Creates a notification indicating that the credit card is expired.
+    /// </summary>
+    /// <returns>A notification indicating expired credit card.</returns>
+    public static string CreditCardExpired()
+        => "The credit card is expired";
+
+    /// <summary>
+    /// Creates a notification indicating that the file exceeds maximum size.
+    /// </summary>
+    /// <param name="key">The key identifying the field.</param>
+    /// <param name="maxSizeInBytes">The maximum allowed size in bytes.</param>
+    /// <returns>A notification indicating file size exceeded.</returns>
+    public static string FileMaxSizeExceeded(string key, long maxSizeInBytes)
+        => $"The field '{key}' exceeds the maximum size of {maxSizeInBytes} bytes";
+
+    /// <summary>
+    /// Creates a notification indicating that the file has an invalid extension.
+    /// </summary>
+    /// <param name="key">The key identifying the field.</param>
+    /// <param name="allowedExtensions">The allowed extensions.</param>
+    /// <returns>A notification indicating invalid file extension.</returns>
+    public static string InvalidFileExtension(string key, string allowedExtensions)
+        => $"The field '{key}' has an invalid extension. Allowed: {allowedExtensions}";
+
+    /// <summary>
+    /// Creates a notification indicating that the file has an invalid MIME type.
+    /// </summary>
+    /// <param name="key">The key identifying the field.</param>
+    /// <returns>A notification indicating invalid MIME type.</returns>
+    public static string InvalidMimeType(string key)
+        => $"The field '{key}' has an invalid MIME type";
+
+    /// <summary>
+    /// Creates a notification indicating that at least one value is required.
+    /// </summary>
+    /// <returns>A notification indicating at least one value requirement.</returns>
+    public static string RequireAtLeastOne()
+        => "At least one value is required";
+
+    /// <summary>
+    /// Creates a notification indicating that all values must be provided or none.
+    /// </summary>
+    /// <returns>A notification indicating all or none requirement.</returns>
+    public static string AllOrNone()
+        => "All values must be provided or none";
 }

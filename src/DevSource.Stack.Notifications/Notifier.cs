@@ -7,7 +7,7 @@ namespace DevSource.Stack.Notifications;
 /// Abstract base class that provides notification management functionality.
 /// Implements the <see cref="INotifications"/> interface.
 /// </summary>
-public abstract class Notifier : INotifications
+public class Notifier : INotifications
 {
     /// <summary>
     /// A list to store the notifications.

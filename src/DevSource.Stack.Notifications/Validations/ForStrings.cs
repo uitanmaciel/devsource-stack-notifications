@@ -1,7 +1,4 @@
-﻿using DevSource.Stack.Notifications.Validations.Internal; // Added this
-using System; // Added for Action
-
-namespace DevSource.Stack.Notifications.Validations;
+﻿namespace DevSource.Stack.Notifications.Validations;
 
 public partial class ValidationRules<T>
 {
@@ -15,14 +12,9 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> MaxLength(string key, string value, int maxLength)
     {
-        ValidationRuleRunners.MaxLength(
-            value,
-            maxLength,
-            key,
-            Error.MaxLength(key, maxLength),
-            this.AddNotification,
-            null,
-            isCustomMessage: true);
+        if (value.Length > maxLength)
+            AddNotification(new Notification(Error.MaxLength(key, maxLength)));
+        
         return this;
     }
 
@@ -37,14 +29,9 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> MaxLength(string key, string value, int maxLength, string message)
     {
-        ValidationRuleRunners.MaxLength(
-            value,
-            maxLength,
-            key,
-            message,
-            this.AddNotification,
-            null,
-            isCustomMessage: true);
+        if (value.Length > maxLength)
+            AddNotification(new Notification(key, message));
+        
         return this;
     }
 
@@ -58,14 +45,9 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> MinLength(string key, string value, int minLength)
     {
-        ValidationRuleRunners.MinLength(
-            value,
-            minLength,
-            key,
-            Error.MinLength(key, minLength),
-            this.AddNotification,
-            null,
-            isCustomMessage: true);
+        if (value.Length < minLength)
+            AddNotification(new Notification(Error.MinLength(key, minLength)));
+        
         return this;
     }
 
@@ -80,14 +62,9 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> MinLength(string key, string value, int minLength, string message)
     {
-        ValidationRuleRunners.MinLength(
-            value,
-            minLength,
-            key,
-            message,
-            this.AddNotification,
-            null,
-            isCustomMessage: true);
+        if (value.Length < minLength)
+            AddNotification(new Notification(key, message));
+        
         return this;
     }
 
@@ -100,14 +77,9 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsNotNull(string key, string value)
     {
-        // Original logic: AddNotification if string.IsNullOrEmpty(value) with Error.IsNotNull(key)
-        ValidationRuleRunners.IsNotNullOrEmpty(
-            value,
-            key,
-            Error.IsNotNull(key),
-            this.AddNotification,
-            null,
-            isCustomMessage: true);
+        if (string.IsNullOrEmpty(value))
+            AddNotification(new Notification(Error.IsNotNull(key)));
+        
         return this;
     }
 
@@ -121,13 +93,9 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsNotNull(string key, string value, string message)
     {
-        ValidationRuleRunners.IsNotNullOrEmpty(
-            value,
-            key,
-            message,
-            this.AddNotification,
-            null,
-            isCustomMessage: true);
+        if (string.IsNullOrEmpty(value))
+            AddNotification(new Notification(key, message));
+        
         return this;
     }
     
@@ -139,13 +107,9 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> for method chaining.</returns>
     public ValidationRules<T> IsNotNullOrEmpty(string key, string value)
     {
-        ValidationRuleRunners.IsNotNullOrEmpty(
-            value,
-            key,
-            Error.IsNotNullOrEmpty(key),
-            this.AddNotification,
-            null,
-            isCustomMessage: true);
+        if (string.IsNullOrEmpty(value))
+            AddNotification(new Notification(Error.IsNotNullOrEmpty(key)));
+        
         return this;
     }
     
@@ -158,13 +122,9 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> for method chaining.</returns>
     public ValidationRules<T> IsNotNullOrEmpty(string key, string value, string message)
     {
-        ValidationRuleRunners.IsNotNullOrEmpty(
-            value,
-            key,
-            message,
-            this.AddNotification,
-            null,
-            isCustomMessage: true);
+        if (string.IsNullOrEmpty(value))
+            AddNotification(new Notification(key, message));
+        
         return this;
     }
 
@@ -178,14 +138,9 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsNull(string key, string value)
     {
-        // Original logic: AddNotification if !string.IsNullOrEmpty(value) with Error.IsNull(key)
-        ValidationRuleRunners.IsNullOrEmpty(
-            value,
-            key,
-            Error.IsNull(key),
-            this.AddNotification,
-            null,
-            isCustomMessage: true);
+        if (!string.IsNullOrEmpty(value))
+            AddNotification(new Notification(Error.IsNull(key)));
+        
         return this;
     }
 
@@ -200,13 +155,9 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsNull(string key, string value, string message)
     {
-        ValidationRuleRunners.IsNullOrEmpty(
-            value,
-            key,
-            message,
-            this.AddNotification,
-            null,
-            isCustomMessage: true);
+        if (!string.IsNullOrEmpty(value))
+            AddNotification(new Notification(key, message));
+        
         return this;
     }
 
@@ -220,14 +171,9 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsNullOrEmpty(string key, string value)
     {
-        // Original logic: AddNotification if !string.IsNullOrEmpty(value) with Error.IsNullOrEmpty(key)
-        ValidationRuleRunners.IsNullOrEmpty(
-            value,
-            key,
-            Error.IsNullOrEmpty(key),
-            this.AddNotification,
-            null,
-            isCustomMessage: true);
+        if (!string.IsNullOrEmpty(value))
+            AddNotification(new Notification(key, Error.IsNullOrEmpty(key)));
+        
         return this;
     }
 
@@ -242,13 +188,9 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsNullOrEmpty(string key, string value, string message)
     {
-        ValidationRuleRunners.IsNullOrEmpty(
-            value,
-            key,
-            message,
-            this.AddNotification,
-            null,
-            isCustomMessage: true);
+        if (!string.IsNullOrEmpty(value))
+            AddNotification(new Notification(key, message));
+        
         return this;
     }
 
@@ -262,14 +204,9 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsNullOrWhiteSpace(string key, string value)
     {
-        // Original logic: AddNotification if !string.IsNullOrWhiteSpace(value) with Error.IsNullOrWhiteSpace(key)
-        ValidationRuleRunners.IsNullOrWhiteSpace(
-            value,
-            key,
-            Error.IsNullOrWhiteSpace(key),
-            this.AddNotification,
-            null,
-            isCustomMessage: true);
+        if (!string.IsNullOrWhiteSpace(value))
+            AddNotification(new Notification(key, Error.IsNullOrWhiteSpace(key)));
+        
         return this;
     }
 
@@ -284,97 +221,9 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsNullOrWhiteSpace(string key, string value, string message)
     {
-        ValidationRuleRunners.IsNullOrWhiteSpace(
-            value,
-            key,
-            message,
-            this.AddNotification,
-            null,
-            isCustomMessage: true);
-        return this;
-    }
-
-    /// <summary>
-    /// Validates that the length of the specified key is greater than the provided value.
-    /// If the key is null or empty, or its length is not greater than the provided value, a standard notification is added.
-    /// </summary>
-    /// <param name="key">The key representing the field in the object being validated.</param>
-    /// <param name="value">The value to be validated.</param>
-    /// <param name="greaterThan">The integer value that the length of the key should be greater than.</param>
-    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
-    public ValidationRules<T> IsLengthGreaterThan(string key, string value, int greaterThan)
-    {
-        ValidationRuleRunners.IsLengthGreaterThan(
-            value,
-            greaterThan,
-            key,
-            Error.IsGreaterThan(key, greaterThan),
-            this.AddNotification,
-            null);
-        return this;
-    }
-
-    /// <summary>
-    /// Validates that the length of the specified key is greater than the provided value, with a custom error message.
-    /// If the key is null or empty, or its length is not greater than the provided value, a custom notification is added using the provided message.
-    /// </summary>
-    /// <param name="key">The key representing the field in the object being validated.</param>
-    /// <param name="value">The string value to be validated.</param>
-    /// <param name="greaterThan">The integer value that the length of the key should be greater than.</param>
-    /// <param name="message">The custom error message to be used in the notification if validation fails.</param>
-    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
-    public ValidationRules<T> IsLengthGreaterThan(string key, string value, int greaterThan, string message)
-    {
-        ValidationRuleRunners.IsLengthGreaterThan(
-            value,
-            greaterThan,
-            key,
-            message,
-            this.AddNotification,
-            null,
-            isCustomMessage: true);
-        return this;
-    }
-
-    /// <summary>
-    /// Validates that the length of the specified key is less than the provided value.
-    /// If the key is null or empty, or its length is not less than the provided value, a standard notification is added.
-    /// </summary>
-    /// <param name="key">The key representing the field in the object being validated.</param>
-    /// <param name="value">The string value to be validated.</param>
-    /// <param name="lowerThan">The integer value that the length of the key should be less than.</param>
-    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
-    public ValidationRules<T> IsLengthLowerThan(string key, string value, int lowerThan)
-    {
-        ValidationRuleRunners.IsLengthLowerThan(
-            value,
-            lowerThan,
-            key,
-            Error.IsLowerThan(key, lowerThan),
-            this.AddNotification,
-            null);
-        return this;
-    }
-
-    /// <summary>
-    /// Validates that the length of the specified key is less than the provided value, with a custom error message.
-    /// If the key is null or empty, or its length is not less than the provided value, a custom notification is added using the provided message.
-    /// </summary>
-    /// <param name="key">The key representing the field in the object being validated.</param>
-    /// <param name="value">The string value to be validated.</param>
-    /// <param name="lowerThan">The integer value that the length of the key should be less than.</param>
-    /// <param name="message">The custom error message to be used in the notification if validation fails.</param>
-    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
-    public ValidationRules<T> IsLengthLowerThan(string key, string value, int lowerThan, string message)
-    {
-        ValidationRuleRunners.IsLengthLowerThan(
-            value,
-            lowerThan,
-            key,
-            message,
-            this.AddNotification,
-            null,
-            isCustomMessage: true);
+        if (!string.IsNullOrWhiteSpace(value))
+            AddNotification(new Notification(key, message));
+        
         return this;
     }
     
@@ -386,13 +235,9 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class for method chaining.</returns>
     public ValidationRules<T> IsGuidNotEmpty(string key, Guid value)
     {
-        ValidationRuleRunners.IsGuidNotEmpty(
-            value,
-            key,
-            Error.IsNotNull(key),
-            this.AddNotification,
-            null,
-            isCustomMessage: true); // Error.IsNotNull provides a full message
+        if (value == Guid.Empty)
+            AddNotification(new Notification(Error.IsNotNull(key)));
+        
         return this;
     }
     
@@ -405,13 +250,9 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class for method chaining.</returns>
     public ValidationRules<T> IsGuidNotEmpty(string key, Guid value, string message)
     {
-        ValidationRuleRunners.IsGuidNotEmpty(
-            value,
-            key,
-            message,
-            this.AddNotification,
-            null,
-            isCustomMessage: true);
+        if (value == Guid.Empty)
+            AddNotification(new Notification(key, message));
+        
         return this;
     }
     
@@ -424,15 +265,9 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class for method chaining.</returns>
     public ValidationRules<T> Compare(string key, string value, string compareValue)
     {
-        ValidationRuleRunners.Compare(
-            value,
-            compareValue,
-            key,
-            Error.Compare(key, compareValue),
-            StringComparison.Ordinal,
-            this.AddNotification,
-            null,
-            isCustomMessage: true);
+        if (value != compareValue)
+            AddNotification(new Notification(Error.Compare(key, compareValue)));
+        
         return this;
     }
     
@@ -446,15 +281,9 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class for method chaining.</returns>
     public ValidationRules<T> Compare(string key, string value, string compareValue, string message)
     {
-        ValidationRuleRunners.Compare(
-            value,
-            compareValue,
-            key,
-            message,
-            StringComparison.Ordinal,
-            this.AddNotification,
-            null,
-            isCustomMessage: true);
+        if (value != compareValue)
+            AddNotification(new Notification(key, message));
+        
         return this;
     }
     
@@ -468,15 +297,9 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class for method chaining.</returns>
     public ValidationRules<T> Compare(string key, string value, string compareValue, StringComparison comparisonType)
     {
-        ValidationRuleRunners.Compare(
-            value,
-            compareValue,
-            key,
-            Error.Compare(key, compareValue),
-            comparisonType,
-            this.AddNotification,
-            null,
-            isCustomMessage: true);
+        if (!string.Equals(value, compareValue, comparisonType))
+            AddNotification(new Notification(Error.Compare(key, compareValue)));
+        
         return this;
     }
     
@@ -491,15 +314,9 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class for method chaining.</returns>
     public ValidationRules<T> Compare(string key, string value, string compareValue, StringComparison comparisonType, string message)
     {
-        ValidationRuleRunners.Compare(
-            value,
-            compareValue,
-            key,
-            message,
-            comparisonType,
-            this.AddNotification,
-            null,
-            isCustomMessage: true);
+        if (!string.Equals(value, compareValue, comparisonType))
+            AddNotification(new Notification(key, message));
+        
         return this;
     }
     
@@ -512,14 +329,9 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class for method chaining.</returns>
     public ValidationRules<T> Compare(string key, Guid value, Guid compareValue)
     {
-        ValidationRuleRunners.Compare(
-            value,
-            compareValue,
-            key,
-            Error.Compare(key, compareValue.ToString()), // Error.Compare expects string for value
-            this.AddNotification,
-            null,
-            isCustomMessage: true);
+        if (value != compareValue)
+            AddNotification(new Notification(Error.Compare(key, compareValue)));
+        
         return this;
     }
     
@@ -533,14 +345,371 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class for method chaining.</returns>
     public ValidationRules<T> Compare(string key, Guid value, Guid compareValue, string message)
     {
-        ValidationRuleRunners.Compare(
-            value,
-            compareValue,
-            key,
-            message,
-            this.AddNotification,
-            null,
-            isCustomMessage: true);
+        if (value != compareValue)
+            AddNotification(new Notification(key, message));
+        
+        return this;
+    }
+
+    /// <summary>
+    /// Validates that the string has an exact length.
+    /// </summary>
+    /// <param name="key">The key representing the string field in the object being validated.</param>
+    /// <param name="value">The string value to be validated.</param>
+    /// <param name="length">The exact required length for the string.</param>
+    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    public ValidationRules<T> HasExactLength(string key, string value, int length)
+    {
+        if (value?.Length != length)
+            AddNotification(new Notification(Error.ExactLength(key, length)));
+        
+        return this;
+    }
+
+    /// <summary>
+    /// Validates that the string has an exact length, with a custom error message.
+    /// </summary>
+    /// <param name="key">The key representing the string field in the object being validated.</param>
+    /// <param name="value">The string value to be validated.</param>
+    /// <param name="length">The exact required length for the string.</param>
+    /// <param name="message">The custom error message to be used in the notification if validation fails.</param>
+    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    public ValidationRules<T> HasExactLength(string key, string value, int length, string message)
+    {
+        if (value?.Length != length)
+            AddNotification(new Notification(key, message));
+        
+        return this;
+    }
+
+    /// <summary>
+    /// Validates that the string contains only allowed characters.
+    /// </summary>
+    /// <param name="key">The key representing the string field in the object being validated.</param>
+    /// <param name="value">The string value to be validated.</param>
+    /// <param name="allowedChars">The string containing all allowed characters.</param>
+    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    public ValidationRules<T> ContainsOnly(string key, string value, string allowedChars)
+    {
+        if (value?.Any(c => !allowedChars.Contains(c)) == true)
+            AddNotification(new Notification(Error.ContainsInvalidCharacters(key)));
+        
+        return this;
+    }
+
+    /// <summary>
+    /// Validates that the string contains only allowed characters, with a custom error message.
+    /// </summary>
+    /// <param name="key">The key representing the string field in the object being validated.</param>
+    /// <param name="value">The string value to be validated.</param>
+    /// <param name="allowedChars">The string containing all allowed characters.</param>
+    /// <param name="message">The custom error message to be used in the notification if validation fails.</param>
+    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    public ValidationRules<T> ContainsOnly(string key, string value, string allowedChars, string message)
+    {
+        if (value?.Any(c => !allowedChars.Contains(c)) == true)
+            AddNotification(new Notification(key, message));
+        
+        return this;
+    }
+
+    /// <summary>
+    /// Validates that the string contains only letters.
+    /// </summary>
+    /// <param name="key">The key representing the string field in the object being validated.</param>
+    /// <param name="value">The string value to be validated.</param>
+    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    public ValidationRules<T> IsAlphabetic(string key, string value)
+    {
+        if (string.IsNullOrEmpty(value) || !value.All(char.IsLetter))
+            AddNotification(new Notification(Error.MustBeAlphabetic(key)));
+        
+        return this;
+    }
+
+    /// <summary>
+    /// Validates that the string contains only letters, with a custom error message.
+    /// </summary>
+    /// <param name="key">The key representing the string field in the object being validated.</param>
+    /// <param name="value">The string value to be validated.</param>
+    /// <param name="message">The custom error message to be used in the notification if validation fails.</param>
+    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    public ValidationRules<T> IsAlphabetic(string key, string value, string message)
+    {
+        if (string.IsNullOrEmpty(value) || !value.All(char.IsLetter))
+            AddNotification(new Notification(key, message));
+        
+        return this;
+    }
+
+    /// <summary>
+    /// Validates that the string is alphanumeric (contains only letters and digits).
+    /// </summary>
+    /// <param name="key">The key representing the string field in the object being validated.</param>
+    /// <param name="value">The string value to be validated.</param>
+    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    public ValidationRules<T> IsAlphanumeric(string key, string value)
+    {
+        if (string.IsNullOrEmpty(value) || !value.All(char.IsLetterOrDigit))
+            AddNotification(new Notification(Error.MustBeAlphanumeric(key)));
+        
+        return this;
+    }
+
+    /// <summary>
+    /// Validates that the string is alphanumeric (contains only letters and digits), with a custom error message.
+    /// </summary>
+    /// <param name="key">The key representing the string field in the object being validated.</param>
+    /// <param name="value">The string value to be validated.</param>
+    /// <param name="message">The custom error message to be used in the notification if validation fails.</param>
+    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    public ValidationRules<T> IsAlphanumeric(string key, string value, string message)
+    {
+        if (string.IsNullOrEmpty(value) || !value.All(char.IsLetterOrDigit))
+            AddNotification(new Notification(key, message));
+        
+        return this;
+    }
+
+    /// <summary>
+    /// Validates that the string contains only digits.
+    /// </summary>
+    /// <param name="key">The key representing the string field in the object being validated.</param>
+    /// <param name="value">The string value to be validated.</param>
+    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    public ValidationRules<T> IsNumeric(string key, string value)
+    {
+        if (string.IsNullOrEmpty(value) || !value.All(char.IsDigit))
+            AddNotification(new Notification(Error.MustBeNumeric(key)));
+        
+        return this;
+    }
+
+    /// <summary>
+    /// Validates that the string contains only digits, with a custom error message.
+    /// </summary>
+    /// <param name="key">The key representing the string field in the object being validated.</param>
+    /// <param name="value">The string value to be validated.</param>
+    /// <param name="message">The custom error message to be used in the notification if validation fails.</param>
+    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    public ValidationRules<T> IsNumeric(string key, string value, string message)
+    {
+        if (string.IsNullOrEmpty(value) || !value.All(char.IsDigit))
+            AddNotification(new Notification(key, message));
+        
+        return this;
+    }
+
+    /// <summary>
+    /// Validates that the string is a valid URL.
+    /// </summary>
+    /// <param name="key">The key representing the string field in the object being validated.</param>
+    /// <param name="value">The string value to be validated.</param>
+    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    public ValidationRules<T> IsUrl(string key, string value)
+    {
+        if (!Uri.TryCreate(value, UriKind.Absolute, out var uri) || 
+            (uri.Scheme != Uri.UriSchemeHttp && uri.Scheme != Uri.UriSchemeHttps))
+            AddNotification(new Notification(Error.InvalidUrl(key)));
+        
+        return this;
+    }
+
+    /// <summary>
+    /// Validates that the string is a valid URL, with a custom error message.
+    /// </summary>
+    /// <param name="key">The key representing the string field in the object being validated.</param>
+    /// <param name="value">The string value to be validated.</param>
+    /// <param name="message">The custom error message to be used in the notification if validation fails.</param>
+    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    public ValidationRules<T> IsUrl(string key, string value, string message)
+    {
+        if (!Uri.TryCreate(value, UriKind.Absolute, out var uri) || 
+            (uri.Scheme != Uri.UriSchemeHttp && uri.Scheme != Uri.UriSchemeHttps))
+            AddNotification(new Notification(key, message));
+        
+        return this;
+    }
+
+    /// <summary>
+    /// Validates that the string matches a specific regex pattern.
+    /// </summary>
+    /// <param name="key">The key representing the string field in the object being validated.</param>
+    /// <param name="value">The string value to be validated.</param>
+    /// <param name="pattern">The regex pattern to match.</param>
+    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    public ValidationRules<T> MatchesPattern(string key, string value, string pattern)
+    {
+        if (!System.Text.RegularExpressions.Regex.IsMatch(value ?? "", pattern))
+            AddNotification(new Notification(Error.PatternMismatch(key)));
+        
+        return this;
+    }
+
+    /// <summary>
+    /// Validates that the string matches a specific regex pattern, with a custom error message.
+    /// </summary>
+    /// <param name="key">The key representing the string field in the object being validated.</param>
+    /// <param name="value">The string value to be validated.</param>
+    /// <param name="pattern">The regex pattern to match.</param>
+    /// <param name="message">The custom error message to be used in the notification if validation fails.</param>
+    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    public ValidationRules<T> MatchesPattern(string key, string value, string pattern, string message)
+    {
+        if (!System.Text.RegularExpressions.Regex.IsMatch(value ?? "", pattern))
+            AddNotification(new Notification(key, message));
+        
+        return this;
+    }
+
+    /// <summary>
+    /// Validates that the string starts with a specific prefix.
+    /// </summary>
+    /// <param name="key">The key representing the string field in the object being validated.</param>
+    /// <param name="value">The string value to be validated.</param>
+    /// <param name="prefix">The required prefix.</param>
+    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    public ValidationRules<T> StartsWith(string key, string value, string prefix)
+    {
+        if (!value?.StartsWith(prefix) == true)
+            AddNotification(new Notification(Error.MustStartWith(key, prefix)));
+        
+        return this;
+    }
+
+    /// <summary>
+    /// Validates that the string starts with a specific prefix, with a custom error message.
+    /// </summary>
+    /// <param name="key">The key representing the string field in the object being validated.</param>
+    /// <param name="value">The string value to be validated.</param>
+    /// <param name="prefix">The required prefix.</param>
+    /// <param name="message">The custom error message to be used in the notification if validation fails.</param>
+    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    public ValidationRules<T> StartsWith(string key, string value, string prefix, string message)
+    {
+        if (!value?.StartsWith(prefix) == true)
+            AddNotification(new Notification(key, message));
+        
+        return this;
+    }
+
+    /// <summary>
+    /// Validates that the string ends with a specific suffix.
+    /// </summary>
+    /// <param name="key">The key representing the string field in the object being validated.</param>
+    /// <param name="value">The string value to be validated.</param>
+    /// <param name="suffix">The required suffix.</param>
+    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    public ValidationRules<T> EndsWith(string key, string value, string suffix)
+    {
+        if (!value?.EndsWith(suffix) == true)
+            AddNotification(new Notification(Error.MustEndWith(key, suffix)));
+        
+        return this;
+    }
+
+    /// <summary>
+    /// Validates that the string ends with a specific suffix, with a custom error message.
+    /// </summary>
+    /// <param name="key">The key representing the string field in the object being validated.</param>
+    /// <param name="value">The string value to be validated.</param>
+    /// <param name="suffix">The required suffix.</param>
+    /// <param name="message">The custom error message to be used in the notification if validation fails.</param>
+    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    public ValidationRules<T> EndsWith(string key, string value, string suffix, string message)
+    {
+        if (!value?.EndsWith(suffix) == true)
+            AddNotification(new Notification(key, message));
+        
+        return this;
+    }
+
+    /// <summary>
+    /// Validates that the string contains a specific substring.
+    /// </summary>
+    /// <param name="key">The key representing the string field in the object being validated.</param>
+    /// <param name="value">The string value to be validated.</param>
+    /// <param name="substring">The required substring.</param>
+    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    public ValidationRules<T> Contains(string key, string value, string substring)
+    {
+        if (!value?.Contains(substring) == true)
+            AddNotification(new Notification(Error.MustContain(key, substring)));
+        
+        return this;
+    }
+
+    /// <summary>
+    /// Validates that the string contains a specific substring, with a custom error message.
+    /// </summary>
+    /// <param name="key">The key representing the string field in the object being validated.</param>
+    /// <param name="value">The string value to be validated.</param>
+    /// <param name="substring">The required substring.</param>
+    /// <param name="message">The custom error message to be used in the notification if validation fails.</param>
+    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    public ValidationRules<T> Contains(string key, string value, string substring, string message)
+    {
+        if (!value?.Contains(substring) == true)
+            AddNotification(new Notification(key, message));
+        
+        return this;
+    }
+
+    /// <summary>
+    /// Validates that the string is uppercase.
+    /// </summary>
+    /// <param name="key">The key representing the string field in the object being validated.</param>
+    /// <param name="value">The string value to be validated.</param>
+    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    public ValidationRules<T> IsUpperCase(string key, string value)
+    {
+        if (value != value?.ToUpper())
+            AddNotification(new Notification(Error.MustBeUpperCase(key)));
+        
+        return this;
+    }
+
+    /// <summary>
+    /// Validates that the string is uppercase, with a custom error message.
+    /// </summary>
+    /// <param name="key">The key representing the string field in the object being validated.</param>
+    /// <param name="value">The string value to be validated.</param>
+    /// <param name="message">The custom error message to be used in the notification if validation fails.</param>
+    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    public ValidationRules<T> IsUpperCase(string key, string value, string message)
+    {
+        if (value != value?.ToUpper())
+            AddNotification(new Notification(key, message));
+        
+        return this;
+    }
+
+    /// <summary>
+    /// Validates that the string is lowercase.
+    /// </summary>
+    /// <param name="key">The key representing the string field in the object being validated.</param>
+    /// <param name="value">The string value to be validated.</param>
+    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    public ValidationRules<T> IsLowerCase(string key, string value)
+    {
+        if (value != value?.ToLower())
+            AddNotification(new Notification(Error.MustBeLowerCase(key)));
+        
+        return this;
+    }
+
+    /// <summary>
+    /// Validates that the string is lowercase, with a custom error message.
+    /// </summary>
+    /// <param name="key">The key representing the string field in the object being validated.</param>
+    /// <param name="value">The string value to be validated.</param>
+    /// <param name="message">The custom error message to be used in the notification if validation fails.</param>
+    /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
+    public ValidationRules<T> IsLowerCase(string key, string value, string message)
+    {
+        if (value != value?.ToLower())
+            AddNotification(new Notification(key, message));
+        
         return this;
     }
 }
