@@ -17,15 +17,13 @@ public partial class ValidationRules<T>
             AddNotification(new Notification(Error.InvalidCpf(key)));
             return this;
         }
-
-        // Verifica se todos os dígitos são iguais
+        
         if (cpf.Distinct().Count() == 1)
         {
             AddNotification(new Notification(Error.InvalidCpf(key)));
             return this;
         }
-
-        // Validação dos dígitos verificadores
+        
         var tempCpf = cpf.Substring(0, 9);
         var sum = 0;
 
@@ -66,15 +64,13 @@ public partial class ValidationRules<T>
             AddNotification(new Notification(key, message));
             return this;
         }
-
-        // Verifica se todos os dígitos são iguais
+        
         if (cpf.Distinct().Count() == 1)
         {
             AddNotification(new Notification(key, message));
             return this;
         }
-
-        // Validação dos dígitos verificadores
+        
         var tempCpf = cpf.Substring(0, 9);
         var sum = 0;
 
@@ -114,15 +110,13 @@ public partial class ValidationRules<T>
             AddNotification(new Notification(Error.InvalidCnpj(key)));
             return this;
         }
-
-        // Verifica se todos os dígitos são iguais
+        
         if (cnpj.Distinct().Count() == 1)
         {
             AddNotification(new Notification(Error.InvalidCnpj(key)));
             return this;
         }
-
-        // Validação dos dígitos verificadores
+        
         int[] multiplier1 = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
         int[] multiplier2 = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
 
@@ -166,15 +160,13 @@ public partial class ValidationRules<T>
             AddNotification(new Notification(key, message));
             return this;
         }
-
-        // Verifica se todos os dígitos são iguais
+        
         if (cnpj.Distinct().Count() == 1)
         {
             AddNotification(new Notification(key, message));
             return this;
         }
-
-        // Validação dos dígitos verificadores
+       
         int[] multiplier1 = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
         int[] multiplier2 = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
 

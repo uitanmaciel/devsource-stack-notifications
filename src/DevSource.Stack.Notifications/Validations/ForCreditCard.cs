@@ -17,8 +17,7 @@ public partial class ValidationRules<T>
             AddNotification(new Notification(Error.InvalidCreditCard(key)));
             return this;
         }
-
-        // Luhn Algorithm
+        
         int sum = 0;
         bool alternate = false;
         
@@ -59,8 +58,7 @@ public partial class ValidationRules<T>
             AddNotification(new Notification(key, message));
             return this;
         }
-
-        // Luhn Algorithm
+        
         int sum = 0;
         bool alternate = false;
         
