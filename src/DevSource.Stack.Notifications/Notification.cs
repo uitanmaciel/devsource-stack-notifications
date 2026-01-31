@@ -8,7 +8,7 @@ public class Notification
     /// <summary>
     /// Gets or sets the key associated with the notification.
     /// </summary>
-    public string Key { get; set; } = null!;
+    public string? Key { get; set; }
     
     /// <summary>
     /// Gets or sets the message associated with the notification.

@@ -13,6 +13,8 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsEmail(string key, string value)
     {
+        if (string.IsNullOrEmpty(value)) return this;
+
         if (!EmailRegex().IsMatch(value))
             AddNotification(new Notification(key, Error.Email(value)));
         
@@ -29,6 +31,8 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsEmail(string key, string value, string message)
     {
+        if (string.IsNullOrEmpty(value)) return this;
+
         if (!EmailRegex().IsMatch(value))
             AddNotification(new Notification(key, message));
         

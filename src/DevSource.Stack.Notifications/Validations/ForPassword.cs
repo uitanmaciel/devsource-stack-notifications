@@ -15,6 +15,8 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsPassword(string key, string password, int min)
     {
+        if (string.IsNullOrEmpty(password)) return this;
+
         if (!Regex.IsMatch(password, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{" + min + ",}$"))
             AddNotification(new Notification(key, Error.Invalid(password)));
         
@@ -33,6 +35,8 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsPassword(string key, string password, int min, string message)
     {
+        if (string.IsNullOrEmpty(password)) return this;
+
         if (!Regex.IsMatch(password, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{" + min + ",}$"))
             AddNotification(new Notification(key, message));
         

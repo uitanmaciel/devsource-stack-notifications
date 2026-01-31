@@ -12,6 +12,8 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> MaxLength(string key, string value, int maxLength)
     {
+        if (string.IsNullOrEmpty(value)) return this;
+
         if (value.Length > maxLength)
             AddNotification(new Notification(Error.MaxLength(key, maxLength)));
         
@@ -29,6 +31,8 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> MaxLength(string key, string value, int maxLength, string message)
     {
+        if (string.IsNullOrEmpty(value)) return this;
+
         if (value.Length > maxLength)
             AddNotification(new Notification(key, message));
         
@@ -45,6 +49,8 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> MinLength(string key, string value, int minLength)
     {
+        if (string.IsNullOrEmpty(value)) return this;
+
         if (value.Length < minLength)
             AddNotification(new Notification(Error.MinLength(key, minLength)));
         
@@ -62,6 +68,8 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> MinLength(string key, string value, int minLength, string message)
     {
+        if (string.IsNullOrEmpty(value)) return this;
+
         if (value.Length < minLength)
             AddNotification(new Notification(key, message));
         

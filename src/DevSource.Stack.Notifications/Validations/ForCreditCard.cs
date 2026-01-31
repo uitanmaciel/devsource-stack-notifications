@@ -91,7 +91,7 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsCreditCardNotExpired(int month, int year)
     {
-        var currentDate = DateTime.Now;
+        var currentDate = DateTime.Now.Date;
         var expirationDate = new DateTime(year, month, DateTime.DaysInMonth(year, month));
         
         if (expirationDate < currentDate)
@@ -109,7 +109,7 @@ public partial class ValidationRules<T>
     /// <returns>The current instance of <see cref="ValidationRules{T}"/> after performing the validation.</returns>
     public ValidationRules<T> IsCreditCardNotExpired(int month, int year, string message)
     {
-        var currentDate = DateTime.Now;
+        var currentDate = DateTime.Now.Date;
         var expirationDate = new DateTime(year, month, DateTime.DaysInMonth(year, month));
         
         if (expirationDate < currentDate)

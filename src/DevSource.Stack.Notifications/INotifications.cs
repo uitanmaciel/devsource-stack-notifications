@@ -62,7 +62,7 @@ public interface INotifications
     /// Adds a notification directly using a Notification object.
     /// </summary>
     /// <param name="notifier">The notifier object to add.</param>
-    void AddNotifications(Notifier notifier);
+    void AddNotifications(INotifications notifier);
 
     /// <summary>
     /// Adds multiple notifications at once from a collection of Notification objects.

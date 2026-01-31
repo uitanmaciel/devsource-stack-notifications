@@ -78,7 +78,7 @@ public class Notifier : INotifications
     /// Adds all notifications from another notifier to the system.
     /// </summary>
     /// <param name="notifier">The notifier containing the notifications to add.</param>
-    public void AddNotifications(Notifier notifier)
+    public void AddNotifications(INotifications notifier)
         => AddNotifications(notifier.Notifications);
 
     /// <summary>

@@ -12,29 +12,18 @@
     <PackageIcon>devsource-icon.jpeg</PackageIcon>
     <RepositoryUrl>https://github.com/uitanmaciel/devsource-stack-notifications</RepositoryUrl>
     <PackageTags>notifications,validation,fluent,dotnet,validator</PackageTags>
-    <Version>3.0.0</Version>
+    <Version>3.0.1</Version>
     <PackageReleaseNotes>
       <![CDATA[
-      Version 3.0.0 is a major update focused on expanding validation capabilities and improving flexibility.
+      ### Changed
+      - Refactored `INotifications.AddNotifications` and `Notifier.AddNotifications` to accept `INotifications` interface instead of the concrete `Notifier` class, improving dependency inversion and testability.
+      - Updated `ValidationRules.Join` to accept `params INotifications[]` instead of `Notifier[]`.
+      - Updated `Notification.Key` property to be nullable (`string?`) to correctly reflect that notifications can exist without a key.
 
-      ### Breaking Changes
-      - The `Notifier` class is no longer `abstract`, allowing it to be inherited by `record` types.
-      - The overloads for `RequireAtLeastOne` and `AllOrNone` that accepted a custom message have been removed to resolve a method signature conflict with `params`.
-
-      ### New Features
-      - **60+ New Validation Methods:** Massively expanded the validation library.
-      - **Brazilian Document Validation:** Added `IsCpf()` and `IsCnpj()` with full digit validation.
-      - **Phone Number Validation:** Added `IsBrazilianPhone()` and `IsInternationalPhone()`.
-      - **Collection Validations:** New methods like `IsNotEmpty()`, `HasMinItems()`, `HasMaxItems()`, `HasExactItems()`, `HasUniqueItems()`, and `ContainsItem()`.
-      - **Credit Card Validation:** Added `IsCreditCard()` (Luhn algorithm) and `IsCreditCardNotExpired()`.
-      - **File Validation:** Added `HasMaxFileSize()`, `HasValidExtension()`, and `HasValidMimeType()`.
-      - **Conditional Validation:** Added `When()`, `RequireAtLeastOne()`, and `AllOrNone()` for complex validation logic.
-      - **Expanded String Validations:** Added 12 new methods, including `IsUrl()`, `IsAlphabetic()`, `IsAlphanumeric()`, `IsNumeric()`, `MatchesPattern()`, `StartsWith()`, `EndsWith()`, `IsUpperCase()`, `IsLowerCase()`, and more.
-      - **Record Support:** `Notifier` can now be directly inherited by `record` types.
-
-      ### Other
-      - **Increased Test Coverage:** Added over 90 new unit tests, bringing the total to 130+ and ensuring high reliability.
-      - **Updated Documentation:** The `README.md` has been completely overhauled with examples for all new validations and a comprehensive API reference.
+      ### Fixed
+      - Fixed potential `NullReferenceException` in `MaxLength` and `MinLength` string validations by adding null checks.
+      - Fixed potential `ArgumentNullException` in `IsEmail` and `IsPassword` validations.
+      - Fixed `IsCreditCardNotExpired` validation logic to correctly compare dates ignoring the time component.
       ]]>
     </PackageReleaseNotes>
   </PropertyGroup>
