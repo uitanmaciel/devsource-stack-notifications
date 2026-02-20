@@ -98,7 +98,9 @@ public class User : Notifier
         AddNotifications(new ValidationRules<User>()
             .IsNotNull(nameof(Name), Name)
             .MinLength(nameof(Name), Name, 3)
+            .IsNotNullOrEmpty(nameof(Email), Email) // Required field
             .IsEmail(nameof(Email), Email)
+            .IsNotNullOrEmpty(nameof(Password), Password) // Required field
             .IsPassword(nameof(Password), Password, 8)
         );
     }
@@ -179,8 +181,9 @@ AddNotifications(new ValidationRules<Event>()
 
 ```csharp
 AddNotifications(new ValidationRules<Customer>()
+    .IsNotNullOrEmpty(nameof(Cpf), Cpf) // Required
     .IsCpf(nameof(Cpf), Cpf) // Validates CPF format and check digits
-    .IsCnpj(nameof(Cnpj), Cnpj) // Validates CNPJ format and check digits
+    .IsCnpj(nameof(Cnpj), Cnpj) // Optional: Validates CNPJ internally checks for empty
 );
 ```
 

@@ -439,4 +439,22 @@ public static class Error
     /// <returns>A notification indicating all or none requirement.</returns>
     public static string AllOrNone()
         => "All values must be provided or none";
+
+    
+    /// <summary>
+    /// Creates a notification indicating that the field must be a non-empty GUID.
+    /// </summary>
+    /// <param name="key">The key identifying the field.</param>
+    /// <returns>A notification indicating non-empty GUID requirement.</returns>
+    public static string IsGuidNotEmpty(string key)
+        => $"The field '{key}' must be a non-empty GUID";
+
+    /// <summary>
+    /// Creates a notification indicating that the field must match the required value.
+    /// </summary>
+    /// <param name="key">The key identifying the field.</param>
+    /// <param name="value">The required value that the field must match.</param>
+    /// <returns>A notification indicating that the field must match the required value.</returns>
+    public static string MustMatch(string key, dynamic value)
+        => $"The field '{key}' must match the required value '{value}'";
 }

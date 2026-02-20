@@ -49,7 +49,7 @@ public class HasValidMimeTypeTest
     }
     
     [TestMethod]
-    public void WhenMimeTypeIsNull_ReturnNotification()
+    public void WhenMimeTypeIsNull_NotReturnNotification()
     {
         // Arrange
         var validation = new ValidationRules<object>();
@@ -60,6 +60,6 @@ public class HasValidMimeTypeTest
         validation.HasValidMimeType("File", mimeType!, allowedMimeTypes);
         
         // Assert
-        Assert.IsTrue(validation.HasNotifications);
+        Assert.IsTrue(!validation.HasNotifications);
     }
 }

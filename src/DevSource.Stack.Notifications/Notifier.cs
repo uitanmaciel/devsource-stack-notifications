@@ -26,7 +26,8 @@ public class Notifier : INotifications
     /// </summary>
     [JsonIgnore]
     [NotMapped]
-    public bool HasNotifications => _notifications.Any();
+    public bool HasNotifications => _notifications.Count > 0;
+    
 
     /// <summary>
     /// Adds a notification to the system with a specific key and message.
@@ -64,15 +65,25 @@ public class Notifier : INotifications
     /// Adds a notification to the system with optional format arguments.
     /// </summary>
     /// <param name="args">Optional format arguments to be included in the message.</param>
+    [Obsolete("Consider using a more specific overload, like AddNotification(string message, params object[] args) or AddNotification(string message) after formatting your arguments.", error: false)]
     public void AddNotification(params object[] args)
-        => AddNotification(new Notification(args));
+        => AddNotification(new Notification(args));    
 
+    
     /// <summary>
-    /// Adds a notification to the system.
+    /// Adds all notifications from another notifier to the system.
     /// </summary>
     /// <param name="notification">The notification to be added.</param>
     public void AddNotification(Notification notification)
-        => _notifications.Add(notification);
+    {
+        ArgumentNullException.ThrowIfNull(notification);
+
+        if (_notifications.Any(n =>
+                n.Key == notification.Key &&
+                n.Message == notification.Message))
+            return;
+        _notifications.Add(notification);
+    }
 
     /// <summary>
     /// Adds all notifications from another notifier to the system.
@@ -86,7 +97,13 @@ public class Notifier : INotifications
     /// </summary>
     /// <param name="notifications">The collection of notifications to add.</param>
     public void AddNotifications(IEnumerable<Notification> notifications)
-        => _notifications.AddRange(notifications);
+    {
+        ArgumentNullException.ThrowIfNull(notifications);
+
+        foreach (var notification in notifications)
+            AddNotification(notification);
+    }        
+        
 
     /// <summary>
     /// Clears all the current notifications.

@@ -77,5 +77,25 @@ public partial class ValidationRules<T> : Notifier
             AddNotification(new Notification(Error.AllOrNone()));
         
         return this;
+    }    
+
+    private ValidationRules<T> IfInvalid(bool condition, string key, string message)
+    {
+        if (condition)
+            AddNotification(new Notification(key, message));
+
+        return this;
     }
+
+    private static bool IsMissing(string? value)
+        => string.IsNullOrWhiteSpace(value);
+
+    private ValidationRules<T> Notify(string key, string? message = null)
+    {
+        AddNotification(new Notification(key, message!));
+        return this;
+    }
+
+    private static string OnlyDigits(string value)
+        => new([.. value.Where(char.IsDigit).ToArray()]);
 }

@@ -3,380 +3,59 @@
 public partial class ValidationRules<T>
 {
     /// <summary>
-    /// Validates if a specified numeric value is greater than the defined comparison value.
+    /// Validates if a specified numeric value is greater than the defined comparison value.     
     /// </summary>
+    /// <typeparam name="TValue">The type of the numeric value to be validated.</typeparam>
     /// <param name="key">The identifier for the value being validated, used for notification purposes.</param>
     /// <param name="value">The numeric value that needs to be validated.</param>
     /// <param name="comparer">The numeric value used for comparison against the provided value.</param>
+    /// <param name="message">The custom error message to be associated with the validation result.</param>
     /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
-    public ValidationRules<T> IsGreaterThan(string key, double value, double comparer)
-    {
-        if(value < comparer)
-            AddNotification(new Notification(Error.IsGreaterThan(key, comparer)));
-
-        return this;
-    }
+    public ValidationRules<T> IsGreaterThan<TValue>(string key, TValue value, TValue comparer, string? message = null) where TValue : IComparable<TValue>
+        => IfInvalid(value.CompareTo(comparer) < 0,
+                     key,
+                     message ?? Error.IsGreaterThan(key, comparer));
 
     /// <summary>
-    /// Validates if the specified numeric value is greater than the defined comparison value.
+    /// Validates if a specified numeric value is greater than or equal to the defined comparison value.
     /// </summary>
-    /// <param name="key">The identifier for the value being validated, used for notification purposes.</param>
-    /// <param name="value">The numeric value that needs to be validated.</param>
-    /// <param name="comparer">The numeric value to compare against the provided value.</param>
-    /// <param name="message">A custom message to be associated with the validation result.</param>
-    /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
-    public ValidationRules<T> IsGreaterThan(string key, double value, double comparer, string message)
-    {
-        if(value < comparer)
-            AddNotification(new Notification(key, message));
-
-        return this;
-    }
-
-    /// <summary>
-    /// Validates if a specified numeric value is greater than a defined comparison value.
-    /// </summary>
-    /// <param name="key">The identifier for the value being validated, used to construct notification messages.</param>
-    /// <param name="value">The numeric value being validated.</param>
-    /// <param name="comparer">The numeric value to compare against the provided value.</param>
-    /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
-    public ValidationRules<T> IsGreaterThan(string key, int value, int comparer)
-    {
-        if(value < comparer)
-            AddNotification(new Notification(Error.IsGreaterThan(key, comparer)));
-
-        return this;
-    }
-
-    /// <summary>
-    /// Validates if a specified value is greater than the defined comparison value.
-    /// </summary>
-    /// <param name="key">The identifier for the value being validated, used for notification purposes.</param>
-    /// <param name="value">The value to validate against the comparison value.</param>
-    /// <param name="comparer">The value used for comparison against the specified value.</param>
-    /// <param name="message">A custom message to be associated with the validation result.</param>
-    /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
-    public ValidationRules<T> IsGreaterThan(string key, int value, int comparer, string message)
-    {
-         if(value < comparer)
-            AddNotification(new Notification(key, message));
-
-        return this;
-    }
-
-    /// <summary>
-    /// Validates if the specified value is greater than the provided comparison value.
-    /// </summary>
-    /// <param name="key">The unique identifier of the value being validated, used for notification purposes.</param>
-    /// <param name="value">The value that needs to be evaluated.</param>
-    /// <param name="comparer">The value to compare against.</param>
-    /// <returns>An instance of <see cref="ValidationRules{T}"/> to enable method chaining for additional validations.</returns>
-    public ValidationRules<T> IsGreaterThan(string key, decimal value, decimal comparer)
-    {
-        if(value < comparer)
-            AddNotification(new Notification(Error.IsGreaterThan(key, comparer)));
-
-        return this;
-    }
-
-    /// <summary>
-    /// Validates whether the specified numeric value is greater than the given comparison value.
-    /// </summary>
-    /// <param name="key">A unique identifier for the item being validated, used for notification tracking.</param>
-    /// <param name="value">The numeric value to be evaluated.</param>
-    /// <param name="comparer">The numeric value to compare against.</param>
-    /// <param name="message">A custom message to be associated with the validation result.</param>
-    /// <returns>An instance of <see cref="ValidationRules{T}"/> enabling method chaining.</returns>
-    public ValidationRules<T> IsGreaterThan(string key, decimal value, decimal comparer, string message)
-    {
-        if(value < comparer)
-            AddNotification(new Notification(key, message));
-
-        return this;
-    }
-
-    /// <summary>
-    /// Validates if a specified numeric value is lower than the defined comparison value.
-    /// </summary>
+    /// <typeparam name="TValue">The type of the numeric value to be validated.</typeparam>
     /// <param name="key">The identifier for the value being validated, used for notification purposes.</param>
     /// <param name="value">The numeric value that needs to be validated.</param>
     /// <param name="comparer">The numeric value used for comparison against the provided value.</param>
+    /// <param name="message">The custom error message to be associated with the validation result.</param>
     /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
-    public ValidationRules<T> IsLowerThan(string key, double value, double comparer)
-    {
-        if(value > comparer)
-            AddNotification(new Notification(Error.IsLowerThan(key, comparer)));
-        
-        return this;
-    }
+    public ValidationRules<T> IsLowerThan<TValue>(string key, TValue value, TValue comparer, string? message = null) where TValue : IComparable<TValue>
+        => IfInvalid(value.CompareTo(comparer) > 0,
+                     key,
+                     message ?? Error.IsLowerThan(key, comparer));
 
     /// <summary>
-    /// Validates if a specified numeric value is lower than the defined comparison value.
+    /// Validates whether a specified numeric value falls within a defined range, inclusive of the minimum and maximum values, with a custom error message.
     /// </summary>
+    /// <typeparam name="TValue">The type of the numeric value to be validated.</typeparam>
     /// <param name="key">The identifier for the value being validated, used for notification purposes.</param>
     /// <param name="value">The numeric value that needs to be validated.</param>
-    /// <param name="comparer">The numeric value used as the threshold for comparison.</param>
-    /// <param name="message">A custom message to be associated with the validation result.</param>
-    /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
-    public ValidationRules<T> IsLowerThan(string key, double value, double comparer, string message)
-    {
-        if(value > comparer)
-            AddNotification(new Notification(key, message));
-        
-        return this;
-    }
-
-    /// <summary>
-    /// Validates if a specified numeric value is less than the defined comparison value.
-    /// </summary>
-    /// <param name="key">The identifier for the value being validated, used for notification purposes.</param>
-    /// <param name="value">The numeric value that needs to be validated.</param>
-    /// <param name="comparer">The numeric value used for comparison against the provided value.</param>
-    /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
-    public ValidationRules<T> IsLowerThan(string key, int value, int comparer)
-    {
-        if(value > comparer)
-            AddNotification(new Notification(Error.IsLowerThan(key, comparer)));
-        
-        return this;
-    }
-
-    /// <summary>
-    /// Validates if a specified numeric value is lower than the defined comparison value.
-    /// </summary>
-    /// <param name="key">The identifier for the value being validated, used for notification purposes.</param>
-    /// <param name="value">The numeric value that needs to be validated.</param>
-    /// <param name="comparer">The numeric value used for comparison against the provided value.</param>
-    /// <param name="message">A custom message to be associated with the validation result.</param>
-    /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
-    public ValidationRules<T> IsLowerThan(string key, int value, int comparer, string message)
-    {
-        if(value > comparer)
-            AddNotification(new Notification(key, message));
-        
-        return this;
-    }
-
-    /// <summary>
-    /// Validates if a specified numeric value is lower than the defined comparison value.
-    /// </summary>
-    /// <param name="key">The identifier for the value being validated, used for notification purposes.</param>
-    /// <param name="value">The numeric value that needs to be validated.</param>
-    /// <param name="comparer">The numeric value used for comparison against the provided value.</param>
-    /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
-    public ValidationRules<T> IsLowerThan(string key, decimal value, decimal comparer)
-    {
-        if(value > comparer)
-            AddNotification(new Notification(Error.IsLowerThan(key, comparer)));
-        
-        return this;
-    }
-
-    /// <summary>
-    /// Validates if a specified numeric value is less than the defined comparison value.
-    /// </summary>
-    /// <param name="key">The identifier for the value being validated, used for notification purposes.</param>
-    /// <param name="value">The numeric value that needs to be validated.</param>
-    /// <param name="comparer">The numeric value used for comparison against the provided value.</param>
-    /// <param name="message">A custom message to be associated with the validation result.</param>
-    /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
-    public ValidationRules<T> IsLowerThan(string key, decimal value, decimal comparer, string message)
-    {
-        if(value > comparer)
-            AddNotification(new Notification(key, message));
-        
-        return this;
-    }
-
-    /// <summary>
-    /// Validates whether a numeric value falls between a specified minimum and maximum range, inclusive.
-    /// </summary>
-    /// <param name="key">The identifier for the value being validated, used for notification purposes.</param>
-    /// <param name="value">The numeric value to be checked against the specified range.</param>
     /// <param name="min">The inclusive minimum value of the range.</param>
-    /// <param name="max">The inclusive maximum value of the range.</param>
-    /// <returns>An instance of <see cref="ValidationRules{T}"/> to enable method chaining.</returns>
-    public ValidationRules<T> IsBetween(string key, double value, double min, double max)
-    {
-        if(value < min || value > max)
-            AddNotification(new Notification(Error.IsBetween(key, min, max)));
-        
-        return this;
-    }
-
-    /// <summary>
-    /// Validates whether a specified numeric value falls within a defined range, inclusive of the minimum and maximum values.
-    /// </summary>
-    /// <param name="key">The identifier for the value being validated, used for notification purposes.</param>
-    /// <param name="value">The numeric value to be validated.</param>
-    /// <param name="min">The inclusive minimum value of the range.</param>
-    /// <param name="max">The inclusive maximum value of the range.</param>
-    /// <param name="message">The custom message to include if the validation fails.</param>
+    /// <param name="max">The inclusive maximum value of the range.</param>    
+    /// <param name="message">The custom error message to be associated with the validation result.</param>
     /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
-    public ValidationRules<T> IsBetween(string key, double value, double min, double max, string message)
-    {
-        if(value < min || value > max)
-            AddNotification(new Notification(key, message));
-        
-        return this;
-    }
+    public ValidationRules<T> IsBetween<TValue>(string key, TValue value, TValue min, TValue max, string? message = null) where TValue : IComparable<TValue>
+         => IfInvalid(value.CompareTo(min) < 0 || value.CompareTo(max) > 0,
+                     key,
+                     message ?? Error.IsBetween(key, min, max));
 
     /// <summary>
-    /// Validates whether a specified numeric value falls within a defined range, inclusive of the minimum and maximum values.
+    /// Compares a specified value with a comparison value and adds a notification if they are not equal.
     /// </summary>
-    /// <param name="key">The identifier for the value being validated, used for notification purposes.</param>
-    /// <param name="value">The numeric value that needs to be validated.</param>
-    /// <param name="min">The minimum allowable value in the range.</param>
-    /// <param name="max">The maximum allowable value in the range.</param>
-    /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
-    public ValidationRules<T> IsBetween(string key, decimal value, decimal min, decimal max)
-    {
-        if(value < min || value > max)
-            AddNotification(new Notification(Error.IsBetween(key, min, max)));
-        
-        return this;
-    }
-
-    /// <summary>
-    /// Validates whether a specified numeric value falls within a defined range, inclusive of the minimum and maximum values.
-    /// </summary>
-    /// <param name="key">The identifier for the value being validated, used for notification purposes.</param>
-    /// <param name="value">The numeric value that needs to be validated.</param>
-    /// <param name="min">The minimum allowable value of the range.</param>
-    /// <param name="max">The maximum allowable value of the range.</param>
-    /// <param name="message">The custom message to use in case the validation fails.</param>
-    /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
-    public ValidationRules<T> IsBetween(string key, decimal value, decimal min, decimal max, string message)
-    {
-        if(value < min || value > max)
-            AddNotification(new Notification(key, message));
-        
-        return this;
-    }
-
-    /// <summary>
-    /// Validates if a specified numeric value falls within a defined range.
-    /// </summary>
-    /// <param name="key">The identifier for the value being validated, used for notification purposes.</param>
-    /// <param name="value">The numeric value to be validated.</param>
-    /// <param name="min">The minimum value of the range.</param>
-    /// <param name="max">The maximum value of the range.</param>
-    /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
-    public ValidationRules<T> IsBetween(string key, int value, int min, int max)
-    {
-        if(value < min || value > max)
-            AddNotification(new Notification(Error.IsBetween(key, min, max)));
-        
-        return this;
-    }
-
-    /// <summary>
-    /// Validates if a specified numeric value falls within the inclusive range defined by the provided minimum and maximum values.
-    /// </summary>
-    /// <param name="key">The identifier for the value being validated, used for notification purposes.</param>
-    /// <param name="value">The numeric value that needs to be validated.</param>
-    /// <param name="min">The minimum value of the inclusive range.</param>
-    /// <param name="max">The maximum value of the inclusive range.</param>
-    /// <param name="message">A custom error message provided when the validation fails.</param>
-    /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
-    public ValidationRules<T> IsBetween(string key, int value, int min, int max, string message)
-    {
-         if(value < min || value > max)
-            AddNotification(new Notification(key, message));
-        
-        return this;
-    }
-
-    /// <summary>
-    /// Compares a given numeric value with a specified comparer value to determine equality.
-    /// </summary>
+    /// <typeparam name="TValue">The type of the value to be compared.</typeparam>
     /// <param name="key">The identifier for the value being compared, used for notification purposes.</param>
-    /// <param name="value">The numeric value to be compared.</param>
-    /// <param name="comparer">The numeric value to compare against the provided value.</param>
+    /// <param name="value">The value to be compared.</param>
+    /// <param name="comparer">The value to compare against the provided value.</param>
+    /// <param name="message">The custom error message to be associated with the validation result if the values are not equal.</param>
     /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
-    public ValidationRules<T> Compare(string key, double value, double comparer)
-    {
-        if(value != comparer)
-            AddNotification(new Notification(Error.Compare(key, comparer)));
-        
-        return this;
-    }
-
-    /// <summary>
-    /// Compares a specified numeric value with a comparison value and adds a notification if the values are not equal.
-    /// </summary>
-    /// <param name="key">The identifier associated with the value being validated, used for notification purposes.</param>
-    /// <param name="value">The numeric value to be compared.</param>
-    /// <param name="comparer">The numeric value to compare against.</param>
-    /// <param name="message">The message to include in the notification if the comparison fails.</param>
-    /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
-    public ValidationRules<T> Compare(string key, double value, double comparer, string message)
-    {
-        if(value != comparer)
-            AddNotification(new Notification(key, message));
-        
-        return this;
-    }
-
-    /// <summary>
-    /// Compares a value against a specified comparison value and adds a notification if they are not equal.
-    /// </summary>
-    /// <param name="key">The identifier for the value being compared, used for notification purposes.</param>
-    /// <param name="value">The numeric value to be compared.</param>
-    /// <param name="comparer">The numeric value to compare against.</param>
-    /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
-    public ValidationRules<T> Compare(string key, int value, int comparer)
-    {
-        if(value != comparer)
-            AddNotification(new Notification(Error.Compare(key, comparer)));
-        
-        return this;
-    }
-
-    /// <summary>
-    /// Compares a specified numeric value with a comparison value and adds a notification if they are not equal.
-    /// </summary>
-    /// <param name="key">The identifier for the value being compared, used for notification purposes.</param>
-    /// <param name="value">The numeric value to be compared.</param>
-    /// <param name="comparer">The comparison value to check against the specified value.</param>
-    /// <param name="message">The message to include in the notification if the values are not equal.</param>
-    /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
-    public ValidationRules<T> Compare(string key, int value, int comparer, string message)
-    {
-        if(value != comparer)
-            AddNotification(new Notification(key, message));
-        
-        return this;
-    }
-
-    /// <summary>
-    /// Compares the specified decimal value to a comparison value and triggers a notification or custom message if they do not match.
-    /// </summary>
-    /// <param name="key">The identifier for the value being compared, used for notification purposes.</param>
-    /// <param name="value">The decimal value to be compared.</param>
-    /// <param name="comparer">The decimal value to compare against the provided value.</param>
-    /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
-    public ValidationRules<T> Compare(string key, decimal value, decimal comparer)
-    {
-        if(value != comparer)
-            AddNotification(new Notification(Error.Compare(key, comparer)));
-        
-        return this;
-    }
-
-    /// <summary>
-    /// Compares a specified numeric value against another value and generates a notification if the comparison fails.
-    /// </summary>
-    /// <param name="key">The identifier used for associating the value being validated with a specific comparison operation.</param>
-    /// <param name="value">The numeric value to be compared.</param>
-    /// <param name="comparer">The numeric value that acts as the comparison baseline.</param>
-    /// <param name="message">The custom notification message to be used if the comparison validation fails.</param>
-    /// <returns>An instance of <see cref="ValidationRules{T}"/> to allow method chaining.</returns>
-    public ValidationRules<T> Compare(string key, decimal value, decimal comparer, string message)
-    {
-        if(value != comparer)
-            AddNotification(new Notification(key, message));
-        
-        return this;
-    }
+    public ValidationRules<T> Compare<TValue>(string key, TValue value, TValue comparer, string? message = null) where TValue : IComparable<TValue>
+        => IfInvalid(value.CompareTo(comparer) != 0,
+                     key,
+                     message ?? Error.Compare(key, comparer));
 }

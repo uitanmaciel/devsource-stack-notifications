@@ -8,12 +8,12 @@ public class Notification
     /// <summary>
     /// Gets or sets the key associated with the notification.
     /// </summary>
-    public string? Key { get; set; }
+    public string? Key { get; }
     
     /// <summary>
     /// Gets or sets the message associated with the notification.
     /// </summary>
-    public string Message { get; set; }
+    public string Message { get; }
     
     /// <summary>
     /// Initializes a new instance of the <see cref="Notification"/> class with a specified key and message.
@@ -50,6 +50,7 @@ public class Notification
     /// Initializes a new instance of the <see cref="Notification"/> class with a formatted message from the arguments.
     /// </summary>
     /// <param name="args">An array of objects to format into the message.</param>
+    [Obsolete("Consider using a more specific constructor, like Notification(string message, params object[] args) or Notification(string key, string message, params object[] args) after formatting your arguments.", error: false)]
     public Notification(params object[] args) 
         => Message = string.Format("{0}", args);
     

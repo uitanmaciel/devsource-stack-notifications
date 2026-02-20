@@ -3,6 +3,8 @@ namespace DevSource.Stack.Notifications.Tests.ForCreditCard;
 [TestClass]
 public class IsCreditCardNotExpiredTest
 {
+    const string Key = "creditCardExpiration";
+
     [TestMethod]
     public void WhenCreditCardIsNotExpired_NotReturnNotification()
     {
@@ -11,7 +13,7 @@ public class IsCreditCardNotExpiredTest
         var futureDate = DateTime.Now.AddYears(2);
         
         // Act
-        validation.IsCreditCardNotExpired(futureDate.Month, futureDate.Year);
+        validation.IsCreditCardNotExpired(Key, futureDate.Month, futureDate.Year);
         
         // Assert
         Assert.IsTrue(!validation.HasNotifications);
@@ -21,11 +23,11 @@ public class IsCreditCardNotExpiredTest
     public void WhenCreditCardExpiresThisMonth_NotReturnNotification()
     {
         // Arrange
-        var validation = new ValidationRules<object>();
+        var validation = new ValidationRules<object>();       
         var currentDate = DateTime.Now;
         
         // Act
-        validation.IsCreditCardNotExpired(currentDate.Month, currentDate.Year);
+        validation.IsCreditCardNotExpired(Key, currentDate.Month, currentDate.Year);
         
         // Assert
         Assert.IsTrue(!validation.HasNotifications);
@@ -39,7 +41,7 @@ public class IsCreditCardNotExpiredTest
         var pastDate = DateTime.Now.AddYears(-1);
         
         // Act
-        validation.IsCreditCardNotExpired(pastDate.Month, pastDate.Year);
+        validation.IsCreditCardNotExpired(Key, pastDate.Month, pastDate.Year);
         
         // Assert
         Assert.IsTrue(validation.HasNotifications);
@@ -53,7 +55,7 @@ public class IsCreditCardNotExpiredTest
         var lastMonth = DateTime.Now.AddMonths(-1);
         
         // Act
-        validation.IsCreditCardNotExpired(lastMonth.Month, lastMonth.Year);
+        validation.IsCreditCardNotExpired(Key, lastMonth.Month, lastMonth.Year);
         
         // Assert
         Assert.IsTrue(validation.HasNotifications);

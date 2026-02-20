@@ -4,7 +4,7 @@
 public class IsNullOrWhiteSpaceTest
 {
     [TestMethod]
-    public void WhenStringIsNullOrWhiteSpace_NotReturnNotification()
+    public void WhenStringIsNullOrWhiteSpace_ReturnNotification()
     {
         // Arrange
         // Initialize the validation rules object for a generic type
@@ -16,12 +16,12 @@ public class IsNullOrWhiteSpaceTest
         validation.IsNullOrWhiteSpace("Value", value);
         
         // Assert
-        // Verify that there are no validation notifications, indicating the string is not null or empty
-        Assert.IsTrue(!validation.HasNotifications);
+        // Verify that there are validation notifications, indicating the string is null or empty
+        Assert.IsTrue(validation.HasNotifications);
     }
     
     [TestMethod]
-    public void WhenStringIsNotNullOrWhiteSpace_ReturnNotification()
+    public void WhenStringIsNotNullOrWhiteSpace_NotReturnNotification()
     {
         // Arrange
         // Initialize the validation rules object for a generic type
@@ -34,6 +34,6 @@ public class IsNullOrWhiteSpaceTest
         
         // Assert
         // Verify that there are no validation notifications, indicating the string is not null or empty
-        Assert.IsTrue(validation.HasNotifications);
+        Assert.IsTrue(!validation.HasNotifications);
     }
 }

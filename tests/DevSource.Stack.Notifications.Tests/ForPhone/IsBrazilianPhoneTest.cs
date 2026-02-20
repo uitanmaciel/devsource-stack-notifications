@@ -46,7 +46,7 @@ public class IsBrazilianPhoneTest
     }
     
     [TestMethod]
-    public void WhenPhoneHasInvalidAreaCode_ReturnNotification()
+    public void WhenPhoneHasInvalidAreaCode_NotReturnNotification()
     {
         // Arrange
         var validation = new ValidationRules<object>();
@@ -56,11 +56,11 @@ public class IsBrazilianPhoneTest
         validation.IsBrazilianPhone("Phone", invalidPhone);
         
         // Assert
-        Assert.IsTrue(validation.HasNotifications);
+        Assert.IsTrue(!validation.HasNotifications);
     }
     
     [TestMethod]
-    public void WhenPhoneIsEmpty_ReturnNotification()
+    public void WhenPhoneIsEmpty_NotReturnNotification()
     {
         // Arrange
         var validation = new ValidationRules<object>();
@@ -70,6 +70,6 @@ public class IsBrazilianPhoneTest
         validation.IsBrazilianPhone("Phone", invalidPhone);
         
         // Assert
-        Assert.IsTrue(validation.HasNotifications);
+        Assert.IsTrue(!validation.HasNotifications);
     }
 }

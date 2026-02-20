@@ -3,73 +3,67 @@
 public partial class ValidationRules<T>
 {
     /// <summary>
-    /// Checks if the given date string is between the specified range of dates.
-    /// </summary>
-    /// <param name="key">The key identifier of the date value.</param>
-    /// <param name="value">The date string to be validated.</param>
-    /// <param name="from">The start date of the range.</param>
-    /// <param name="to">The end date of the range.</param>
-    /// <returns>
-    /// The current instance of the <see cref="ValidationRules{T}"/> class.
-    /// </returns>
-    public ValidationRules<T> IsDateBetween(string key, string value, DateTime from, DateTime to)
-    {
-        var dt = ConvertDateTime(value);
-        
-        if(dt < from || dt > to)
-            AddNotification(new Notification(key, Error.IsDateBetween(key, from, to)));
-
-        return this;
-    }
-
-    /// <summary>
-    /// Checks if the given date string is between the specified range of dates.
-    /// </summary>
-    /// <param name="key">The key identifier of the date value.</param>
-    /// <param name="value">The date string to be validated.</param>
-    /// <param name="from">The start date of the range.</param>
-    /// <param name="to">The end date of the range.</param>
-    /// <returns>
-    /// The current instance of the <see cref="ValidationRules{T}"/> class.
-    /// </returns>
-    public ValidationRules<T> IsDateBetween(string key, DateTime value, DateTime from, DateTime to)
-    {
-        if(value < from || value > to)
-            AddNotification(new Notification(key, Error.IsDateBetween(key, from, to)));
-
-        return this;
-    }
-    
-    /// <summary>
-    /// Checks if the given value is the specified day of the week.
-    /// </summary>
-    /// <param name="key">The key identifier of the value.</param>
-    /// <param name="value">The value to be validated.</param>
-    /// <param name="dayOfWeek">The expected day of the week.</param>
-    /// <returns>
-    /// The current instance of the <see cref="ValidationRules{T}"/> class.
-    /// </returns>
-    public ValidationRules<T> IsDayOfWeek(string key, string value, DayOfWeek dayOfWeek)
-    {
-        var dt = ConvertDateTime(value);
-        
-        if(dt.DayOfWeek != dayOfWeek)
-            AddNotification(new Notification(key, Error.IsDayOfWeek(value, dayOfWeek)));
-
-        return this;
-    }
-
-    /// <summary>
-    /// Checks if the given date is a specified day of the week.
+    /// Checks if the provided date string is a valid date and falls within the specified range.
     /// </summary>
     /// <param name="key">The key identifier of the date value.</param>
     /// <param name="value">The date value to be validated.</param>
-    /// <param name="dayOfWeek">The specified day of the week.</param>
+    /// <param name="from">The start date of the range.</param>
+    /// <param name="to">The end date of the range.</param>
+    /// <param name="message">The custom error message to be associated with the validation result.</param>
     /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class.</returns>
-    public ValidationRules<T> IsDayOfWeek(string key, DateTime value, DayOfWeek dayOfWeek)
+    public ValidationRules<T> IsDateBetween(string key, DateTime value, DateTime from, DateTime to, string? message = null)
     {
-        if(value.DayOfWeek != dayOfWeek)
-            AddNotification(new Notification(key, Error.IsDayOfWeek(value, dayOfWeek)));
+        if (value < from || value > to)
+            AddNotification(new Notification(key, message ?? Error.IsDateBetween(key, from, to)));
+
+        return this;
+    }
+
+    /// <summary>
+    /// Checks if the provided date string is a valid date and falls within the specified range.
+    /// </summary>
+    /// <param name="key">The key identifier of the date value.</param>
+    /// <param name="value">The date string to be validated.</param>
+    /// <param name="from">The start date of the range.</param>
+    /// <param name="to">The end date of the range.</param>
+    /// <param name="message">The custom error message to be associated with the validation result.</param>
+    /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class.</returns>
+    public ValidationRules<T> IsDateBetween(string key, string? value, DateTime from, DateTime to, string? message = null)
+    {
+        if (!TryParseDate(key, value, out var date))
+            return this;
+
+        return IsDateBetween(key, date, from, to, message);
+    }
+    
+    /// <summary>
+    /// Checks if the provided date string is a valid date and falls within the specified range.
+    /// </summary>
+    /// <param name="key">The key identifier of the date value.</param>
+    /// <param name="value">The date string to be validated.</param>
+    /// <param name="expected">The expected day of the week.</param>
+    /// <param name="message">The custom error message to be associated with the validation result.</param>
+    /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class.</returns>
+    public ValidationRules<T> IsDayOfWeek(string key, string value, DayOfWeek expected, string? message = null)
+    {
+         if (!TryParseDate(key, value, out var date))
+            return this;
+
+        return IsDayOfWeek(key, date, expected, message);
+    }
+
+    /// <summary>
+    /// Checks if the provided date string is a valid date and falls within the specified range.
+    /// </summary>
+    /// <param name="key">The key identifier of the date value.</param>
+    /// <param name="value">The date value to be validated.</param>
+    /// <param name="expected">The expected day of the week.</param>
+    /// <param name="message">The custom error message to be associated with the validation result.</param>
+    /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class.</returns>
+    public ValidationRules<T> IsDayOfWeek(string key, DateTime value, DayOfWeek expected, string? message = null)
+    {
+        if (value.DayOfWeek != expected)
+            AddNotification(new Notification(key, message ?? Error.IsDayOfWeek(value, expected)));
 
         return this;
     }
@@ -79,15 +73,14 @@ public partial class ValidationRules<T>
     /// </summary>
     /// <param name="key">The key identifier of the date value.</param>
     /// <param name="value">The date string to be checked.</param>
+    /// <param name="message">The error message to be added to the notification if the validation fails.</param>
     /// <returns>The current instance of the <see cref="ValidationRules{T}"/> class.</returns>
-    public ValidationRules<T> IsInTheFuture(string key, string value)
+    public ValidationRules<T> IsInTheFuture(string key, string value, string? message = null)
     {
-        var dt = ConvertDateTime(value);
-        
-        if(dt < DateTime.Now)
-            AddNotification(new Notification(key, Error.IsInTheFuture(key)));
+        if (!TryParseDate(key, value, out var date))
+            return this;
 
-        return this;
+        return IsInTheFuture(key, date, message);
     }
 
     /// <summary>
@@ -95,13 +88,14 @@ public partial class ValidationRules<T>
     /// </summary>
     /// <param name="key">The key identifier of the date value.</param>
     /// <param name="value">The date string to be validated.</param>
+    /// <param name="message">The error message to be added to the notification if the validation fails.</param>
     /// <returns>
     /// The current instance of the <see cref="ValidationRules{T}"/> class.
     /// </returns>
-    public ValidationRules<T> IsInTheFuture(string key, DateTime value)
+    public ValidationRules<T> IsInTheFuture(string key, DateTime value, string? message = null)
     {
-        if(value < DateTime.Now)
-            AddNotification(new Notification(key, Error.IsInTheFuture(key)));
+        if (value <= DateTime.UtcNow)
+            AddNotification(new Notification(key, message ?? Error.IsInTheFuture(key)));
 
         return this;
     }
@@ -111,17 +105,16 @@ public partial class ValidationRules<T>
     /// </summary>
     /// <param name="key">The key identifier of the date value.</param>
     /// <param name="value">The date string to be validated.</param>
+    /// <param name="message">The error message to be added to the notification if the validation fails.</param>
     /// <returns>
     /// The current instance of the <see cref="ValidationRules{T}"/> class.
     /// </returns>
-    public ValidationRules<T> IsInThePast(string key, string value)
+    public ValidationRules<T> IsInThePast(string key, string value, string? message = null)
     {
-        var dt = ConvertDateTime(value);
-        
-        if(dt > DateTime.Now)
-            AddNotification(new Notification(key, Error.IsInThePast(key)));
+        if (!TryParseDate(key, value, out var date))
+            return this;
 
-        return this;
+        return IsInThePast(key, date, message);
     }
 
     /// <summary>
@@ -129,22 +122,34 @@ public partial class ValidationRules<T>
     /// </summary>
     /// <param name="key">The key identifier of the date value.</param>
     /// <param name="value">The date string to be validated.</param>
+    /// <param name="message">The error message to be added to the notification if the validation fails.</param>
     /// <returns>
     /// The current instance of the <see cref="ValidationRules{T}"/> class.
     /// </returns>
-    public ValidationRules<T> IsInThePast(string key, DateTime value)
+    public ValidationRules<T> IsInThePast(string key, DateTime value, string? message = null)
     {
-        if(value > DateTime.Now)
-            AddNotification(new Notification(key, Error.IsInThePast(key)));
+        if (value >= DateTime.UtcNow)
+            AddNotification(new Notification(key, message ?? Error.IsInThePast(key)));
 
         return this;
     }
     
-    private DateTime ConvertDateTime(string value)
+    private bool TryParseDate(string key, string? value, out DateTime date)
     {
-        if(!DateTime.TryParse(value, out var dt))
-            AddNotification(new Notification(nameof(value), Error.IsNotConvertDateTime(value)));
+        if (IsMissing(value))
+        {
+            AddNotification(new Notification(key, Error.IsNotConvertDateTime(value!)));
+            date = default;
+            return false;
+        }
 
-        return dt;
+        if (!DateTime.TryParse(value, out date))
+        {
+            AddNotification(new Notification(key, Error.IsNotConvertDateTime(value!)));
+            return false;
+        }
+
+        return true;
     }
+
 }

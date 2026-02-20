@@ -60,7 +60,7 @@ public class IsCpfTest
     }
     
     [TestMethod]
-    public void WhenCpfIsEmpty_ReturnNotification()
+    public void WhenCpfIsEmpty_NotReturnNotification()
     {
         // Arrange
         var validation = new ValidationRules<object>();
@@ -70,7 +70,7 @@ public class IsCpfTest
         validation.IsCpf("CPF", invalidCpf);
         
         // Assert
-        Assert.IsTrue(validation.HasNotifications);
+        Assert.IsTrue(!validation.HasNotifications);
     }
     
     [TestMethod]

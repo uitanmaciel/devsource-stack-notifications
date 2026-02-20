@@ -60,7 +60,7 @@ public class IsCnpjTest
     }
     
     [TestMethod]
-    public void WhenCnpjIsEmpty_ReturnNotification()
+    public void WhenCnpjIsEmpty_NotReturnNotification()
     {
         // Arrange
         var validation = new ValidationRules<object>();
@@ -70,7 +70,7 @@ public class IsCnpjTest
         validation.IsCnpj("CNPJ", invalidCnpj);
         
         // Assert
-        Assert.IsTrue(validation.HasNotifications);
+        Assert.IsTrue(!validation.HasNotifications);
     }
     
     [TestMethod]

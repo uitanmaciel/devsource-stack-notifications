@@ -12,15 +12,20 @@
     <PackageIcon>devsource-icon.jpeg</PackageIcon>
     <RepositoryUrl>https://github.com/uitanmaciel/devsource-stack-notifications</RepositoryUrl>
     <PackageTags>notifications,validation,fluent,dotnet,validator</PackageTags>
-    <Version>3.0.1</Version>
+    <Version>4.0.0</Version>
     <PackageReleaseNotes>
       <![CDATA[
+      ### Breaking Changes
+      - Significant changes to method signatures and removal of deprecated methods to improve library consistency and performance. These changes may require updates in consuming applications.
+      - Changed validation logic for `IsBrazilianPhone`, `IsInternationalPhone`, `IsCreditCard`, `IsCpf`, `IsCnpj`, `HasValidMimeType`, `IsEmail`, and `IsPassword`. These methods now treat null or empty values as valid (optional fields) instead of invalid. To enforce required fields, chain with `IsNotNullOrEmpty` or `IsNullOrWhiteSpace`.
+
       ### Changed
       - Refactored `INotifications.AddNotifications` and `Notifier.AddNotifications` to accept `INotifications` interface instead of the concrete `Notifier` class, improving dependency inversion and testability.
       - Updated `ValidationRules.Join` to accept `params INotifications[]` instead of `Notifier[]`.
       - Updated `Notification.Key` property to be nullable (`string?`) to correctly reflect that notifications can exist without a key.
 
       ### Fixed
+      - Fixed validation logic for several rules (Brazilian Documents, Credit Card, Phone, MimeType) to correctly handle empty/null values as valid (optional) unless explicitly validated as required.
       - Fixed potential `NullReferenceException` in `MaxLength` and `MinLength` string validations by adding null checks.
       - Fixed potential `ArgumentNullException` in `IsEmail` and `IsPassword` validations.
       - Fixed `IsCreditCardNotExpired` validation logic to correctly compare dates ignoring the time component.
