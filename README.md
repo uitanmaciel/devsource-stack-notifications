@@ -96,7 +96,7 @@ public class User : Notifier
     private void ValidateFields()
     {
         AddNotifications(new ValidationRules<User>()
-            .IsNotNull(nameof(Name), Name)
+            .IsNotNullOrEmpty(nameof(Name), Name)
             .MinLength(nameof(Name), Name, 3)
             .IsNotNullOrEmpty(nameof(Email), Email) // Required field
             .IsEmail(nameof(Email), Email)
@@ -140,7 +140,7 @@ You can provide custom error messages for any validation:
 
 ```csharp
 AddNotifications(new ValidationRules<User>()
-    .IsNotNull(nameof(Name), Name, "Name is required")
+    .IsNotNullOrEmpty(nameof(Name), Name, "Name is required")
     .MinLength(nameof(Name), Name, 3, "Name must have at least 3 characters")
     .IsEmail(nameof(Email), Email, "Please provide a valid email address")
 );
@@ -150,7 +150,7 @@ AddNotifications(new ValidationRules<User>()
 
 ```csharp
 AddNotifications(new ValidationRules<Product>()
-    .IsNotNull(nameof(Name), Name)
+    .IsNotNullOrEmpty(nameof(Name), Name) // Was IsNotNull
     .MinLength(nameof(Name), Name, 3)
     .MaxLength(nameof(Name), Name, 100)
     .MinLength(nameof(Description), Description, 10)
@@ -230,8 +230,8 @@ AddNotifications(new ValidationRules<Payment>()
 
 | Method | Description | Example |
 |--------|-------------|---------|
-| `When(condition, action)` | Executes validations when condition is true | `.When(isActive, r => r.IsNotNull("Name", name))` |
-| `When(conditionFunc, action)` | Executes validations when function returns true | `.When(() => age < 18, r => r.IsNotNull(...))` |
+| `When(condition, action)` | Executes validations when condition is true | `.When(isActive, r => r.IsNotNullOrEmpty("Name", name))` |
+| `When(conditionFunc, action)` | Executes validations when function returns true | `.When(() => age < 18, r => r.IsNotNullOrEmpty(...))` |
 | `RequireAtLeastOne(params values)` | Validates at least one value is not null/empty | `.RequireAtLeastOne(email, phone, address)` |
 | `AllOrNone(params values)` | Validates all values are filled or all are empty | `.AllOrNone(state, city, zipCode)` |
 
@@ -240,10 +240,10 @@ AddNotifications(new ValidationRules<Payment>()
 ```csharp
 AddNotifications(new ValidationRules<User>()
     .When(user.IsCompany, rules => rules
-        .IsNotNull(nameof(CompanyName), CompanyName)
+        .IsNotNullOrEmpty(nameof(CompanyName), CompanyName)
         .IsCnpj(nameof(Cnpj), Cnpj))
     .When(() => user.Age < 18, rules => rules
-        .IsNotNull(nameof(ParentName), ParentName))
+        .IsNotNullOrEmpty(nameof(ParentName), ParentName))
     .RequireAtLeastOne(Email, Phone) // At least one must be filled
     .AllOrNone(State, City, ZipCode) // All or none must be filled
 );
@@ -255,11 +255,11 @@ You can combine validations from different notifiers:
 
 ```csharp
 var addressValidator = new ValidationRules<Address>()
-    .IsNotNull(nameof(Street), address.Street)
-    .IsNotNull(nameof(City), address.City);
+    .IsNotNullOrEmpty(nameof(Street), address.Street)
+    .IsNotNullOrEmpty(nameof(City), address.City);
 
 var userValidator = new ValidationRules<User>()
-    .IsNotNull(nameof(Name), Name)
+    .IsNotNullOrEmpty(nameof(Name), Name)
     .IsEmail(nameof(Email), Email)
     .Join(addressValidator); // Combine validations
 
@@ -274,9 +274,11 @@ AddNotifications(userValidator);
 
 | Method | Description | Example |
 |--------|-------------|---------|
-| `IsNotNull(key, value)` | Validates that string is not null or empty | `.IsNotNull("Name", name)` |
+| `IsNotNullOrEmpty(key, value)` | Validates that string is not null or empty | `.IsNotNullOrEmpty("Name", name)` |
+| `IsNullOrWhiteSpace(key, value)` | Validates that string is not null or whitespace | `.IsNullOrWhiteSpace("Name", name)` |
 | `MinLength(key, value, minLength)` | Validates minimum string length | `.MinLength("Name", name, 3)` |
 | `MaxLength(key, value, maxLength)` | Validates maximum string length | `.MaxLength("Name", name, 100)` |
+| `HasExactLength(key, value, length)` | Validates exact string length | `.HasExactLength("Code", code, 5)` |
 
 #### Number Validations
 
